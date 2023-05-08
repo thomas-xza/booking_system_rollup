@@ -1,9 +1,9 @@
-import { validate_phone, validate_postcode } from './validators.js';
+import { validate_phone } from './validators.js';
 
-test('valid postcode 1', () => { 
+test('valid phone 1', () => { 
     expect(
-	validate_postcode(
-	    "tw9 1dn"
+	validate_phone(
+	    "07777777777"
 	)
     )
 	.toBe(
@@ -11,10 +11,10 @@ test('valid postcode 1', () => {
 	);
 });
 
-test('valid postcode 2', () => { 
+test('valid phone 2', () => { 
     expect(
-	validate_postcode(
-	    "N1 9AL "
+	validate_phone(
+	    "0208 111 2222"
 	)
     )
 	.toBe(
@@ -22,10 +22,10 @@ test('valid postcode 2', () => {
 	);
 });
 
-test('valid postcode 3', () => { 
+test('extreme phone 1', () => { 
     expect(
-	validate_postcode(
-	    "NW4 3AS"
+	validate_phone(
+	    "     447 123 5 5 4 2   93"
 	)
     )
 	.toBe(
@@ -33,31 +33,9 @@ test('valid postcode 3', () => {
 	);
 });
 
-test('valid postcode 4', () => { 
+test('invalid phone 1', () => { 
     expect(
-	validate_postcode(
-	    "E15 1DE"
-	)
-    )
-	.toBe(
-	    1
-	);
-});
-
-test('extreme postcode 1', () => { 
-    expect(
-	validate_postcode(
-	    "Ox10     0eL   "
-	)
-    )
-	.toBe(
-	    1
-	);
-});
-
-test('extreme postcode 2', () => { 
-    expect(
-	validate_postcode(
+	validate_phone(
 	    ""
 	)
     )
@@ -66,10 +44,10 @@ test('extreme postcode 2', () => {
 	);
 });
 
-test('invalid postcode 1', () => { 
+test('invalid phone 2', () => { 
     expect(
-	validate_postcode(
-	    "NW43AS"
+	validate_phone(
+	    "0"
 	)
     )
 	.toBe(
@@ -77,32 +55,10 @@ test('invalid postcode 1', () => {
 	);
 });
 
-test('invalid postcode 2', () => { 
+test('invalid phone 3', () => { 
     expect(
-	validate_postcode(
-	    "TW 1DN"
-	)
-    )
-	.toBe(
-	    0
-	);
-});
-
-test('invalid postcode 3', () => { 
-    expect(
-	validate_postcode(
-	    "OX10 000"
-	)
-    )
-	.toBe(
-	    0
-	);
-});
-
-test('invalid postcode 4', () => { 
-    expect(
-	validate_postcode(
-	    "n1"
+	validate_phone(
+	    "07 123 456 9"
 	)
     )
 	.toBe(

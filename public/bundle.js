@@ -7957,10 +7957,16 @@
 	  return processed[0] ? 1 : 0;
 	}
 	function validate_phone(phone) {
-	  console.log(phone);
 	  const init = phone.match(/[0-9]/g) || [];
-	  const processed = init.join('').replace(/^447/i, '07').match(/[0-9]{11}/) || [];
-	  return processed[0] ? 1 : 0;
+	  const all_nums = init.join('').replace(/^447/i, '07');
+	  if (all_nums.length === 11) {
+	    return 1;
+	  } else {
+	    return 0;
+	  }
+	  // 	  .match(/[0-9]{11}/) || [];
+
+	  // return (processed[0]) ? 1 : 0;
 	}
 
 	function Form({
@@ -8004,12 +8010,12 @@
 	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Phone:"), /*#__PURE__*/React.createElement("input", {
 	    value: form_data.phone,
 	    onChange: handle_phone
-	  }), form_data.phone_valid === 0 && /*#__PURE__*/React.createElement("em", null, "Incomplete/invalid phone number"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Postcode:"), /*#__PURE__*/React.createElement("input", {
+	  }), form_data.phone_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Postcode:"), /*#__PURE__*/React.createElement("input", {
 	    value: form_data.postcode,
 	    onChange: handle_postcode
-	  }), form_data.postcode_valid === 0 && /*#__PURE__*/React.createElement("em", null, "Incomplete/invalid postcode"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	  }), form_data.postcode_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), form_data.postcode_valid === 1 && form_data.phone_valid === 1 ? /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_confirm
-	  }, "Select booking"));
+	  }, "Ready to submit") : /*#__PURE__*/React.createElement("p", null, " Awaiting..."));
 	}
 
 	function Booking({

@@ -33,6 +33,17 @@ test('extreme phone 1', () => {
 	);
 });
 
+test('extreme phone 2', () => { 
+    expect(
+	validate_phone(
+	    "447 777 777 777 1"
+	)
+    )
+	.toBe(
+	    0
+	);
+});
+
 test('invalid phone 1', () => { 
     expect(
 	validate_phone(
