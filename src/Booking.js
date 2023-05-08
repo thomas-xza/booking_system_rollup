@@ -1,20 +1,31 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-import { load_distances } from './load_distances.js';
+import Mapbox from './Mapbox.js';
 
 export default function Booking({ form_data, booking, set_booking, set_page_flow }) {
 
-    const [distances, set_distances] = useState(2);
+    const [mapbox_res, set_mapbox_res] = useState({});
     
     useEffect(() => {
 
-	load_distances(form_data.postcode);
+	if (mapbox_res.longitude) {
 
-    },[form_data]);
 
+	}
+
+    },[mapbox_res]);
+    
     return (
-	<h1>hello</h1>
+	<div>
+	    <h1>Booking selection</h1>
+
+	    <Mapbox postcode={form_data.postcode}
+		  mapbox_res={mapbox_res}
+		  set_mapbox_res={set_mapbox_res}
+	    />
+	    
+	</div>
    );
 }
 

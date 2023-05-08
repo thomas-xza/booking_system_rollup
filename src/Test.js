@@ -1,5 +1,26 @@
+import React from 'react';
 import destinations from './locations.json';
 
+export default function Test({ postcode, mapbox_res, set_mapbox_res }) {
+
+    
+    if (mapbox_res.longitude) {
+	
+	return (
+	    JSON.stringify(mapbox_res)
+	)
+	
+    } else {
+	
+	load_distances(postcode, mapbox_res, set_mapbox_res);
+
+	return (
+		<div className="loading">Calling Mapbox API</div>
+	)
+
+    };
+
+};
 
 export async function load_distances(postcode, mapbox_res, set_mapbox_res) {
 
@@ -14,20 +35,22 @@ export async function load_distances(postcode, mapbox_res, set_mapbox_res) {
 
 function store_data(postcode, mapbox_json, mapbox_res, set_mapbox_res) {
     
-    console.log(mapbox_json)
+    console.log("store_data()", mapbox_json, "\n", mapbox_json.features[0])
 
     const top_hit_coords = mapbox_json.features[0].geometry.coordinates;
 
     const source_obj = {
 	'postcode': postcode,
 	'longitude': top_hit_coords[0],
-	'latitude': top_hit_coords[1],
-	'borough': mapbox_json.features[0].context[0].text
+	'latitude': top_hit_coords[1]
+	// 'borough': mapbox_json.features[0].context[0].text || ""
     };
+
+    console.log(source_obj);
 
     set_mapbox_res(source_obj);
 
-}
+};
 
 async function fetch_data(location_obj, index) {
 
@@ -37,8 +60,6 @@ async function fetch_data(location_obj, index) {
     //        lat: '-0.304373' }
 
     const url = postcode_to_url(location_obj['postcode']);
-
-    // console.log(index + 'fetched');
 
     return location_obj;
 
