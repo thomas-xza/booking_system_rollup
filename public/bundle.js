@@ -7946,13 +7946,57 @@
 	  };
 	}
 
+	function Form(form_data, set_form_data) {
+	  const handle_name = e => {
+	    //  validate_name(name)
+
+	    console.log(form_data);
+	    set_form_data({
+	      ...form_data,
+	      name: e.target.value
+	    });
+	  };
+	  const handle_phone = e => {
+	    //  validate_phone(phone)
+
+	    set_form_data({
+	      ...form_data,
+	      phone: e.target.value
+	    });
+	  };
+	  const handle_postcode = e => {
+	    //  validate_postcode(postcode) ...
+
+	    set_form_data({
+	      ...form_data,
+	      postcode: e.target.value
+	    });
+	  };
+	  return /*#__PURE__*/React.createElement("div", {
+	    className: "form"
+	  }, /*#__PURE__*/React.createElement("label", null, "Name:"), /*#__PURE__*/React.createElement("input", {
+	    value: form_data.name,
+	    onChange: handle_name
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Phone:"), /*#__PURE__*/React.createElement("input", {
+	    value: form_data.phone,
+	    onChange: handle_phone
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Postcode:"), /*#__PURE__*/React.createElement("input", {
+	    value: form_data.postcode,
+	    onChange: handle_postcode
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+	    type: "submit"
+	  }));
+	}
+
 	function App() {
-	  return /*#__PURE__*/React.createElement("h1", null, "Rollup actually works10");
+	  const [form_data, set_form_data] = reactExports.useState({});
+	  return /*#__PURE__*/React.createElement(Form, {
+	    form_data: form_data,
+	    set_form_data: set_form_data
+	  });
 	}
 
 	const root = createRoot(document.getElementById('root'));
-	// root.render(<App />);
-
 	root.render( /*#__PURE__*/React.createElement(App, null));
 
 })();

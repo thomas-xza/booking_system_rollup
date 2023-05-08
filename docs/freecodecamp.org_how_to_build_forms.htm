@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        
+        
+            <title>How to Build Forms in React</title>
+        
+        <meta name="HandheldFriendly" content="True" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+            <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Roboto+Mono:wght@400;700&display=swap">
+        
+
+        
+        
+    <link
+  rel="preload"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
+  href="https://cdn.freecodecamp.org/news-assets/prism/1.29.0/themes/prism.min.css"
+/>
+<noscript>
+  <link
+    rel="stylesheet"
+    href="https://cdn.freecodecamp.org/news-assets/prism/1.29.0/themes/prism.min.css"
+  />
+</noscript>
+<link
+  rel="preload"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
+  href="https://cdn.freecodecamp.org/news-assets/prism/1.29.0/plugins/unescaped-markup/prism-unescaped-markup.min.css"
+/>
+<noscript>
+  <link
+    rel="stylesheet"
+    href="https://cdn.freecodecamp.org/news-assets/prism/1.29.0/plugins/unescaped-markup/prism-unescaped-markup.min.css"
+  />
+</noscript>
+
+<script
+  defer
+  src="https://cdn.freecodecamp.org/news-assets/prism/1.29.0/components/prism-core.min.js"
+></script>
+<script
+  defer
+  src="https://cdn.freecodecamp.org/news-assets/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"
+></script>
+
+
+
+        
+        <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/news/assets/css/global-26e2f3cde9.css" />
+        <link rel="stylesheet" type="text/css" href="/news/assets/css/screen-5a4f9d5c91.css" />
+        <link rel="stylesheet" type="text/css" href="/news/assets/css/search-bar-124f5f949c.css" />
+
+        
+        <script defer src="https://cdn.freecodecamp.org/news-assets/algolia/algoliasearch-3-33-0/algoliasearch.min.js"></script>
+        <script defer src="https://cdn.freecodecamp.org/news-assets/algolia/autocomplete-0-36-0/autocomplete.min.js"></script>
+
+        
+        <script defer src="https://cdn.freecodecamp.org/news-assets/dayjs/1.10.4/dayjs.min.js"></script>
+        <script defer src="https://cdn.freecodecamp.org/news-assets/dayjs/1.10.4/localizedFormat.min.js"></script>
+        <script defer src="https://cdn.freecodecamp.org/news-assets/dayjs/1.10.4/relativeTime.min.js"></script>
+
+        
+        
+            <script defer src="https://cdn.freecodecamp.org/news-assets/dayjs/1.10.4/locale/en.min.js"></script>
+        
+
+        
+        <script>let client,index;document.addEventListener("DOMContentLoaded",(()=>{client=algoliasearch("QMJYL5WYTI","89770b24481654192d7a5c402c6ad9a0"),index=client.initIndex("news")})),document.addEventListener("DOMContentLoaded",(()=>{const e=window.screen.width,t=window.screen.height,n=e>=767&&t>=768?8:5,o=document.getElementById("search-form"),s=document.getElementById("search-input"),a=document.getElementById("dropdown-container");let i,d,c;s.addEventListener("input",(e=>{i=e.target.value})),o.addEventListener("submit",(e=>{e.preventDefault(),function(){if(d=document.getElementsByClassName("aa-cursor")[0],d&&i){const e=d.querySelector("a").href;window.location.assign(e)}else!d&&i&&c&&window.location.assign(`https://www.freecodecamp.org/news/search?query=${i}`)}()}));const l=autocomplete("#search-input",{hint:!1,keyboardShortcuts:["s",191],openOnFocus:!0,appendTo:a,debug:!0},[{source:autocomplete.sources.hits(index,{hitsPerPage:n}),debounce:250,templates:{suggestion:e=>(c=!0,`\n            <a href="${e.url}">\n              <div class="algolia-result">\n                <span>${e._highlightResult.title.value}</span>\n              </div>\n            </a>\n          `),empty:()=>(c=!1,'\n            <div class="aa-suggestion footer-suggestion no-hits-footer">\n              <div class="algolia-result">\n                <span>\n                  No tutorials found\n                </span>\n              </div>\n            </div>\n          '),footer:e=>{if(!e.isEmpty)return`\n              <div class="aa-suggestion footer-suggestion">\n                <a id="algolia-footer-selector" href="https://www.freecodecamp.org/news/search?query=${i}">\n                  <div class="algolia-result algolia-footer">\n                    See all results for ${i}\n                  </div>\n                </a>\n              </div>\n            `}}}]).on("autocomplete:selected",((e,t,n,o)=>{d=t?t.url:`https://www.freecodecamp.org/news/search?query=${i}`,"click"!==o.selectionMethod&&"tabKey"!==o.selectionMethod&&c&&window.location.assign(d)}));document.addEventListener("click",(e=>{e.target!==s&&l.autocomplete.close()}))})),document.addEventListener("DOMContentLoaded",(()=>{dayjs.extend(dayjs_plugin_localizedFormat),dayjs.extend(dayjs_plugin_relativeTime),dayjs.locale("en")}));const isAuthenticated=document.cookie.split(";").some((e=>e.trim().startsWith("jwt_access_token="))),isDonor=document.cookie.split(";").some((e=>e.trim().startsWith("isDonor=true")));</script>
+
+        
+        
+    
+        <script
+            data-ad-client="ca-pub-9482786369113753"
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+            crossorigin="anonymous"
+            async
+        ></script>
+        <script data-test-label="toggle-ad-layout" defer src="/news/assets/js/toggle-ad-layout-099254b065.js"></script>
+    
+
+
+        
+        
+    <script defer src="/news/assets/js/fitvids-5d12072cbf.js"></script>
+    
+    <script>document.addEventListener("DOMContentLoaded",(()=>{const t=document.querySelector(".post-full-content");t&&fitVids(t)}));</script>
+
+
+        
+        
+
+        <link rel="icon" href="https://cdn.freecodecamp.org/universal/favicons/favicon.ico" type="image/png">
+        
+        
+            <link rel="canonical" href="https://www.freecodecamp.org/news/how-to-build-forms-in-react/">
+        
+        <meta name="referrer" content="no-referrer-when-downgrade">
+
+        
+
+        
+    <link rel="amphtml" href="https://www.freecodecamp.org/news/how-to-build-forms-in-react/amp/">
+    <meta name="description" content="Forms play an essential role in modern web applications. They enable users to share information, complete tasks and provide feedback.  Without forms, many of the tasks that we take for granted on the web, such as logging in, signing up, or making purchases, would not be possible. As such,">
+
+    
+    <meta property="og:site_name" content="freeCodeCamp.org">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to Build Forms in React">
+    
+        <meta property="og:description" content="Forms play an essential role in modern web applications. They enable users to share information, complete tasks and provide feedback.  Without forms, many of the tasks that we take for granted on the web, such as logging in, signing up, or making purchases, would not be possible. As such,">
+    
+    <meta property="og:url" content="https://www.freecodecamp.org/news/how-to-build-forms-in-react/">
+    <meta property="og:image" content="https://www.freecodecamp.org/news/content/images/2023/03/pexels-rodnae-productions-7821577.jpg">
+    <meta property="article:published_time" content="2023-03-10T17:43:57.000Z">
+    <meta property="article:modified_time" content="2023-03-10T17:43:57.000Z">
+    
+        <meta property="article:tag" content="React">
+    
+        <meta property="article:tag" content="Forms">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/freecodecamp">
+    
+
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Build Forms in React">
+    
+        <meta name="twitter:description" content="Forms play an essential role in modern web applications. They enable users to share information, complete tasks and provide feedback.  Without forms, many of the tasks that we take for granted on the web, such as logging in, signing up, or making purchases, would not be possible. As such,">
+    
+    <meta name="twitter:url" content="https://www.freecodecamp.org/news/how-to-build-forms-in-react/">
+    <meta name="twitter:image" content="https://www.freecodecamp.org/news/content/images/2023/03/pexels-rodnae-productions-7821577.jpg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Dickson Boateng">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="React, Forms">
+    <meta name="twitter:site" content="@freecodecamp">
+    
+        <meta name="twitter:creator" content="@alege_dev">
+    
+
+    <meta property="og:image:width" content="2000">
+    <meta property="og:image:height" content="1333">
+
+
+        
+    <script type="application/ld+json">{
+	"@context": "https://schema.org",
+	"@type": "Article",
+	"publisher": {
+		"@type": "Organization",
+		"name": "freeCodeCamp.org",
+		"url": "https://www.freecodecamp.org/news/",
+		"logo": {
+			"@type": "ImageObject",
+			"url": "https://cdn.freecodecamp.org/platform/universal/fcc_primary.svg",
+			"width": 2100,
+			"height": 240
+		}
+	},
+	"image": {
+		"@type": "ImageObject",
+		"url": "https://www.freecodecamp.org/news/content/images/2023/03/pexels-rodnae-productions-7821577.jpg",
+		"width": 2000,
+		"height": 1333
+	},
+	"url": "https://www.freecodecamp.org/news/how-to-build-forms-in-react/",
+	"mainEntityOfPage": {
+		"@type": "WebPage",
+		"@id": "https://www.freecodecamp.org/news/"
+	},
+	"datePublished": "2023-03-10T17:43:57.000Z",
+	"dateModified": "2023-03-10T17:43:57.000Z",
+	"keywords": "React, Forms",
+	"description": "Forms play an essential role in modern web applications. They enable users to\nshare information, complete tasks and provide feedback. \n\nWithout forms, many of the tasks that we take for granted on the web, such as\nlogging in, signing up, or making purchases, would not be possible.\n\nAs such, learning how to create effective and user-friendly forms is essential\nfor developers looking to build engaging and interactive web applications.\n\nWith its extensive collection of built-in hooks, React provide",
+	"headline": "How to Build Forms in React",
+	"author": {
+		"@type": "Person",
+		"name": "Dickson Boateng",
+		"url": "https://www.freecodecamp.org/news/author/dboateng/",
+		"sameAs": [
+			"http://linktr.ee/dboatengg",
+			"https://twitter.com/alege_dev"
+		],
+		"image": {
+			"@type": "ImageObject",
+			"url": "https://www.freecodecamp.org/news/content/images/2022/11/dickson.jpg",
+			"width": 400,
+			"height": 400
+		}
+	}
+}</script>
+
+
+        <meta name="generator" content="Eleventy">
+        <link rel="alternate" type="application/rss+xml" title="freeCodeCamp.org" href="https://www.freecodecamp.org/news/rss/">
+
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+
+<!-- Web Monetization (https://webmonetization.org/) -->
+<meta name="monetization" content="$ilp.uphold.com/LJmbPn7WD4JB">
+<!-- end Web Monetization -->
+
+<!-- dataLayer setup -->
+<script>
+window.dataLayer = window.dataLayer || [];
+</script>
+<!-- End dataLayer setup -->
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5D6RKKP');</script>
+<!-- End Google Tag Manager -->
+
+
+<meta name="google-site-verification" content="b4tITLzEeeZGEpvD4mGNf3khKM4fvqejQaz9SYBQP8E" />
+
+        
+    </head>
+    
+    
+        <body class="home-template">
+    
+        <div class="site-wrapper">
+            <nav class="site-nav nav-padding">
+    <div class="site-nav-left">
+        
+<form id="search-form" data-test-label="search-bar">
+    <div role="search" class="searchbox__wrapper">
+        <label class="fcc_sr_only" for='search-input'>
+            Search
+        </label>
+        <input type="search" placeholder="
+    Search 10,000+ tutorials
+" id="search-input" />
+        <button type="submit" class="ais-SearchBox-submit">
+            <svg class="ais-SearchBox-submitIcon" xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 40 40">
+    <path d="M26.804 29.01c-2.832 2.34-6.465 3.746-10.426 3.746C7.333 32.756 0 25.424 0 16.378 0 7.333 7.333 0 16.378 0c9.046 0 16.378 7.333 16.378 16.378 0 3.96-1.406 7.594-3.746 10.426l10.534 10.534c.607.607.61 1.59-.004 2.202-.61.61-1.597.61-2.202.004L26.804 29.01zm-10.426.627c7.323 0 13.26-5.936 13.26-13.26 0-7.32-5.937-13.257-13.26-13.257C9.056 3.12 3.12 9.056 3.12 16.378c0 7.323 5.936 13.26 13.258 13.26z" />
+</svg>
+
+            <span class="fcc_sr_only">Submit your search query</span>
+        </button>
+        <div id='dropdown-container'></div>
+    </div>
+</form>
+
+    </div>
+    <div class="site-nav-middle">
+        <a class="site-nav-logo" href="https://www.freecodecamp.org/news" data-test-label="site-nav-logo"><img src="https://cdn.freecodecamp.org/platform/universal/fcc_primary.svg" alt="freeCodeCamp.org" /></a>
+    </div>
+    <div class="site-nav-right">
+        <div class="nav-group">
+            <a
+                class="nav-forum"
+                id="nav-forum"
+                rel="noopener noreferrer"
+                href="https://forum.freecodecamp.org/"
+                target="_blank"
+                data-test-label="forum-button"
+            >Forum</a>
+            <a
+                class="toggle-button-nav"
+                id="nav-donate"
+                rel="noopener noreferrer"
+                href="https://www.freecodecamp.org/donate/"
+                target="_blank"
+                data-test-label="donate-button"
+            >Donate</a>
+        </div>
+    </div>
+</nav>
+
+
+            
+            <a class="banner" id="banner" data-test-label="banner" rel="noopener noreferrer" target="_blank">
+    <p id="banner-text"></p>
+</a>
+
+
+    
+    <script>document.addEventListener("DOMContentLoaded",(()=>{const e=document.getElementById("banner"),t=document.getElementById("banner-text");isAuthenticated?(t.innerHTML="Support our charity and our mission. <span>Donate to freeCodeCamp.org</span>.",e.href="https://www.freecodecamp.org/donate",e.setAttribute("text-variation","authenticated")):isDonor?(t.innerHTML="Thank you for supporting freeCodeCamp through <span>your donations</span>.",e.href="https://www.freecodecamp.org/news/how-to-donate-to-free-code-camp/",e.setAttribute("text-variation","donor")):(t.innerHTML="Learn to code — <span>free 3,000-hour curriculum</span>",e.href="https://www.freecodecamp.org/",e.setAttribute("text-variation","default"))}));</script>
+
+
+            <div id="error-message"></div>
+
+            
+    <main id="site-main" class="post-template site-main outer">
+        <div class="inner ad-layout">
+            <article class="post-full post ">
+                <header class="post-full-header">
+                    <section class="post-full-meta">
+                        <time class="post-full-meta-date" datetime="Fri Mar 10 2023 17:43:57 GMT+0000 (Coordinated Universal Time)">
+                            March 10, 2023
+                        </time>
+                        
+                            <span class="date-divider">/</span>
+                            <a  dir="ltr" href="/news/tag/react/">
+                                #React
+                            </a>
+                        
+                    </section>
+                    <h1 class="post-full-title">How to Build Forms in React</h1>
+                </header>
+                <div class="post-full-author-header" data-test-label="author-header-no-bio">
+                    
+                        
+                            
+    
+    
+    
+
+    <section class="author-card" data-test-label="author-card">
+        
+            
+    <img
+      srcset="https://www.freecodecamp.org/news/content/images/size/w60/2022/11/dickson.jpg 60w"
+      sizes="60px"
+      src="https://www.freecodecamp.org/news/content/images/size/w60/2022/11/dickson.jpg"
+      class="author-profile-image"
+      alt="Dickson Boateng"
+      width="400"
+      height="400"
+      onerror="this.style.display='none'"
+      
+      data-test-label="profile-image"
+    />
+  
+        
+
+        <section class="author-card-content author-card-content-no-bio">
+            <span class="author-card-name">
+                <a href="/news/author/dboateng/" data-test-label="profile-link">
+                    
+                        Dickson Boateng
+                    
+                </a>
+            </span>
+            
+        </section>
+    </section>
+
+                        
+                    
+                </div>
+                
+                    <figure class="post-full-image">
+                        
+    <picture>
+      <source
+        media="(max-width: 700px)"
+        sizes="1px"
+        srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7 1w"
+      />
+      <source 
+        media="(min-width: 701px)"
+        sizes="(max-width: 800px) 400px, (max-width: 1170px) 700px, 1400px"
+        srcset="https://www.freecodecamp.org/news/content/images/size/w300/2023/03/pexels-rodnae-productions-7821577.jpg 300w,https://www.freecodecamp.org/news/content/images/size/w600/2023/03/pexels-rodnae-productions-7821577.jpg 600w,https://www.freecodecamp.org/news/content/images/size/w1000/2023/03/pexels-rodnae-productions-7821577.jpg 1000w,https://www.freecodecamp.org/news/content/images/size/w2000/2023/03/pexels-rodnae-productions-7821577.jpg 2000w"
+      />
+      <img
+        onerror="this.style.display='none'"
+        src="https://www.freecodecamp.org/news/content/images/size/w2000/2023/03/pexels-rodnae-productions-7821577.jpg"
+        alt="How to Build Forms in React",
+        width="2000"
+        height="1333"
+      >
+    </picture>
+  
+                    </figure>
+                
+                <section class="post-full-content">
+                    <div class="post-and-sidebar">
+                        <section class="post-content ">
+                            
+<p>Forms play an essential role in modern web applications. They enable users to share information, complete tasks and provide feedback. </p><p>Without forms, many of the tasks that we take for granted on the web, such as logging in, signing up, or making purchases, would not be possible.</p><p>As such, learning how to create effective and user-friendly forms is essential for developers looking to build engaging and interactive web applications.</p><p>With its extensive collection of built-in hooks, React provides several features and techniques for creating and managing forms, including state management, event handling, and form validation.</p><p>The purpose of this guide is to provide a comprehensive and in-depth look at creating forms in React. </p><h2 id="getting-started-">Getting Started...</h2><p>In React, there are two ways of handling form data:</p><ul><li><strong>Controlled Components:</strong> In this approach, form data is handled by React through the use of hooks such as the <code>useState</code> hook.</li><li><strong>Uncontrolled Components:</strong> Form data is handled by the Document Object Model (DOM) rather than by React. The DOM maintains the state of form data and updates it based on user input.</li></ul><p>To better understand the difference between controlled and uncontrolled components, consider there are two ways of riding a bike.</p><p>In the first approach, you let the bike take control. You sit on the bike and let it decide the direction and speed. You might try to make it go in a certain direction by leaning your body, but ultimately, the bike decides where to go.</p><p>This is similar to uncontrolled components in React. You place a form element in the component, and the DOM takes control of it. The DOM decides the state of the input element and updates it based on a user's input.</p><p>In the second approach, you take control of the bike. You hold the handlebars and pedal, and you decide where to go and how fast to ride. You can easily slow down or speed up as needed.</p><p>This is similar to controlled components where a React component takes control of the form data, and maintains the state of form elements. The component decides when and how to update the state, and it re-renders itself based on the state changes.</p><p>In the upcoming sections, we will expound upon the distinction between controlled and uncontrolled components and provide practical examples to illustrate how each operates.</p><h2 id="controlled-components-in-react">Controlled Components in React</h2><p>In React, a controlled component is a component where form elements derive their value from a React state.</p><p>When a component is controlled, the value of form elements is stored in a state, and any changes made to the value are immediately reflected in the state.</p><p>To create a controlled component, you need to use the <code>value</code> prop to set the value of form elements and the <code>onChange</code> event to handle changes made to the value.</p><p>The <code>value</code> prop sets the initial value of a form element, while the <code>onChange</code> event is triggered whenever the value of a form element changes. Inside the <code>onChange</code> event, you need to update the state with the new value using a state update function.</p><p>Here's an example:</p><pre><code class="language-javascript">import {useState} from 'react';
+ 
+export default function  ControlledComponent()  {
+	const  [inputValue, setInputValue] =  useState('');
+
+	const  handleChange = (event) =&gt; {
+		setInputValue(event.target.value);
+	};
+
+return  (
+&lt;form&gt;
+	&lt;label&gt;Input Value:
+	&lt;input  type="text"  value={inputValue} onChange={handleChange} /&gt;
+	&lt;/label&gt;
+	&lt;p&gt;Input Value: {inputValue}&lt;/p&gt;
+&lt;/div&gt;
+)};
+</code></pre><p>In this example:</p><p>The <code>useState</code> hook defines a state variable (inputValue) and a state update function (setInputValue).</p><p>The <code>value</code> prop sets the initial value of the input element to the value of <code>inputValue</code>.</p><p>Also, the <code>onChange</code> event handles changes made to the input value. The <code>handleChange</code> function updates the <code>inputValue</code> state with the new value of the input element, and the updated value is immediately reflected in the state and displayed on the screen.</p><!--kg-card-begin: markdown--><img src="https://i.imgur.com/N77Ohpv.gif" style="border: 1px solid #333; border-radius: 5px" width="700" height="300" alt="N77Ohpv" loading="lazy"><!--kg-card-end: markdown--><p>As the user types into the input field, the <code>handleChange</code> function updates the state variable using the "setInputValue" function. The component is then re-rendered, and the input field's <code>value</code> attribute is updated to reflect the new value of <code>inputValue</code>.</p><p>The value of the input field and the text displayed below it are always in sync, making it a controlled component.</p><h3 id="how-to-handle-dropdowns-and-checkboxes-in-controlled-components">How to handle dropdowns and checkboxes in Controlled Components</h3><p>Just like with input elements, the value of a dropdown can be set by using the <code>value</code> prop in conjunction with the <code>onChange</code> event handler to update the state of the component.</p><p>For example, to handle a dropdown menu, you can define the initial value of the dropdown menu within the state of the component, then update the state when the value of the dropdown changes:</p><pre><code class="language-javascript">import { useState } from "react";
+
+export default function Dropdown()  {
+	const [selectedOption, setSelectedOption] = useState("option1");
+
+	const  handleDropdownChange = (event) =&gt; {
+		setSelectedOption(event.target.value);
+	};
+
+return  (
+	&lt;div&gt;
+		&lt;label&gt;
+			Select an option:
+				&lt;select  value={selectedOption} onChange={handleDropdownChange}&gt;
+				&lt;option  value="option1"&gt;Option 1&lt;/option&gt;
+				&lt;option  value="option2"&gt;Option 2&lt;/option&gt;
+				&lt;option  value="option3"&gt;Option 3&lt;/option&gt;
+			&lt;/select&gt;
+		&lt;/label&gt;
+		&lt;p&gt;Selected option: {selectedOption}&lt;/p&gt;
+	&lt;/div&gt;
+	);
+}
+</code></pre><!--kg-card-begin: markdown--><img src="https://i.imgur.com/5cjbAeO.gif" style="border: 1px solid #333; border-radius: 5px" width="700" height="300" alt="5cjbAeO" loading="lazy"><!--kg-card-end: markdown--><p>Similarly, you can handle checkboxes by setting the <code>checked</code> prop of the checkbox input element based on the state of a component, and then updating the state when a checkbox is clicked.</p><p>Here's an example:</p><pre><code class="language-javascript">import { useState } from "react";
+
+function Checkbox() {
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleChange = (event) =&gt; {
+    setIsChecked(event.target.checked);
+  };
+
+  return (
+    &lt;form&gt;
+      &lt;label htmlFor="color"&gt;
+        &lt;input type="checkbox" name="color" checked={isChecked} onChange={handleChange}/&gt;
+        Blue
+      &lt;/label&gt;
+
+      {isChecked &amp;&amp; &lt;div&gt;Blue is selected!&lt;/div&gt;}
+    &lt;/form&gt;
+  );
+}
+
+export default Checkbox;
+</code></pre><p>In this example, we have defined a state variable <code>isChecked</code> to keep track of whether the checkbox is checked or not. When the checkbox is clicked, the <code>handleChange</code> function is called, and it updates the <code>isChecked</code> state variable to a new value (true or false.).</p><p>The <code>isChecked</code> variable controls the <code>checked</code> attribute of the checkbox input and conditionally renders a message indicating that the checkbox is selected.</p><!--kg-card-begin: markdown--><img src="https://i.imgur.com/81zMRzO.gif" style="border: 1px solid #333; border-radius: 5px" width="700" height="300" alt="81zMRzO" loading="lazy"><!--kg-card-end: markdown--><h3 id="how-to-handle-multiple-form-fields">How to handle multiple form fields</h3><p>When working with forms in React, it's common to have several form elements, such as text inputs, checkboxes, radio buttons, and others. </p><p>To manage the state of these form elements, you can define the values for the input fields as an object using a single state variable and update each respective state variable using the <code>onChange</code> event.</p><p>As an example, suppose you wish to create a form with the following fields:</p><ul><li>Text input for the user's name</li><li>An email field for the user's email</li><li>A textarea field for the user's message</li></ul><p>Here's how you could handle these fields:</p><pre><code class="language-javascript">import { useState } from "react";
+
+export default function Multiple() {
+  const [formData, setFormData] = useState({name: "",email: "",message: ""});
+
+  const handleChange = (event) =&gt; {
+    const { name, value } = event.target;
+    setFormData((prevFormData) =&gt; ({ ...prevFormData, [name]: value }));
+  };
+
+  const handleSubmit = (event) =&gt; {
+    event.preventDefault();
+    alert(`Name: ${formData.name}, Email: ${formData.email}, Message: ${formData.message}`
+    );
+};
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;label htmlFor="name"&gt;Name:&lt;/label&gt;
+      &lt;input type="text" id="name" name="name" value={formData.name} onChange={handleChange}/&gt;
+
+      &lt;label htmlFor="email"&gt;Email:&lt;/label&gt;
+      &lt;input type="email" id="email" name="email" value={formData.email} onChange={handleChange}/&gt;
+
+      &lt;label htmlFor="message"&gt;Message:&lt;/label&gt;
+      &lt;textarea id="message" name="message" value={formData.message} onChange={handleChange}/&gt;
+
+      &lt;button type="submit"&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+</code></pre><!--kg-card-begin: markdown--><img src="https://i.imgur.com/4ln01Wq.gif" style="border: 1px solid #333; border-radius: 5px" width="900" height="450" alt="4ln01Wq" loading="lazy"><!--kg-card-end: markdown--><p>In the example code:</p><p>The <code>useState</code> hook defines a state object named <code>formData</code> that contains three properties: <code>name</code>, <code>email</code>, and <code>message</code>, each initialized to an empty string.</p><p>The <code>handleChange</code> function is called whenever a user types in one of the form fields. It extracts the <code>name</code> and <code>value</code> of the form field that has changed using the <code>event.target</code> object and then updates the <code>formData</code> state variable using the <code>setFormData</code> function.</p><p>The <code>setFormData</code> function uses the spread operator (<code>...</code>) to copy the previous <code>formData</code> object. Then it updates the value of the changed form field by setting its value prop with the new value.</p><p>By using an object to manage form data, we can easily keep track of the values of multiple form elements. This makes it easier to manage and manipulate the state of our form data, especially when dealing with complex forms with many form elements.</p><h3 id="how-to-validate-form-input">How to validate form input</h3><p>Validating forms refers to the process of checking user input data to ensure that it meets specific criteria or requirements before it is submitted to a server or used in some other way.</p><p>Form validation can take various forms, depending on the type and complexity of the data being collected. Common types of form validation include:</p><ul><li>Required field validation: Checking that required fields are not left empty.</li><li>Format validation: Ensuring that input data is in the correct format (for example, email addresses, phone numbers, and so on).</li><li>Length validation: Checking that input data is within a certain length range.</li><li>Pattern validation: Checking that input data matches a specific pattern.</li></ul><p>Common methods for form validation include using built-in HTML validation attributes like <code>required</code>, <code>minlength</code>, and <code>maxlength</code>, as well as using React to perform custom validation logic.</p><p>As an example, suppose we have a form with an input field that requires a minimum of 5 characters. We can use state to track the value of the input field and display an error message if the length of the value is less than 5.</p><pre><code class="language-javascript">import { useState } from 'react';
+
+function MyForm() {
+  const [inputValue, setInputValue] = useState('');
+  const [inputError, setInputError] = useState(null);
+
+  function handleInputChange(event) {
+    const value = event.target.value;
+    setInputValue(value);
+
+    if (value.length &lt; 5) {
+      setInputError('Input must be at least 5 characters');
+    } else {
+      setInputError(null);
+    }
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (inputValue.length &gt;= 5) {
+      // submit form
+    } else {
+      setInputError('Input must be at least 5 characters');
+    }
+  }
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;label&gt;
+        Fruit:
+        &lt;input type="text" value={inputValue} onChange={handleInputChange} /&gt;
+      &lt;/label&gt;
+      {inputError &amp;&amp; &lt;div style={{ color: 'red' }}&gt;{inputError}&lt;/div&gt;}
+      &lt;button type="submit"&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+  );
+} 
+</code></pre><!--kg-card-begin: markdown--><img src="https://i.imgur.com/Dfm7dtp.gif" style="border: 1px solid #333; border-radius: 5px" width="700" height="300" alt="Dfm7dtp" loading="lazy"><!--kg-card-end: markdown--><p>In this example, we have a simple form that allows the user to input a fruit name. The form has two states:</p><ul><li><code>inputValue</code>: Represents the current value of the input field</li><li><code>inputError</code>: Represents any errors that may arise during form validation.</li></ul><p>The <code>handleInputChange</code> function is called every time a user types a character in the input field. It updates the <code>inputValue</code> state to reflect the current value of the input field, and then checks whether the value is at least 5 characters long.</p><p>If the value is less than 5 characters, it sets the <code>inputError</code> state to the appropriate error message. Otherwise, it sets the <code>inputError</code> state to <code>null</code> (indicating that there are no errors).</p><h2 id="uncontrolled-components-in-react">Uncontrolled Components in React</h2><p>Uncontrolled components in React refer to form elements whose state is not managed by React. Instead, their state is handled by the browser's DOM.</p><p>For instance, let's say you have a form that consists of a text input field, a select box, and a checkbox. In a controlled component, you would create a state for each form element and write event handlers to update the state whenever the user interacts with any of the form elements.</p><p>In contrast, an uncontrolled component allows the browser to handle the form elements' state. When a user enters text into a text input field or selects an option from a select box, the browser updates the DOM's state for that element automatically.</p><p>To get the value of an uncontrolled form element, you can use a feature called "ref". "Refs" provide a way to access the current value of DOM elements. You can create a "ref" using the <code>useRef</code> hook, then attach it to the form element you want to access. This allows you to retrieve the current value of an element at any time, without needing to manage its state in your React component.</p><p>Here's an example of an uncontrolled component:</p><pre><code class="language-javascript">import { useRef } from "react";
+
+export default function Uncontrolled() {
+  const selectRef = useRef(null);
+  const checkboxRef = useRef(null);
+  const inputRef = useRef(null);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log("Input value:", inputRef.current.value);
+    console.log("Select value:", selectRef.current.value);
+    console.log("Checkbox value:", checkboxRef.current.checked);
+  }
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;label&gt;
+        &lt;p&gt;Name:&lt;/p&gt;
+        &lt;input ref={inputRef} type="text" /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        &lt;p&gt;Favorite color:&lt;/p&gt;
+        &lt;select ref={selectRef}&gt;
+          &lt;option value="red"&gt;Red&lt;/option&gt;
+          &lt;option value="green"&gt;Green&lt;/option&gt;
+          &lt;option value="blue"&gt;Blue&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Do you like React?
+        &lt;input type="checkbox" ref={checkboxRef} /&gt;
+      &lt;/label&gt;
+      &lt;button type="submit"&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+
+</code></pre><!--kg-card-begin: markdown--><img src="https://i.imgur.com/4zXvzMm.gif" style="border: 1px solid #333; border-radius: 5px" width="900" height="400" alt="4zXvzMm" loading="lazy"><!--kg-card-end: markdown--><p>In this example:</p><p>We have a form that contains a text input field, a select box, and a checkbox. Instead of creating state for each form element and writing event handlers to update the state, we're using uncontrolled components. This means that the browser is responsible for managing the state of the form elements.</p><p>When a user interacts with a form element, the browser automatically updates the DOM's state for that element. And to retrieve the current values of each form element, we're using the <code>useRef</code> hook.</p><p>Uncontrolled components can be useful in certain situations, such as when you need to integrate with third-party libraries or when you don't need to manipulate the form data.</p><p>Overall, uncontrolled components are a simpler approach to working with forms in React, and they can make your code more concise and easier to read. But it's important to note that using <code>ref</code> to access form element values can make your code harder to test and maintain, so use them judiciously.</p><h2 id="how-to-use-react-component-libraries">How to Use React Component Libraries</h2><p>Creating forms in React can be overwhelming, especially if you're new to the framework. You need to manage form state, handle user input, validate input data and more.</p><p>But the good news is that there are third-party libraries available to make everything easier for you.</p><p>These libraries can help simplify your form creation process. They provide a wide range of features including form validation, input masking, submission handling, error handling, and more. This makes it much easier to create forms that are both user-friendly and functional.</p><p>Some popular form libraries include:</p><ul><li>Formik</li><li>Redux Form</li><li>React Hook Form</li><li>Yup.</li></ul><p>In this section, we'll focus on learning how to use the <strong>React Hook Form</strong> library.</p><h3 id="how-to-use-react-hook-form">How to use React Hook Form</h3><p>React Hook Form is a lightweight library for managing forms in React applications. Whether you need to create a simple contact form or a complex multi-step form, React Hook Form can help simplify your form creation process.</p><h4 id="installation">Installation</h4><p>Getting started with React Hook Form is straightforward and requires only a few steps. First, you'll need to install the library in your project. You can do this using <code>npm</code> by running the following command:</p><pre><code class="language-npm">npm install react-hook-form
+</code></pre><p>Alternatively, you can use yarn to install React Hook Form:</p><pre><code class="language-yarn">yarn add react-hook-form
+</code></pre><p>Once you've installed the library, you need to import the <code>useForm</code> hook from the <code>react-hook-form</code> package in your component.</p><pre><code class="language-javascript">import  { useForm }  from  "react-hook-form";
+</code></pre><p>By importing the <code>useForm</code> hook, you can start using React Hook Form to manage forms in your application.</p><p>The <code>useForm</code> hook provides several functions and properties that you can use to manage your form:</p><ul><li><code>register</code>: This function is used to register form fields with React Hook Form.</li><li><code>handleSubmit</code>: This is used to handle form submissions. It takes a callback function that is called when the form is submitted.</li><li><code>errors</code>: This represents an object containing any validation errors that occur when a form is submitted.</li><li><code>watch</code>: This function is used to watch for changes to specific form fields. It takes an array of form field names and returns the current value of those fields.</li></ul><p>These are just a few examples of the functions and properties the useForm hook provides. You can find the complete list of functions and properties in the React Hook Form <a href="https://www.react-hook-form.com/api/useform/">documentation</a>.</p><h4 id="how-to-set-up-the-form">How to set up the form</h4><p>After importing the <code>useForm</code> hook, you can invoke it to get access to the functions and properties that it provides:</p><pre><code class="language-jsx">const { register, handleSubmit, formState:{errors} } = useForm();
+</code></pre><p>In the above code, we're using destructuring to extract the <code>register</code>, <code>handleSubmit</code>, and <code>errors</code> properties from the <code>useForm</code> hook.</p><h4 id="how-to-register-form-fields">How to register form fields</h4><p>The next step is to register form fields using the <code>register</code> function. The <code>register</code> function takes two parameters:</p><ul><li><code>name</code>: The name of the form field.</li><li><code>validationOptions</code>: An optional object containing validation rules you can apply to a form field.</li></ul><p>Here's an example of registering an input field and adding a validation rule that it is a required field.</p><pre><code class="language-jsx">&lt;input name="firstName" {...register("firstName", { required: true })} /&gt;
+</code></pre><h4 id="how-to-handle-form-submission">How to handle form submission</h4><p>To handle form submission, you can use the <code>handleSubmit</code> function.</p><pre><code class="language-jsx">const onSubmit = (data) =&gt; console.log(data);
+
+&lt;form onSubmit={handleSubmit(onSubmit)}&gt;
+  // form fields
+&lt;/form&gt;
+
+</code></pre><p>In this example, we pass the <code>onSubmit</code> function to the <code>handleSubmit</code> function. The <code>onSubmit</code> function will be called when the form is submitted and will receive an object containing the values of each form field.</p><h4 id="how-to-display-validation-errors">How to display validation errors</h4><p>You can use the <code>errors</code> object to display any validation errors.</p><pre><code class="language-jsx">&lt;input {...register("firstName", { required: true })} /&gt;
+{errors.firstName &amp;&amp; &lt;p&gt;This field is required&lt;/p&gt;}
+</code></pre><p>In the above code, we're using the <code>errors</code> object to display a validation error message if the <code>firstName</code> field is not filled out. We can also display error messages for other validation rules, such as minimum and maximum lengths, regular expressions, and more.</p><h4 id="how-to-put-it-all-together">How to put it all together</h4><p>With a basic understanding of React Hook Form, let's now put everything into practice and create a simple form with two fields: <code>email</code> and <code>password</code>. We'll require both fields to be filled out and validate the email field using a regular expression.</p><pre><code class="language-jsx">import { useForm } from 'react-hook-form';
+
+function LoginForm() {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  
+  const onSubmit = (data) =&gt; {
+    console.log(data);
+  };
+  
+  return (
+    &lt;form onSubmit={handleSubmit(onSubmit)}&gt;
+      &lt;label&gt;Email&lt;/label&gt;
+      &lt;input type="email" {...register("email", { required: true, pattern: /^\S+@\S+$/i })} /&gt;
+      {errors.email &amp;&amp; &lt;p&gt;Email is required and must be valid&lt;/p&gt;}
+      
+      &lt;label&gt;Password&lt;/label&gt;
+      &lt;input type="password" {...register("password", { required: true })} /&gt;
+      {errors.password &amp;&amp; &lt;p&gt;Password is required&lt;/p&gt;}
+      
+      &lt;button type="submit"&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+
+export default LoginForm;
+</code></pre><!--kg-card-begin: markdown--><img src="https://i.imgur.com/zDd8ZDK.gif" style="border: 1px solid #333; border-radius: 5px" width="900" height="450" alt="zDd8ZDK" loading="lazy"><!--kg-card-end: markdown--><p>In this section, we've covered the basics of how to use React Hook Form:</p><ul><li>To register form fields</li><li>Handle form submissions</li><li>Display validation errors</li></ul><p>But this is just the tip of the iceberg. React Hook Form offers many more features and capabilities that we haven't covered here. So I highly recommend that you check out the React Hook Form <a href="https://react-hook-form.com/get-started/">documentation</a> to learn more about how to use it effectively in your projects.</p><h2 id="recap">Recap</h2><p>In this tutorial, we covered the basics of building forms in React. We learned that there are two common approaches to building forms in React: controlled and uncontrolled components.</p><p>Controlled components rely on state management to track the state of form inputs, while uncontrolled components use <code>refs</code> to access the form inputs and their values.</p><p>We also learned that using third-party libraries make form creation in React much easier. Libraries like React Hook Form provide a lot of functionality out of the box and can help reduce the amount of boilerplate code you need to build forms in React.</p><p>With these concepts in mind, you should be able to build complex forms in React that are easy to manage and provide a great user experience.</p><h2 id="conclusion">Conclusion</h2><p>If you want access to all the code used in this article, including the styling, I have compiled it all in a single <a href="https://github.com/dboatengg/react-forms">repository</a> for your convenience. Head over to the repository and you will find everything you need.</p><p>Happy coding!</p>
+
+                        </section>
+                        
+                            <div class="sidebar">
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                                    <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                                
+                            </div>
+                        
+                    </div>
+                    <hr />
+                    
+                        <div class="post-full-author-header" data-test-label="author-header-with-bio">
+                            
+                                
+    
+    
+    
+
+    <section class="author-card" data-test-label="author-card">
+        
+            
+    <img
+      srcset="https://www.freecodecamp.org/news/content/images/size/w60/2022/11/dickson.jpg 60w"
+      sizes="60px"
+      src="https://www.freecodecamp.org/news/content/images/size/w60/2022/11/dickson.jpg"
+      class="author-profile-image"
+      alt="Dickson Boateng"
+      width="400"
+      height="400"
+      onerror="this.style.display='none'"
+      loading="lazy"
+      data-test-label="profile-image"
+    />
+  
+        
+
+        <section class="author-card-content ">
+            <span class="author-card-name">
+                <a href="/news/author/dboateng/" data-test-label="profile-link">
+                    
+                        Dickson Boateng
+                    
+                </a>
+            </span>
+            
+                
+                    <p data-test-label="author-bio">Experienced Frontend Developer who crafts code and words to create delightful experiences. Transforming tech jargons into accessible content.</p>
+                
+            
+        </section>
+    </section>
+
+                            
+                        </div>
+                        <hr />
+                    
+
+                    
+                    
+                        
+    
+
+
+<p data-test-label="social-row-cta" class="social-row">
+    If you read this far, tweet to the author to show them you care. <button id="tweet-btn" class="cta-button" data-test-label="tweet-button">Tweet a thanks</button>
+</p>
+
+
+    
+    <script>document.addEventListener("DOMContentLoaded",(()=>{const t=document.getElementById("tweet-btn"),e=window.location,n="How%20to%20Build%20Forms%20in%20React".replace(/&#39;/g,"%27"),o="",i="@alege_dev",r=Boolean("");let a;if(r&&(o||i)){const t={originalPostAuthor:"",currentPostAuthor:"Dickson Boateng"};a=encodeURIComponent(`Thank you ${o||t.originalPostAuthor} for writing this helpful article, and ${i||t.currentPostAuthor} for translating it.`)}else!r&&i&&(a=encodeURIComponent(`Thank you ${i} for writing this helpful article.`));const c=`window.open(\n    '${a?`https://twitter.com/intent/tweet?text=${a}%0A%0A${n}%0A%0A${e}`:`https://twitter.com/intent/tweet?text=${n}%0A%0A${e}`}',\n    'share-twitter',\n    'width=550, height=235'\n  ); return false;`;t.setAttribute("onclick",c)}));</script>
+
+
+                        
+
+<div class="learn-cta-row" data-test-label="learn-cta-row">
+    <p>
+        Learn to code for free. freeCodeCamp's open source curriculum has helped more than 40,000 people get jobs as developers. <a href="https://www.freecodecamp.org/learn/" class="cta-button" id="learn-to-code-cta" rel="noopener noreferrer" target="_blank">Get started</a>
+    </p>
+</div>
+
+                    
+                </section>
+                
+                    <div class="banner-ad bottom">
+                        <div class="ad-wrapper" data-test-label="ad-wrapper">
+    
+    <div class="ad-text" data-test-label="ad-text">ADVERTISEMENT</div>
+    <ins
+        class="adsbygoogle"
+        style="display: block; height: 280px;"
+        data-ad-client="ca-pub-9482786369113753"
+        data-ad-slot="5720086888"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+    ></ins>
+    <script>
+        if (!isAuthenticated) (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+                    </div>
+                
+            </article>
+        </div>
+    </main>
+
+
+            
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-top">
+            <div class="footer-desc-col">
+                <p data-test-label="tax-exempt-status">freeCodeCamp is a donor-supported tax-exempt 501(c)(3) charity organization (United States Federal Tax Identification Number: 82-0779546)</p>
+                <p data-test-label="mission-statement">Our mission: to help people learn to code for free. We accomplish this by creating thousands of videos, articles, and interactive coding lessons - all freely available to the public. We also have thousands of freeCodeCamp study groups around the world.</p>
+                <p data-test-label="donation-initiatives">Donations to freeCodeCamp go toward our education initiatives, and help pay for servers, services, and staff.</p>
+                <p class="footer-donation" data-test-label="donate-text">
+                    You can <a href="https://www.freecodecamp.org/donate/" class="inline" rel="noopener noreferrer" target="_blank" >make a tax-deductible donation here</a>.
+                </p>
+            </div>
+            <div class="trending-guides" data-test-label="trending-guides">
+                <div class="col-header">Trending Guides</div>
+                <div class="trending-guides-row">
+                    <div class="footer-col footer-col-1">
+                        <a href="https://www.freecodecamp.org/news/what-is-a-framework-software-frameworks-definition/" rel="noopener noreferrer" target="_blank">What is a Framework?
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/what-is-a-computer-scientist-what-exactly-do-cs-majors-do/" rel="noopener noreferrer" target="_blank">What Do CS Majors Do?
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/discord-update-failed-how-to-fix-the-error-on-a-windows-10-pc/" rel="noopener noreferrer" target="_blank">Discord Update Failed
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/how-to-center-an-image-in-a-div-css/" rel="noopener noreferrer" target="_blank">Center an Image in CSS
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/what-does-mvc-mean-in-computer-science/" rel="noopener noreferrer" target="_blank">What is the MVC Model?
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/javascript-replaceall-replace-all-instances-of-a-string-in-js/" rel="noopener noreferrer" target="_blank">JavaScript replaceAll()
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/python-switch-statement-switch-case-example/" rel="noopener noreferrer" target="_blank">Python Switch Statement
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/python-string-replace-how-to-replace-a-character-in-a-string/" rel="noopener noreferrer" target="_blank">Python string.replace()
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/what-is-a-relational-database-rdbms-definition/" rel="noopener noreferrer" target="_blank">What is a Relational DB?
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/how-to-split-a-string-in-python/" rel="noopener noreferrer" target="_blank">Split a String in Python
+                        </a>
+                    </div>
+                    <div class="footer-col footer-col-2">
+                        <a href="https://www.freecodecamp.org/news/sql-having-how-to-group-and-count-with-a-having-statement/" rel="noopener noreferrer" target="_blank">SQL HAVING
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/what-is-object-oriented-programming/" rel="noopener noreferrer" target="_blank">What is OOP?
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/html-textarea-how-to-add-text-box-to-your-website/" rel="noopener noreferrer" target="_blank">HTML textarea
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/nvm-for-windows-how-to-download-and-install-node-version-manager-in-windows-10/" rel="noopener noreferrer" target="_blank">NVM for Windows
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/git-revert-file-reverting-a-file-to-a-previous-commit/" rel="noopener noreferrer" target="_blank">Git Revert File
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/sql-aggregate-functions-how-to-group-by-in-mysql-and-postgresql/" rel="noopener noreferrer" target="_blank">GROUP BY in SQL
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/2d-array-in-java-two-dimensional-and-nested-arrays/" rel="noopener noreferrer" target="_blank">2D Array in Java
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/node-version-manager-nvm-install-guide/" rel="noopener noreferrer" target="_blank">How to Install NVM
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/how-to-calculate-percentage-in-excel-formula-for-percentages/" rel="noopener noreferrer" target="_blank">Percentages in Excel
+                        </a>
+                        <a href="https://www.freecodecamp.org/news/javascript-timestamp-how-to-use-gettime-to-generate-timestamps-in-js/" rel="noopener noreferrer" target="_blank">JavaScript Timestamp
+                        </a>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <div class="footer-left">
+                            <a href="https://www.freecodecamp.org/news/git-list-remote-branches/" rel="noopener noreferrer" target="_blank">Git List Remote Branches
+                            </a>
+                            <a href="https://www.freecodecamp.org/news/git-delete-remote-branch/" rel="noopener noreferrer" target="_blank">Git Delete Remote Branch
+                            </a>
+                            <a href="https://www.freecodecamp.org/news/what-does-a-software-developer-do-software-engineer-career-overview/" rel="noopener noreferrer" target="_blank">Software Developer Career
+                            </a>
+                            <a href="https://www.freecodecamp.org/news/three-dots-operator-in-javascript/" rel="noopener noreferrer" target="_blank">Three Dots Operator in JS
+                            </a>
+                            <a href="https://www.freecodecamp.org/news/javascript-date-format-how-to-format-a-date-in-js/" rel="noopener noreferrer" target="_blank">How to Format Dates in JS
+                            </a>
+                        </div>
+
+                        <div class="footer-right">
+                            <a href="https://www.freecodecamp.org/news/how-to-remove-an-element-from-a-javascript-array-removing-a-specific-item-in-js/" rel="noopener noreferrer" target="_blank">Remove Item from Array JS
+                            </a>
+                            <a href="https://www.freecodecamp.org/news/how-to-dual-boot-windows-10-and-ubuntu-linux-dual-booting-tutorial/" rel="noopener noreferrer" target="_blank">Dual Boot Windows + Ubuntu
+                            </a>
+                            <a href="https://www.freecodecamp.org/news/how-to-round-to-2-decimal-places-in-python/" rel="noopener noreferrer" target="_blank">Python Round to 2 Decimals
+                            </a>
+                            <a href="https://www.freecodecamp.org/news/string-to-number-in-javascript-convert-a-string-to-an-int-in-js/" rel="noopener noreferrer" target="_blank">String to Int in JavaScript
+                            </a>
+                            <a href="https://www.freecodecamp.org/news/gitignore-file-how-to-ignore-files-and-folders-in-git/" rel="noopener noreferrer" target="_blank">What’s the .gitignore File?
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='footer-bottom'>
+            <div class="col-header" data-test-label="our-nonprofit">Our Charity</div>
+            <div class="footer-divider"></div>
+            <div class="our-nonprofit">
+                <a href="https://www.freecodecamp.org/news/about/" rel="noopener noreferrer" target="_blank" data-test-label="about">
+                    About
+                </a>
+                <a href="https://www.linkedin.com/school/free-code-camp/people/" rel="noopener noreferrer" target="_blank" data-test-label="alumni">
+                    Alumni Network
+                </a>
+                <a href="https://github.com/freeCodeCamp/" rel="noopener noreferrer" target="_blank" data-test-label="open-source">
+                    Open Source
+                </a>
+                <a href="https://www.freecodecamp.org/news/shop/" rel="noopener noreferrer" target="_blank" data-test-label="shop">
+                    Shop
+                </a>
+                <a href="https://www.freecodecamp.org/news/support/" rel="noopener noreferrer" target="_blank" data-test-label="support">
+                    Support
+                </a>
+                <a href="https://www.freecodecamp.org/news/sponsors/" rel="noopener noreferrer" target="_blank" data-test-label="sponsors">
+                    Sponsors
+                </a>
+                <a href="https://www.freecodecamp.org/news/academic-honesty-policy/" rel="noopener noreferrer" target="_blank" data-test-label="honesty">
+                    Academic Honesty
+                </a>
+                <a href="https://www.freecodecamp.org/news/code-of-conduct/" rel="noopener noreferrer" target="_blank" data-test-label="coc">
+                    Code of Conduct
+                </a>
+                <a href="https://www.freecodecamp.org/news/privacy-policy/" rel="noopener noreferrer" target="_blank" data-test-label="privacy">
+                    Privacy Policy
+                </a>
+                <a href="https://www.freecodecamp.org/news/terms-of-service/" rel="noopener noreferrer" target="_blank" data-test-label="tos">
+                    Terms of Service
+                </a>
+                <a href="https://www.freecodecamp.org/news/copyright-policy/" rel="noopener noreferrer" target="_blank" data-test-label="copyright">
+                    Copyright Policy
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+        </div>
+
+        
+        
+        
+
+        <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5D6RKKP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+        
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816" integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7c406810a8617713","token":"bdb993c6dde44e178aabd9555e75e4f4","version":"2023.4.0","si":100}' crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+import React from 'react';
+import { useState } from 'react';
+
+export default function Form_data(set_form_data) {
+    
+    const handleSubmit = (event) => {
+	
+	event.preventDefault();
+
+	alert(inputs);
+	
+	console.log(event);
+	
+    }
+    
+    return (
+	<form onSubmit={handleSubmit}>
+	    
+	    <label>Name:</label> <input name="name"></input><br/>
+	    
+	    <label>Phone:</label> <input name="phone"></input><br/>
+	    
+	    <label>Postcode:</label> <input name="postcode"></input><br/>
+	    
+	    <input type="submit" />
+	</form >
+   );
+}
+
