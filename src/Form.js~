@@ -56,19 +56,27 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
 	    <input value={form_data.phone} onChange={handle_phone}>
 	    </input>
-	    {form_data.phone_valid === 0 && <em>Incomplete/invalid phone number</em>}
+	    {form_data.phone_valid === 0 && <em>(awaiting valid input)</em>}
 	    <br/>
 	    
 	    <label>Postcode:</label>
 	    
 	    <input value={form_data.postcode} onChange={handle_postcode}>
 	    </input>
-	    {form_data.postcode_valid === 0 && <em>Incomplete/invalid postcode</em>}
+	    {form_data.postcode_valid === 0 && <em>(awaiting valid input)</em>}
 	    <br/>
 
+	    {
+		form_data.postcode_valid === 1 &&
+		    form_data.phone_valid === 1 ?
+		    
+		<button onClick={handle_confirm}>Ready to submit</button >
+		:
+		<div class="loading">Awaiting your inputs</div>
+		
+	    }
 
-	    <button onClick={handle_confirm}>Select booking</button >
-	    
+
 	</div>
    );
 }

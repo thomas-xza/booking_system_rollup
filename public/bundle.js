@@ -7995,7 +7995,7 @@
 	    });
 	  };
 	  const handle_confirm = e => {
-	    if (form_data.phone === 1 && form_data.postcode_valid === 1) {
+	    if (form_data.phone_valid === 1 && form_data.postcode_valid === 1) {
 	      set_page_flow(2);
 	    }
 	  };
@@ -8015,7 +8015,9 @@
 	    onChange: handle_postcode
 	  }), form_data.postcode_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), form_data.postcode_valid === 1 && form_data.phone_valid === 1 ? /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_confirm
-	  }, "Ready to submit") : /*#__PURE__*/React.createElement("p", null, " Awaiting..."));
+	  }, "Find appointment") : /*#__PURE__*/React.createElement("div", {
+	    class: "loading"
+	  }, "Awaiting your inputs"));
 	}
 
 	function Booking({

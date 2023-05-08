@@ -29,7 +29,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
     const handle_confirm = (e) => {
 
-	if ( form_data.phone === 1
+	if ( form_data.phone_valid === 1
 	     && form_data.postcode_valid === 1 ) {
 
 	    set_page_flow(2);
@@ -70,9 +70,9 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 		form_data.postcode_valid === 1 &&
 		    form_data.phone_valid === 1 ?
 		    
-		<button onClick={handle_confirm}>Ready to submit</button >
+		<button onClick={handle_confirm}>Find appointment</button >
 		:
-		<p> Awaiting...</p>
+		<div class="loading">Awaiting your inputs</div>
 		
 	    }
 
