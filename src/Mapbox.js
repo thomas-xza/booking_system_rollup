@@ -2,43 +2,58 @@ import React from 'react';
 import destinations from './locations.json';
 
 export default function Mapbox({ postcode, mapbox_res, set_mapbox_res }) {
+
     
-    if (mapbox_res === {}) {
-	
-	load_distances(postcode, mapbox_res, set_mapbox_res);
-
-	return (
-	    <div className="loading">Loading Mapbox API</div>
-	)
-
-    } else if (mapbox_res.longitude) {
+    if (mapbox_res.longitude) {
 	
 	return (
 	    JSON.stringify(mapbox_res)
 	)
 
+	console.log(mapbox_res);	
+	
     } else {
+	
+	load_distances(postcode, mapbox_res, set_mapbox_res);
 
 	return (
-	    <div>An error occured whilst looking up the postcode.</div>
+		<div className="loading">Loading Mapbox API</div>
 	)
 
-    };
+
+	console.log(mapbox_res);
+    }
 
 };
 
-async function load_distances(postcode, mapbox_res, set_mapbox_res) {
+export async function load_distances(postcode, mapbox_res, set_mapbox_res) {
 
     const url = postcode_to_url(postcode);
 
-    const mapbox_json = await fetch(url)
-	  .then(res => res.json())
+    const mapbox_json = await fetch_with_retries(url, 100);
 
     store_data(postcode, mapbox_json, mapbox_res, set_mapbox_res);
+
+};
+
+async function fetch_with_retries(url, retry_count) {
+
+    try {
+	
+	return await fetch(url)
+	    .then(res => res.json());
+
+    } catch (error) {
+
+	console.log("retrying fetch(), retry_count");
+
+	return fetch_with_retries(url, retry_count + 1)
+
+    }
     
 };
 
-function postcode_to_url(postcode) {
+export function postcode_to_url(postcode) {
 
     //  Note: limit as of 2023-04 is 600 geocode requests/minute
     //  https://docs.mapbox.com/api/overview/
@@ -54,22 +69,27 @@ function postcode_to_url(postcode) {
 
 };
 
-function store_data(postcode, mapbox_json, mapbox_res, set_mapbox_res) {
+export function store_data(postcode, mapbox_json, mapbox_res, set_mapbox_res) {
     
     console.log("store_data()", mapbox_json, "\n", mapbox_json.features[0])
 
-    const top_hit_coords = mapbox_json.features[0].geometry.coordinates;
+    try {
+	const top_hit_coords = mapbox_json.features[0].geometry.coordinates;
 
-    const source_obj = {
-	'postcode': postcode,
-	'longitude': top_hit_coords[0],
-	'latitude': top_hit_coords[1]
-	// 'borough': mapbox_json.features[0].context[0].text || ""
-    };
+	const source_obj = {
+	    'postcode': postcode,
+	    'longitude': top_hit_coords[0],
+	    'latitude': top_hit_coords[1]
+	    // 'borough': mapbox_json.features[0].context[0].text || ""
+	};
 
-    console.log(source_obj);
+	console.log(source_obj);
 
-    set_mapbox_res(source_obj);
+	set_mapbox_res(source_obj);
+
+    } catch {
+
+    }
 
 };
 

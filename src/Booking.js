@@ -11,6 +11,7 @@ export default function Booking({ form_data, booking, set_booking, set_page_flow
 
 	if (mapbox_res.longitude) {
 
+	    // console.log(JSON.stringify([{"test":"example"}]))
 
 	}
 
