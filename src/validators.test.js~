@@ -1,0 +1,13 @@
+import { validate_phone } from './validators.js';
+
+test('', () => {
+
+    expect(validate_phone(
+	"07777777777"
+    ).toBe(
+	1
+    )
+	   
+	  )
+}
+    );

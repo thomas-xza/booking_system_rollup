@@ -7946,38 +7946,60 @@
 	  };
 	}
 
+	function Oauth({
+	  set_page_flow
+	}) {
+	  return hello;
+	}
+
+	function validate_postcode(postcode) {
+	  const processed = postcode.toUpperCase().match(/[A-Z]{1,2}[A-Z0-9]{1,2} [0-9]{1,2}[A-Z]{2}/);
+
+	  // .match() actually returns different types...
+
+	  return Array.isArray(processed) ? 1 : 0;
+	}
+	function validate_phone(phone) {
+	  const processed = phone.match(/[0-9]/).join("").match(/[0-9]{11}/);
+
+	  // .match() actually returns different types...
+
+	  return Array.isArray(processed) ? 1 : 0;
+	}
+
 	function Form({
 	  form_data,
-	  set_form_data
+	  set_form_data,
+	  set_page_flow
 	}) {
 	  const handle_name = e => {
-	    //  validate_name(name)
-
-	    console.log(form_data);
 	    set_form_data({
 	      ...form_data,
 	      name: e.target.value
 	    });
 	  };
 	  const handle_phone = e => {
-	    //  validate_phone(phone)
-
-	    console.log(form_data);
 	    set_form_data({
 	      ...form_data,
-	      phone: e.target.value
+	      phone: e.target.value,
+	      phone_valid: validate_phone(e.target.value)
 	    });
 	  };
 	  const handle_postcode = e => {
-	    //  validate_postcode(postcode) ...
-
-	    console.log(form_data);
 	    set_form_data({
 	      ...form_data,
 	      postcode: e.target.value,
-	      valid: 1
+	      postcode_valid: validate_postcode(e.target.value)
 	    });
 	  };
+	  const handle_confirm = e => {
+	    if (form_data.phone === 1 && form_data.postcode_valid === 1) {
+	      set_page_flow(2);
+	    }
+	  };
+	  reactExports.useEffect(() => {
+	    console.log(form_data);
+	  }, [form_data]);
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "form"
 	  }, /*#__PURE__*/React.createElement("label", null, "Name:"), /*#__PURE__*/React.createElement("input", {
@@ -7986,25 +8008,65 @@
 	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Phone:"), /*#__PURE__*/React.createElement("input", {
 	    value: form_data.phone,
 	    onChange: handle_phone
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Postcode:"), /*#__PURE__*/React.createElement("input", {
+	  }), form_data.phone_valid === 0 && /*#__PURE__*/React.createElement("em", null, "Incomplete/invalid phone number"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Postcode:"), /*#__PURE__*/React.createElement("input", {
 	    value: form_data.postcode,
 	    onChange: handle_postcode
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
-	    type: "submit"
-	  }));
+	  }), form_data.postcode_valid === 0 && /*#__PURE__*/React.createElement("em", null, "Incomplete/invalid postcode"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	    onClick: handle_confirm
+	  }, "Select booking"));
+	}
+
+	function Booking({
+	  form_data,
+	  booking,
+	  set_booking,
+	  set_page_flow
+	}) {
+	  return hello;
+	}
+
+	function Confirm({
+	  form_data,
+	  booking,
+	  set_page_flow
+	}) {
+	  return hello;
 	}
 
 	function App() {
+	  const [page_flow, set_page_flow] = reactExports.useState(1);
 	  const [form_data, set_form_data] = reactExports.useState({
 	    name: "",
 	    phone: "",
 	    postcode: "",
 	    valid: 0
 	  });
-	  return /*#__PURE__*/React.createElement(Form, {
-	    form_data: form_data,
-	    set_form_data: set_form_data
-	  });
+	  const [booking, set_booking] = reactExports.useState();
+	  switch (page_flow) {
+	    case 0:
+	      return /*#__PURE__*/React.createElement(Oauth, {
+	        set_page_flow: set_page_flow
+	      });
+	    case 1:
+	      return /*#__PURE__*/React.createElement(Form, {
+	        form_data: form_data,
+	        set_form_data: set_form_data,
+	        set_page_flow: set_page_flow
+	      });
+	    case 2:
+	      return /*#__PURE__*/React.createElement(Booking, {
+	        form_data: form_data,
+	        booking: booking,
+	        set_booking: set_booking,
+	        set_page_flow: set_page_flow
+	      });
+	    case 3:
+	      return /*#__PURE__*/React.createElement(Confirm, {
+	        form_data: form_data,
+	        booking: booking,
+	        set_page_flow: set_page_flow
+	      });
+	  }
 	}
 
 	const root = createRoot(document.getElementById('root'));

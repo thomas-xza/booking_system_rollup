@@ -1,15 +1,15 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function Form({ form_data, set_form_data }) {
+import { validate_postcode } from './validators.js';
+
+export default function Form({ form_data, set_form_data, set_page_flow }) {
 
     const handle_name = (e) => {
 
 	//  validate_name(name)
 
-	console.log(form_data);
-
-	set_form_data({ ...form_data, name: e.target.value });
+	set_form_data({ ...form_data, name: e.target.value })
 
     }
     
@@ -17,31 +17,35 @@ export default function Form({ form_data, set_form_data }) {
 
 	//  validate_phone(phone)
 
-	console.log(form_data);
-
-	set_form_data({ ...form_data, phone: e.target.value });
+	set_form_data({ ...form_data, phone: e.target.value })
 
     }
     
     const handle_postcode = (e) => {
 
-	//  validate_postcode(postcode) ...
+	const valid_flag = validate_postcode(e.target.value);
+
+	set_form_data({ ...form_data,
+			postcode: e.target.value,
+			valid: valid_flag });
+		      
+    };
+
+    const handle_confirm = (e) => {
+
+	if ( form_data.valid === 1 ) {
+
+	    set_page_flow(2);
+
+	}
+	
+    };
+
+    useEffect(() => {
 
 	console.log(form_data);
 
-	set_form_data({ ...form_data, postcode: e.target.value, valid: 1 });
-
-    }
-
-    const handleSubmit = (event) => {
-	
-	event.preventDefault();
-
-	console.log(event.target.value);
-	
-	console.log(event);
-	
-    }
+    },[form_data]);
     
     return (
 	<div className="form">
@@ -60,8 +64,8 @@ export default function Form({ form_data, set_form_data }) {
 	    
 	    <input value={form_data.postcode} onChange={handle_postcode}>
 	    </input><br/>
-	    
-	    <input type="submit" />
+
+	    <button onClick={handle_confirm}>Select booking</button >
 	    
 	</div>
    );
