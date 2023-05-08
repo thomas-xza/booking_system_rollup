@@ -22,10 +22,9 @@ export default function App() {
     case 0:
 
 	return(
-	    0
-	    // <Oauth
-	    // 	set_page_flow={set_page_flow}
-	    // />	    
+	    <Oauth
+		set_page_flow={set_page_flow}
+	    />	    
 	)
 
     case 1:
@@ -41,18 +40,23 @@ export default function App() {
     case 2:
 
 	return(
-	    2
-		// <Booking
-		//     form_data={form_data}
-		//     booking={booking}
-		//     set_booking={set_booking}
-		//     set_page_flow={set_page_flow}
-		//     />
+	    <Booking
+		form_data={form_data}
+		booking={booking}
+		set_booking={set_booking}
+		set_page_flow={set_page_flow}
+	    />
 	)
 
     case 3:
 
-	return(3)
+	return(
+	    <Confirm
+		form_data={form_data}
+		booking={booking}
+		set_page_flow={set_page_flow}
+	    />
+	)
 
     };
     

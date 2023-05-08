@@ -7953,18 +7953,14 @@
 	}
 
 	function validate_postcode(postcode) {
-	  const processed = postcode.toUpperCase().match(/[A-Z]{1,2}[A-Z0-9]{1,2} [0-9]{1,2}[A-Z]{2}/);
-
-	  // .match() actually returns different types...
-
-	  return Array.isArray(processed) ? 1 : 0;
+	  const processed = postcode.toUpperCase().match(/[A-Z]{1,2}[0-9]{1,2} +[0-9]{1,2}[A-Z]{2}/) || [];
+	  return processed[0] ? 1 : 0;
 	}
 	function validate_phone(phone) {
-	  const processed = phone.match(/[0-9]/).join("").match(/[0-9]{11}/);
-
-	  // .match() actually returns different types...
-
-	  return Array.isArray(processed) ? 1 : 0;
+	  console.log(phone);
+	  const init = phone.match(/[0-9]/g) || [];
+	  const processed = init.join('').replace(/^447/i, '07').match(/[0-9]{11}/) || [];
+	  return processed[0] ? 1 : 0;
 	}
 
 	function Form({
@@ -8038,8 +8034,9 @@
 	  const [form_data, set_form_data] = reactExports.useState({
 	    name: "",
 	    phone: "",
+	    phone_valid: 0,
 	    postcode: "",
-	    valid: 0
+	    postcode_valid: 0
 	  });
 	  const [booking, set_booking] = reactExports.useState();
 	  switch (page_flow) {

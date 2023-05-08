@@ -3,7 +3,7 @@ export function validate_postcode(postcode) {
 
     const processed = postcode
 	  .toUpperCase()
-	  .match(/[A-Z]{1,2}[A-Z0-9]{1,2} [0-9]{1,2}[A-Z]{2}/)
+	  .match(/[A-Z]{1,2}[0-9]{1,2} +[0-9]{1,2}[A-Z]{2}/)
 
     // .match() actually returns different types...
 	

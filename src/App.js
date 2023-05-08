@@ -12,8 +12,9 @@ export default function App() {
 
     const [form_data, set_form_data] = useState({ name: "",
 						  phone: "",
+						  phone_valid: 0,
 						  postcode: "",
-						  valid: 0 });
+						  postcode_valid: 0 });
     
     const [booking, set_booking] = useState();
 
