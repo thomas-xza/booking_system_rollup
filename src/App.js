@@ -8,12 +8,12 @@ import Confirm from './Confirm.js'
 
 export default function App() {
 
-    const [page_flow, set_page_flow] = useState(1);
+    const [page_flow, set_page_flow] = useState(2);
 
     const [form_data, set_form_data] = useState({ name: "",
-						  phone: "",
+						  phone: "07777777777",
 						  phone_valid: 0,
-						  postcode: "",
+						  postcode: "SE10 9NF",
 						  postcode_valid: 0 });
     
     const [booking, set_booking] = useState();

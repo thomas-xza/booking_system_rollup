@@ -8020,13 +8020,19 @@
 	  }, "Awaiting your inputs"));
 	}
 
+	function load_distances(postcode) {}
+
 	function Booking({
 	  form_data,
 	  booking,
 	  set_booking,
 	  set_page_flow
 	}) {
-	  return hello;
+	  reactExports.useState(2);
+	  reactExports.useEffect(() => {
+	    load_distances(form_data.postcode);
+	  }, [form_data]);
+	  return /*#__PURE__*/React.createElement("h1", null, "hello");
 	}
 
 	function Confirm({
@@ -8038,12 +8044,12 @@
 	}
 
 	function App() {
-	  const [page_flow, set_page_flow] = reactExports.useState(1);
+	  const [page_flow, set_page_flow] = reactExports.useState(2);
 	  const [form_data, set_form_data] = reactExports.useState({
 	    name: "",
-	    phone: "",
+	    phone: "07777777777",
 	    phone_valid: 0,
-	    postcode: "",
+	    postcode: "SE10 9NF",
 	    postcode_valid: 0
 	  });
 	  const [booking, set_booking] = reactExports.useState();
