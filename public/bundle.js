@@ -7946,7 +7946,10 @@
 	  };
 	}
 
-	function Form(form_data, set_form_data) {
+	function Form({
+	  form_data,
+	  set_form_data
+	}) {
 	  const handle_name = e => {
 	    //  validate_name(name)
 
@@ -7959,6 +7962,7 @@
 	  const handle_phone = e => {
 	    //  validate_phone(phone)
 
+	    console.log(form_data);
 	    set_form_data({
 	      ...form_data,
 	      phone: e.target.value
@@ -7967,9 +7971,11 @@
 	  const handle_postcode = e => {
 	    //  validate_postcode(postcode) ...
 
+	    console.log(form_data);
 	    set_form_data({
 	      ...form_data,
-	      postcode: e.target.value
+	      postcode: e.target.value,
+	      valid: 1
 	    });
 	  };
 	  return /*#__PURE__*/React.createElement("div", {
@@ -7989,7 +7995,12 @@
 	}
 
 	function App() {
-	  const [form_data, set_form_data] = reactExports.useState({});
+	  const [form_data, set_form_data] = reactExports.useState({
+	    name: "",
+	    phone: "",
+	    postcode: "",
+	    valid: 0
+	  });
 	  return /*#__PURE__*/React.createElement(Form, {
 	    form_data: form_data,
 	    set_form_data: set_form_data
