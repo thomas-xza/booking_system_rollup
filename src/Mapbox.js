@@ -1,5 +1,4 @@
 import React from 'react';
-import destinations from './locations.json';
 
 export default function Mapbox({ postcode, mapbox_res, set_mapbox_res }) {
 
