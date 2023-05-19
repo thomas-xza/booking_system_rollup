@@ -8079,8 +8079,8 @@
 	  checked_days
 	}) {
 	  console.log("Clinics_list", clinics_w_dists);
-	  return clinics_w_dists.map((clinic, index) => {
-	    /*#__PURE__*/React.createElement("li", null, clinic.name);
+	  return clinics_w_dists.map(clinic => {
+	    return /*#__PURE__*/React.createElement("li", null, clinic.title);
 	  });
 	}
 

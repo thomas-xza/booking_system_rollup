@@ -10,10 +10,12 @@ export default function Clinics_list({ clinics_w_dists, checked_days }) {
 	
     };
 
-    return ( clinics_w_dists.map((clinic, index) => {
+    return (clinics_w_dists.map( (clinic) => {
 	
-            <li>{clinic.name}</li>
+	return <li>{clinic.title}</li>
+    } )
+	   );
 		
-    }))
+    
     
 }
