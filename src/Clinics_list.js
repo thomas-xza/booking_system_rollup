@@ -1,18 +1,19 @@
 import React from 'react';
 
-export default function Clinics_list({ clinics_w_dists, checked_days }) {
+export default function Clinics_list({ clinics_w_dists, checked_days, show_phone_only }) {
 
     console.log("Clinics_list", clinics_w_dists);
 
-    const handle_on_change = (index) => {
-	
-	console.log(index);
-	
-    };
+    return (
 
-    return (clinics_w_dists.map( (clinic) => {
+    	clinics_w_dists.map( (clinic,index) => {
 	
-	return <li>{clinic.title}</li>
+    	return <li key={`clinic_${index}`}>{clinic.title}
+    	<ul>
+    	    <li key={`clinic_${index}_dist`}>{clinic.distance} km</li>
+    	    <li key={`clinic_${index}_time`}>{clinic.time_start} - {clinic.time_end}</li>
+    	    </ul>
+    	</li>
     } )
 	   );
 		

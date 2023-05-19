@@ -8074,13 +8074,50 @@
 	  } catch {}
 	}
 
+	function User_selections({
+	  checked_days,
+	  set_checked_days,
+	  phone_show,
+	  set_phone_show
+	}) {
+	  const handle_on_change = index => {
+	    console.log(index);
+	  };
+	  return checked_days.map((day, index) => {
+	    /*#__PURE__*/React.createElement("input", {
+	      type: "checkbox",
+	      id: `checked_day_${index}`,
+	      name: name,
+	      value: name,
+	      checked: checked_days[index],
+	      onChange: () => handle_on_change(index)
+	    });
+	  })
+
+	  // 	return <li>{clinic.title}
+	  // 	<ul>
+	  // 	    <li>{clinic.distance} km</li>
+	  // 	    <li>{clinic.time_start} - {clinic.time_end}</li>
+	  // 	    </ul>
+	  // 	</li>
+	  // } )
+	  ;
+	}
+
 	function Clinics_list({
 	  clinics_w_dists,
-	  checked_days
+	  checked_days,
+	  show_phone_only
 	}) {
 	  console.log("Clinics_list", clinics_w_dists);
-	  return clinics_w_dists.map(clinic => {
-	    return /*#__PURE__*/React.createElement("li", null, clinic.title);
+	  return clinics_w_dists.map((clinic, index) => {
+	    return /*#__PURE__*/React.createElement("li", {
+	      key: `clinic_${index}`
+	    }, clinic.title, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", {
+	      key: `clinic_${index}_dist`
+	    }, clinic.distance, " km"), /*#__PURE__*/React.createElement("li", {
+	      key: `clinic_${index}_time`
+	    }, clinic.time_start, " - ", clinic.time_end)));
 	  });
 	}
 
@@ -8365,8 +8402,8 @@
 	}) {
 	  const [mapbox_resp, set_mapbox_resp] = reactExports.useState({});
 	  const [clinics_w_dists, set_clinics_w_dists] = reactExports.useState([]);
-	  const [checked_days, set_checked_days] = reactExports.useState(new Array(5).fill(false));
-	  reactExports.useState(false);
+	  const [checked_days, set_checked_days] = reactExports.useState(new Array(5).fill(true));
+	  const [phone_show, set_phone_show] = reactExports.useState(false);
 	  reactExports.useEffect(() => {
 	    if (typeof mapbox_resp.longitude !== 'undefined') {
 	      calculate_distances(mapbox_resp, clinics_w_dists, set_clinics_w_dists);
@@ -8376,6 +8413,11 @@
 	    postcode: form_data.postcode,
 	    mapbox_resp: mapbox_resp,
 	    set_mapbox_resp: set_mapbox_resp
+	  }), /*#__PURE__*/React.createElement(User_selections, {
+	    checked_days: checked_days,
+	    set_checked_days: set_checked_days,
+	    phone_show: phone_show,
+	    set_phone_show: set_phone_show
 	  }), /*#__PURE__*/React.createElement(Clinics_list, {
 	    clinics_w_dists: clinics_w_dists,
 	    checked_days: checked_days
