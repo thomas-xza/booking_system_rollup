@@ -1,37 +1,36 @@
 import React from 'react';
 
-export default function Mapbox({ postcode, mapbox_res, set_mapbox_res }) {
-
+export default function Mapbox({ postcode, mapbox_resp, set_mapbox_resp }) {
     
-    if (mapbox_res.longitude) {
+    if (typeof mapbox_resp.longitude !== 'undefined') {
 	
 	return (
-	    JSON.stringify(mapbox_res)
+	    JSON.stringify(mapbox_resp)
 	)
 
-	console.log(mapbox_res);	
+	console.log(mapbox_resp);	
 	
     } else {
 	
-	load_distances(postcode, mapbox_res, set_mapbox_res);
+	load_distances(postcode, mapbox_resp, set_mapbox_resp);
 
 	return (
 		<div className="loading">Loading Mapbox API</div>
 	)
 
 
-	console.log(mapbox_res);
+	console.log(mapbox_resp);
     }
 
 };
 
-export async function load_distances(postcode, mapbox_res, set_mapbox_res) {
+export async function load_distances(postcode, mapbox_resp, set_mapbox_resp) {
 
     const url = postcode_to_url(postcode);
 
     const mapbox_json = await fetch_with_retries(url, 100);
 
-    store_data(postcode, mapbox_json, mapbox_res, set_mapbox_res);
+    store_data(postcode, mapbox_json, mapbox_resp, set_mapbox_resp);
 
 };
 
@@ -41,7 +40,7 @@ async function fetch_with_retries(url, retry_count) {
 	
 	return await fetch(url)
 	    .then(res => res.json());
-
+n
     } catch (error) {
 
 	console.log("retrying fetch(), retry_count");
@@ -68,7 +67,7 @@ export function postcode_to_url(postcode) {
 
 };
 
-export function store_data(postcode, mapbox_json, mapbox_res, set_mapbox_res) {
+export function store_data(postcode, mapbox_json, mapbox_resp, set_mapbox_resp) {
     
     console.log("store_data()", mapbox_json, "\n", mapbox_json.features[0])
 
@@ -84,7 +83,7 @@ export function store_data(postcode, mapbox_json, mapbox_res, set_mapbox_res) {
 
 	console.log(source_obj);
 
-	set_mapbox_res(source_obj);
+	set_mapbox_resp(source_obj);
 
     } catch {
 
