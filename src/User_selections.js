@@ -4,33 +4,43 @@ export default function User_selections({ checked_days, set_checked_days, phone_
 
     const handle_on_change = (index) => {
 	
-	console.log(index);
+	set_checked_days[index] = false
 	
     };
 
     return (
-
-	checked_days.map( (day, index) => {
-
-	    <input
-                    type="checkbox"
-                    id={`checked_day_${index}`}
-                    name={name}
-                    value={name}
-                    checked={checked_days[index]}
-                    onChange={() => handle_on_change(index)}
-                />
-
-	
-	})
-	
-    // 	return <li>{clinic.title}
-    // 	<ul>
-    // 	    <li>{clinic.distance} km</li>
-    // 	    <li>{clinic.time_start} - {clinic.time_end}</li>
-    // 	    </ul>
-    // 	</li>
-    // } )
+	    <div>
+	    <input type="checkbox"
+                    key="checked_day_0"
+                    checked={checked_days[0]}
+                    onChange={() => handle_on_change(0)}
+            />
+	    Monday
+	    <input type="checkbox"
+                    key="checked_day_1"
+                    checked={checked_days[1]}
+                    onChange={() => handle_on_change(1)}
+            />
+	    Tuesday
+	    <input type="checkbox"
+                    key="checked_day_2"
+                    checked={checked_days[2]}
+                    onChange={() => handle_on_change(2)}
+            />
+	    Wednesday
+	    <input type="checkbox"
+                    key="checked_day_3"
+                    checked={checked_days[3]}
+                    onChange={() => handle_on_change(3)}
+            />
+	    Thursday
+	    <input type="checkbox"
+                    key="checked_day_4"
+                    checked={checked_days[4]}
+                    onChange={() => handle_on_change(4)}
+            />
+	    Friday
+	</div>
     );
 		
     
