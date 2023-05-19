@@ -2,9 +2,11 @@ import React from 'react';
 
 export default function User_selections({ checked_days, set_checked_days, phone_show, set_phone_show }) {
 
-    const handle_on_change = (index) => {
+    const handle_on_change = (position) => {
 	
-	set_checked_days[index] = false
+	set_checked_days(
+	    checked_days.map((item, index) =>
+			     index === position ? !item : item ))
 	
     };
 

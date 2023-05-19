@@ -8080,8 +8080,8 @@
 	  phone_show,
 	  set_phone_show
 	}) {
-	  const handle_on_change = index => {
-	    set_checked_days[index] = false;
+	  const handle_on_change = position => {
+	    set_checked_days(checked_days.map((item, index) => index === position ? !item : item));
 	  };
 	  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("input", {
 	    type: "checkbox",
