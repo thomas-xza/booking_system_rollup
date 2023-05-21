@@ -13,8 +13,8 @@ export default function Clinics_list({ clinics_w_dists, checked_days, phone_show
 
 	    if (checked_days[clinic.day_of_week] === true) {
 
-		if ( (clinic.title === "Telephone" && phone_show === true)
-		    || (clinic.title !== "Telephone" ) ) {
+		if ( (clinic.longitude === 0 && phone_show === true)
+		     || (clinic.longitude !== 0 ) ) {
 
 		    return <Clinic_single
 		    clinic={clinic}

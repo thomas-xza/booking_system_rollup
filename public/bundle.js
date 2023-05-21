@@ -8154,7 +8154,7 @@
 	  console.log("Clinics_list", clinics_w_dists);
 	  return /*#__PURE__*/React.createElement(React.Fragment, null, clinics_w_dists.map(function (clinic, index) {
 	    if (checked_days[clinic.day_of_week] === true) {
-	      if (clinic.title === "Telephone" && phone_show === true || clinic.title !== "Telephone") {
+	      if (clinic.longitude === 0 && phone_show === true || clinic.longitude !== 0) {
 	        return /*#__PURE__*/React.createElement(Clinic_single, {
 	          clinic: clinic,
 	          index: index,
@@ -8176,6 +8176,9 @@
 			time_start: 1000,
 			time_end: 1330,
 			postcode: "",
+			address: [
+				"This is a telephone appointment."
+			],
 			latitude: 0,
 			longitude: 0,
 			notes: "",
@@ -8189,6 +8192,9 @@
 			time_start: 900,
 			time_end: 1700,
 			postcode: "SE8 3QH",
+			address: [
+				""
+			],
 			latitude: 51.48995,
 			longitude: -0.03526,
 			notes: "",
@@ -8202,6 +8208,9 @@
 			time_start: 1000,
 			time_end: 1600,
 			postcode: "SE6 4JU",
+			address: [
+				"Catford Library"
+			],
 			latitude: 51.445868,
 			longitude: -0.020799,
 			notes: "",
@@ -8215,6 +8224,9 @@
 			time_start: 900,
 			time_end: 1400,
 			postcode: "SE6 3JB",
+			address: [
+				""
+			],
 			latitude: 51.430378,
 			longitude: -0.02426,
 			notes: "",
@@ -8228,6 +8240,9 @@
 			time_start: 1300,
 			time_end: 1400,
 			postcode: "SE6 4JH",
+			address: [
+				""
+			],
 			latitude: 51.449319,
 			longitude: -0.018045,
 			notes: "only 1300-1400 available for new clients",
@@ -8241,6 +8256,9 @@
 			time_start: 1200,
 			time_end: 1700,
 			postcode: "SE13 6LH",
+			address: [
+				""
+			],
 			latitude: 51.454023,
 			longitude: -0.017942,
 			notes: "",
@@ -8254,6 +8272,9 @@
 			time_start: 1500,
 			time_end: 1900,
 			postcode: "BR1 5EP",
+			address: [
+				""
+			],
 			latitude: 51.426849,
 			longitude: 0.00981,
 			notes: "",
@@ -8267,6 +8288,9 @@
 			time_start: 1000,
 			time_end: 1330,
 			postcode: "",
+			address: [
+				"This is a telephone appointment."
+			],
 			latitude: 0,
 			longitude: 0,
 			notes: "",
@@ -8280,6 +8304,9 @@
 			time_start: 1300,
 			time_end: 1400,
 			postcode: "SE6 2SS",
+			address: [
+				""
+			],
 			latitude: 51.429997,
 			longitude: -0.013458,
 			notes: "only 1300-1400 available for new clients",
@@ -8293,6 +8320,9 @@
 			time_start: 1030,
 			time_end: 1500,
 			postcode: "SE8 4RJ",
+			address: [
+				""
+			],
 			latitude: 51.477479,
 			longitude: -0.023593,
 			notes: "",
@@ -8306,6 +8336,9 @@
 			time_start: 900,
 			time_end: 1700,
 			postcode: "SE23 1HU",
+			address: [
+				""
+			],
 			latitude: 51.442387,
 			longitude: -0.041139,
 			notes: "",
@@ -8319,6 +8352,9 @@
 			time_start: 900,
 			time_end: 1100,
 			postcode: "",
+			address: [
+				"This is a telephone appointment."
+			],
 			latitude: 0,
 			longitude: 0,
 			notes: "",
@@ -8332,6 +8368,9 @@
 			time_start: 1200,
 			time_end: 1700,
 			postcode: "SE12 8NP",
+			address: [
+				""
+			],
 			latitude: 51.452782,
 			longitude: 0.009913,
 			notes: "",
@@ -8345,6 +8384,9 @@
 			time_start: 1330,
 			time_end: 1700,
 			postcode: "",
+			address: [
+				"This is a telephone appointment."
+			],
 			latitude: 0,
 			longitude: 0,
 			notes: "",
@@ -8358,6 +8400,9 @@
 			time_start: 1300,
 			time_end: 1330,
 			postcode: "SE26 6JQ",
+			address: [
+				""
+			],
 			latitude: 51.430508,
 			longitude: -0.063327,
 			notes: "only 1300-1330 available for new clients",
@@ -8371,6 +8416,9 @@
 			time_start: 930,
 			time_end: 1430,
 			postcode: "BR1 5EP",
+			address: [
+				""
+			],
 			latitude: 51.426054,
 			longitude: 0.012947,
 			notes: "",
@@ -8384,6 +8432,9 @@
 			time_start: 800,
 			time_end: 1600,
 			postcode: "SE4 1JN",
+			address: [
+				""
+			],
 			latitude: 51.456803,
 			longitude: -0.024011,
 			notes: "",
@@ -8397,6 +8448,9 @@
 			time_start: 1030,
 			time_end: 1630,
 			postcode: "SE14 6LD",
+			address: [
+				""
+			],
 			latitude: 51.476288,
 			longitude: -0.03191,
 			notes: "",
@@ -8410,6 +8464,9 @@
 			time_start: 1030,
 			time_end: 1600,
 			postcode: "SE13 6LH",
+			address: [
+				""
+			],
 			latitude: 51.453023,
 			longitude: -0.017942,
 			notes: "",
@@ -8479,12 +8536,41 @@
 	  }));
 	}
 
+	function title_case(str) {
+	  return str.toLowerCase().split(' ').map(function (word) {
+	    return word.charAt(0).toUpperCase() + word.slice(1);
+	  }).join(' ');
+	}
+
 	function Confirm({
 	  form_data,
 	  booking,
 	  set_page_flow
 	}) {
-	  return hello;
+	  console.log(booking);
+	  const calendar_entry = form_data.name + " - " + form_data.phone;
+	  if (booking.longitude !== 0) {
+	    [booking.title, ...booking.address, booking.postcode];
+	  }
+	  const text_msg = ["Hi there. Thanks for talking with me. Your appointment details follow", "\nTime:", "", "\nAdvisor:", booking.advisor, "\nLocation", ...full_addr, "\nKing regards", "Lewisham Stop Smoking Service"].join("\n");
+	  const spreadsheet_entry = booking.title.split(" ")[0] + ",  , " + title_case(booking.advisor);
+	  const closing_comment = `OK here are the catches: <br/>
+	    <ul>
+	   <li> Can only get 'Add to calendar' to work if NHS
+	change to use <a href="https://learn.microsoft.com/en-us/graph/api/resources/calendar?view=graph-rest-1.0&preserve-view=true">the latest Microsoft JSON API</a> (could be a long time, NHS is currently on the
+<a href="https://digital.nhs.uk/developer/api-catalogue/nhsmail">Exchange API</a> which is <a href="https://github.com/OfficeDev/ews-managed-api">almost deprecated</a>) or if all LSSS staff move to <a href="https://developers.google.com/calendar/api/guides/overview">Google calendar</a> until then</li>
+<li>"Send text via Vonage" will only work if someone gives me a credit card to <a href="https://www.vonage.co.uk/communications-apis/sms/pricing/">pay the fees</a></li>`;
+	  return /*#__PURE__*/React.createElement(React.Fragment, null, "For calendar:", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
+	    value: calendar_entry
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", null, "Add to calendar"), /*#__PURE__*/React.createElement("button", null, "Copy to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), "For text to client:", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
+	    value: text_msg
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", null, "Send text via Vonage"), /*#__PURE__*/React.createElement("button", null, "Copy to clipboard (for Google Messages)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), "For spreadsheet:", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
+	    value: spreadsheet_entry
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", null, "Copy to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
+	    dangerouslySetInnerHTML: {
+	      __html: closing_comment
+	    }
+	  }));
 	}
 
 	function App() {
