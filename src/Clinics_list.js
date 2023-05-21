@@ -7,6 +7,10 @@ export default function Clinics_list({ clinics_w_dists, checked_days, show_phone
     return (
 
     	clinics_w_dists.map( (clinic,index) => {
+
+	    // if ( checked_days[0] === true && clinic["day_of_week"] === "Monday" ) {
+
+	    // } else if 
 	
     	return <li key={`clinic_${index}`}>{clinic.title}
     	<ul>

@@ -1,50 +1,40 @@
 import React from 'react';
 
+function new_obj(key_name, prev_boolean) {
+
+    return { [key_name]: !prev_boolean }
+    
+}
+
 export default function User_selections({ checked_days, set_checked_days, phone_show, set_phone_show }) {
 
-    const handle_on_change = (position) => {
-	
+    const days_of_week = ["monday", "tuesday", "wednesday", "thursday", "friday" ];
+
+    const handle_on_change = (day) => {
+
 	set_checked_days(
-	    checked_days.map((item, index) =>
-			     index === position ? !item : item ))
+	    {    ...checked_days, ...new_obj(day, checked_days[day]) }
+ 	)
 	
     };
 
     return (
-	    <div>
-	    <input type="checkbox"
-                    key="checked_day_0"
-                    checked={checked_days[0]}
-                    onChange={() => handle_on_change(0)}
-            />
-	    Monday
-	    <input type="checkbox"
-                    key="checked_day_1"
-                    checked={checked_days[1]}
-                    onChange={() => handle_on_change(1)}
-            />
-	    Tuesday
-	    <input type="checkbox"
-                    key="checked_day_2"
-                    checked={checked_days[2]}
-                    onChange={() => handle_on_change(2)}
-            />
-	    Wednesday
-	    <input type="checkbox"
-                    key="checked_day_3"
-                    checked={checked_days[3]}
-                    onChange={() => handle_on_change(3)}
-            />
-	    Thursday
-	    <input type="checkbox"
-                    key="checked_day_4"
-                    checked={checked_days[4]}
-                    onChange={() => handle_on_change(4)}
-            />
-	    Friday
-	</div>
+
+	    <div>{ days_of_week.map( (day) => {
+
+		return (
+			<>
+			<input type="checkbox"
+                    key={`checkbox_${day}`}
+                    checked={checked_days[day]}
+                    onChange={() => handle_on_change(day)} />
+			
+			<label>{day}</label>
+			</>
+		       )
+
+	    } ) }</div>
+
     );
-		
-    
-    
+
 }

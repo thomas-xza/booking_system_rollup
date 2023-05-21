@@ -12,7 +12,11 @@ export default function Booking({ form_data, booking, set_booking, set_page_flow
 
     const [clinics_w_dists, set_clinics_w_dists] = useState([]);
 
-    const [checked_days, set_checked_days] = useState(new Array(5).fill(true));
+    const [checked_days, set_checked_days] = useState({ "monday": true,
+							"tuesday": true,
+							"wednesday": true,
+							"thursday": true,
+							"friday": true });
 
     const [phone_show, set_phone_show] = useState(false);
 
