@@ -21,6 +21,7 @@ export default function Clinics_list({ clinics_w_dists, checked_days, phone_show
 		    index={index}
 		    set_booking={set_booking}
 		    set_page_flow={set_page_flow}
+		    key={index}
 		    />
 		    
 		}

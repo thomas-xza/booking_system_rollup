@@ -8120,17 +8120,28 @@
 
 	function Clinic_single({
 	  clinic,
-	  index
+	  index,
+	  set_booking,
+	  set_page_flow
 	}) {
-	  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("li", {
+	  const handle_selection = e => {
+	    set_booking(clinic);
+	    set_page_flow(3);
+	  };
+	  return /*#__PURE__*/React.createElement("li", {
 	    key: `clinic_${index}`
 	  }, clinic.title, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", {
-	    key: `clinic_${index}_advisor`
-	  }, clinic.advisor), /*#__PURE__*/React.createElement("li", {
 	    key: `clinic_${index}_dist`
 	  }, clinic.distance, " km"), /*#__PURE__*/React.createElement("li", {
 	    key: `clinic_${index}_time`
-	  }, clinic.day_of_week, " ", clinic.time_start, " - ", clinic.time_end))));
+	  }, clinic.time_start, " - ", clinic.time_end), /*#__PURE__*/React.createElement("li", {
+	    key: `clinic_${index}_day`
+	  }, clinic.day_of_week), /*#__PURE__*/React.createElement("li", {
+	    key: `clinic_${index}_advisor`
+	  }, clinic.advisor), /*#__PURE__*/React.createElement("button", {
+	    key: `clinic_${index}_button`,
+	    onClick: handle_selection
+	  }, "Select this clinic")));
 	}
 
 	function Clinics_list({
@@ -8148,7 +8159,8 @@
 	          clinic: clinic,
 	          index: index,
 	          set_booking: set_booking,
-	          set_page_flow: set_page_flow
+	          set_page_flow: set_page_flow,
+	          key: index
 	        });
 	      }
 	    }
