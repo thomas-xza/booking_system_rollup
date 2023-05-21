@@ -49,7 +49,9 @@ export default function Booking({ form_data, booking, set_booking, set_page_flow
 	    <Clinics_list
 	clinics_w_dists={clinics_w_dists}
 	checked_days={checked_days}
-	phone_show={phone_show}/>
+	phone_show={phone_show}
+	set_booking={set_booking}
+	set_page_flow={set_page_flow}/>
 	
 	</div>
     );

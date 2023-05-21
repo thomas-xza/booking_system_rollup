@@ -8136,26 +8136,23 @@
 	function Clinics_list({
 	  clinics_w_dists,
 	  checked_days,
-	  phone_show
+	  phone_show,
+	  set_booking,
+	  set_page_flow
 	}) {
 	  console.log("Clinics_list", clinics_w_dists);
 	  return /*#__PURE__*/React.createElement(React.Fragment, null, clinics_w_dists.map(function (clinic, index) {
 	    if (checked_days[clinic.day_of_week] === true) {
-	      if (clinic.title === "Telephone" && phone_show === true) {
+	      if (clinic.title === "Telephone" && phone_show === true || clinic.title !== "Telephone") {
 	        return /*#__PURE__*/React.createElement(Clinic_single, {
 	          clinic: clinic,
-	          index: index
-	        });
-	      } else if (clinic.title !== "Telephone") {
-	        return /*#__PURE__*/React.createElement(Clinic_single, {
-	          clinic: clinic,
-	          index: index
+	          index: index,
+	          set_booking: set_booking,
+	          set_page_flow: set_page_flow
 	        });
 	      }
 	    }
 	  }));
-
-	  // <Clinic_single clinic={clinic} index={index}>
 	}
 
 	var clinics = [
@@ -8464,7 +8461,9 @@
 	  }), /*#__PURE__*/React.createElement(Clinics_list, {
 	    clinics_w_dists: clinics_w_dists,
 	    checked_days: checked_days,
-	    phone_show: phone_show
+	    phone_show: phone_show,
+	    set_booking: set_booking,
+	    set_page_flow: set_page_flow
 	  }));
 	}
 

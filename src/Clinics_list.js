@@ -2,7 +2,7 @@ import React from 'react';
 
 import Clinic_single from "./Clinic_single.js";
 
-export default function Clinics_list({ clinics_w_dists, checked_days, phone_show }) {
+export default function Clinics_list({ clinics_w_dists, checked_days, phone_show, set_booking, set_page_flow }) {
 
     console.log("Clinics_list", clinics_w_dists);
     
@@ -13,14 +13,16 @@ export default function Clinics_list({ clinics_w_dists, checked_days, phone_show
 
 	    if (checked_days[clinic.day_of_week] === true) {
 
-		if (clinic.title === "Telephone" && phone_show === true) {
+		if ( (clinic.title === "Telephone" && phone_show === true)
+		    || (clinic.title !== "Telephone" ) ) {
 
-		    return <Clinic_single clinic={clinic} index={index}/>
+		    return <Clinic_single
+		    clinic={clinic}
+		    index={index}
+		    set_booking={set_booking}
+		    set_page_flow={set_page_flow}
+		    />
 		    
-		} else if (clinic.title !== "Telephone") {
-
-		    return <Clinic_single clinic={clinic} index={index}/>
-
 		}
 
 	    }
@@ -31,8 +33,6 @@ export default function Clinics_list({ clinics_w_dists, checked_days, phone_show
 
 	);
 
-	// <Clinic_single clinic={clinic} index={index}>
-		
     
     
 }
