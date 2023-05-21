@@ -8108,7 +8108,7 @@
 	      checked: checked_days[day],
 	      onChange: () => handle_on_change(day)
 	    }), day);
-	  }), /*#__PURE__*/React.createElement("label", {
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", {
 	    key: "checkbox_label_phone"
 	  }, /*#__PURE__*/React.createElement("input", {
 	    type: "checkbox",
@@ -8116,6 +8116,21 @@
 	    checked: phone_show,
 	    onChange: () => handle_on_change_phone(phone_show)
 	  }), "Show phone appointments"));
+	}
+
+	function Clinic_single({
+	  clinic,
+	  index
+	}) {
+	  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("li", {
+	    key: `clinic_${index}`
+	  }, clinic.title, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", {
+	    key: `clinic_${index}_advisor`
+	  }, clinic.advisor), /*#__PURE__*/React.createElement("li", {
+	    key: `clinic_${index}_dist`
+	  }, clinic.distance, " km"), /*#__PURE__*/React.createElement("li", {
+	    key: `clinic_${index}_time`
+	  }, clinic.day_of_week, " ", clinic.time_start, " - ", clinic.time_end))));
 	}
 
 	function Clinics_list({
@@ -8126,17 +8141,21 @@
 	  console.log("Clinics_list", clinics_w_dists);
 	  return /*#__PURE__*/React.createElement(React.Fragment, null, clinics_w_dists.map(function (clinic, index) {
 	    if (checked_days[clinic.day_of_week] === true) {
-	      return /*#__PURE__*/React.createElement("li", {
-	        key: `clinic_${index}`
-	      }, clinic.title, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", {
-	        key: `clinic_${index}_advisor`
-	      }, clinic.advisor), /*#__PURE__*/React.createElement("li", {
-	        key: `clinic_${index}_dist`
-	      }, clinic.distance, " km"), /*#__PURE__*/React.createElement("li", {
-	        key: `clinic_${index}_time`
-	      }, clinic.day_of_week, " ", clinic.time_start, " - ", clinic.time_end)));
+	      if (clinic.title === "Telephone" && phone_show === true) {
+	        return /*#__PURE__*/React.createElement(Clinic_single, {
+	          clinic: clinic,
+	          index: index
+	        });
+	      } else if (clinic.title !== "Telephone") {
+	        return /*#__PURE__*/React.createElement(Clinic_single, {
+	          clinic: clinic,
+	          index: index
+	        });
+	      }
 	    }
 	  }));
+
+	  // <Clinic_single clinic={clinic} index={index}>
 	}
 
 	var clinics = [

@@ -29,17 +29,19 @@ export default function User_selections({ checked_days, set_checked_days, phone_
 	    
 	{ days_of_week.map( (day,index) => {
 
-	    	return (
-			<label key={`checkbox_label_${day}_${index}`}>
-	    		<input type="checkbox"
-                    key={`checkbox_box_${day}_${index}`}
-                    checked={checked_days[day]}
-                    onChange={() => handle_on_change(day)} />
-	    		{day}
-		    </label>
-	    	       )
+	    return (
+		    <label key={`checkbox_label_${day}_${index}`}>
+	    	    <input type="checkbox"
+                key={`checkbox_box_${day}_${index}`}
+                checked={checked_days[day]}
+                onChange={() => handle_on_change(day)} />
+	    	    {day}
+		</label>
+	    )
 
-	    } ) }
+	} ) }
+
+	    <br/>
 
 	    <label key="checkbox_label_phone">
 	    <input type="checkbox"
