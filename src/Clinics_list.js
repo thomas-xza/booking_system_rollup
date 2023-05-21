@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Clinics_list({ clinics_w_dists, checked_days, show_phone_only }) {
+export default function Clinics_list({ clinics_w_dists, checked_days, phone_show }) {
 
     const days_of_week = ["monday", "tuesday", "wednesday", "thursday", "friday" ];
 

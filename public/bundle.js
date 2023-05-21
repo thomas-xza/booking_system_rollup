@@ -8096,22 +8096,32 @@
 	      ...new_obj(day, checked_days[day])
 	    });
 	  };
-	  return /*#__PURE__*/React.createElement("div", null, days_of_week.map(day => {
-	    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("label", {
-	      key: `checkbox_label_${day}`
+	  const handle_on_change_phone = phone_show => {
+	    set_phone_show(!phone_show);
+	  };
+	  return /*#__PURE__*/React.createElement("div", null, days_of_week.map((day, index) => {
+	    return /*#__PURE__*/React.createElement("label", {
+	      key: `checkbox_label_${day}_${index}`
 	    }, /*#__PURE__*/React.createElement("input", {
 	      type: "checkbox",
-	      key: `checkbox_box_${day}`,
+	      key: `checkbox_box_${day}_${index}`,
 	      checked: checked_days[day],
 	      onChange: () => handle_on_change(day)
-	    }), day));
-	  }));
+	    }), day);
+	  }), /*#__PURE__*/React.createElement("label", {
+	    key: "checkbox_label_phone"
+	  }, /*#__PURE__*/React.createElement("input", {
+	    type: "checkbox",
+	    key: "checkbox_box_phone",
+	    checked: phone_show,
+	    onChange: () => handle_on_change_phone(phone_show)
+	  }), "Show phone appointments"));
 	}
 
 	function Clinics_list({
 	  clinics_w_dists,
 	  checked_days,
-	  show_phone_only
+	  phone_show
 	}) {
 	  console.log("Clinics_list", clinics_w_dists);
 	  return /*#__PURE__*/React.createElement(React.Fragment, null, clinics_w_dists.map(function (clinic, index) {
@@ -8417,7 +8427,7 @@
 	    "thursday": true,
 	    "friday": true
 	  });
-	  const [phone_show, set_phone_show] = reactExports.useState(false);
+	  const [phone_show, set_phone_show] = reactExports.useState(true);
 	  reactExports.useEffect(() => {
 	    if (typeof mapbox_resp.longitude !== 'undefined') {
 	      calculate_distances(mapbox_resp, clinics_w_dists, set_clinics_w_dists);
@@ -8434,7 +8444,8 @@
 	    set_phone_show: set_phone_show
 	  }), /*#__PURE__*/React.createElement(Clinics_list, {
 	    clinics_w_dists: clinics_w_dists,
-	    checked_days: checked_days
+	    checked_days: checked_days,
+	    phone_show: phone_show
 	  }));
 	}
 

@@ -18,7 +18,7 @@ export default function Booking({ form_data, booking, set_booking, set_page_flow
 							"thursday": true,
 							"friday": true });
 
-    const [phone_show, set_phone_show] = useState(false);
+    const [phone_show, set_phone_show] = useState(true);
 
     useEffect(() => {
 
@@ -46,7 +46,10 @@ export default function Booking({ form_data, booking, set_booking, set_page_flow
 	set_phone_show={set_phone_show}
 	    />
 
-	    <Clinics_list clinics_w_dists={clinics_w_dists} checked_days={checked_days} />
+	    <Clinics_list
+	clinics_w_dists={clinics_w_dists}
+	checked_days={checked_days}
+	phone_show={phone_show}/>
 	
 	</div>
     );
