@@ -56,14 +56,16 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
     return (
 	    <>
 
+	<h1>Confirmation</h1>
+
 	    <strong>Input date & time here:</strong><br/>
 	    <textarea className="oneline" value={appt_time} onChange={(e) => {
 		handle_time_change(e)
-	    }}/><br/>
+	    }}/><br/><br/>
 	    
 	<strong>For calendar:</strong><br/>
 
-	    <pre>{gen_cal_entry(appt_time)}</pre><br/>
+	    <pre>{gen_cal_entry(appt_time)}</pre>
 	    <button className="medium">Add to calendar</button>
 	    <button className="medium"
 	onClick={() => {navigator.clipboard.writeText(gen_cal_entry(appt_time))}}>
@@ -73,14 +75,12 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 
 	<strong>For text to client:</strong><br/>
 
-
+	    <pre>{gen_sms_msg(appt_time)}</pre>
+	    <button className="medium">Send this SMS via Vonage</button><br/>
 	    <button className="medium"
 	onClick={() => {navigator.clipboard.writeText(form_data.phone) }}>
 	    Copy {form_data.phone} to clipboard (for Google Messages)
 	</button>
-
-	    <pre>{gen_sms_msg(appt_time)}</pre>
-	    <button className="medium">Send this SMS via Vonage</button>
 	    <button className="medium"
 	onClick={() => {navigator.clipboard.writeText(gen_sms_msg(appt_time)) }}>
 	    Copy SMS to clipboard (for Google Messages)
@@ -89,7 +89,7 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 
 	<strong>For spreadsheet:</strong><br/>
 
-	    <pre>{gen_csv_entry(appt_time)}</pre><br/>
+	    <pre>{gen_csv_entry(appt_time)}</pre>
 	    <button className="medium"
 	onClick={() => {navigator.clipboard.writeText(gen_csv_entry(appt_time)) }}>
 	    Copy entry to clipboard

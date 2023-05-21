@@ -34,7 +34,7 @@ export default function Booking({ form_data, booking, set_booking, set_page_flow
 	    <div>
 	    
 	    <h1>Booking selection</h1>
-	    
+
 	    <Mapbox postcode={form_data.postcode}
 	mapbox_resp={mapbox_resp}
 	set_mapbox_resp={set_mapbox_resp}
@@ -46,6 +46,10 @@ export default function Booking({ form_data, booking, set_booking, set_page_flow
 	set_phone_show={set_phone_show}
 	    />
 
+	    <br/>
+
+	<strong>Ordered by closest first...</strong><br/><br/>
+	    
 	    <Clinics_list
 	clinics_w_dists={clinics_w_dists}
 	checked_days={checked_days}

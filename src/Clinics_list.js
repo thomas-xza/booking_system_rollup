@@ -16,13 +16,15 @@ export default function Clinics_list({ clinics_w_dists, checked_days, phone_show
 		if ( (clinic.longitude === 0 && phone_show === true)
 		     || (clinic.longitude !== 0 ) ) {
 
-		    return <Clinic_single
+		    return (<>
+			<Clinic_single
 		    clinic={clinic}
 		    index={index}
 		    set_booking={set_booking}
 		    set_page_flow={set_page_flow}
 		    key={index}
-		    />
+			/><br/>
+			    </>)
 		    
 		}
 

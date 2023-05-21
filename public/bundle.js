@@ -8155,13 +8155,13 @@
 	  return /*#__PURE__*/React.createElement(React.Fragment, null, clinics_w_dists.map(function (clinic, index) {
 	    if (checked_days[clinic.day_of_week] === true) {
 	      if (clinic.longitude === 0 && phone_show === true || clinic.longitude !== 0) {
-	        return /*#__PURE__*/React.createElement(Clinic_single, {
+	        return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Clinic_single, {
 	          clinic: clinic,
 	          index: index,
 	          set_booking: set_booking,
 	          set_page_flow: set_page_flow,
 	          key: index
-	        });
+	        }), /*#__PURE__*/React.createElement("br", null));
 	      }
 	    }
 	  }));
@@ -8523,7 +8523,7 @@
 	    set_checked_days: set_checked_days,
 	    phone_show: phone_show,
 	    set_phone_show: set_phone_show
-	  }), /*#__PURE__*/React.createElement(Clinics_list, {
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Ordered by closest first..."), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Clinics_list, {
 	    clinics_w_dists: clinics_w_dists,
 	    checked_days: checked_days,
 	    phone_show: phone_show,
@@ -8575,32 +8575,32 @@
 	      set_appt_time(e.target.value);
 	    }
 	  };
-	  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("strong", null, "Input date & time here:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
+	  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Confirmation"), /*#__PURE__*/React.createElement("strong", null, "Input date & time here:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
 	    className: "oneline",
 	    value: appt_time,
 	    onChange: e => {
 	      handle_time_change(e);
 	    }
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "For calendar:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_cal_entry()), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "For calendar:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_cal_entry()), /*#__PURE__*/React.createElement("button", {
 	    className: "medium"
 	  }, "Add to calendar"), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      navigator.clipboard.writeText(gen_cal_entry());
 	    }
-	  }, "Copy calendar entry to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "For text to client:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	  }, "Copy calendar entry to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "For text to client:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_sms_msg(appt_time)), /*#__PURE__*/React.createElement("button", {
+	    className: "medium"
+	  }, "Send this SMS via Vonage"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      navigator.clipboard.writeText(form_data.phone);
 	    }
-	  }, "Copy ", form_data.phone, " to clipboard (for Google Messages)"), /*#__PURE__*/React.createElement("pre", null, gen_sms_msg(appt_time)), /*#__PURE__*/React.createElement("button", {
-	    className: "medium"
-	  }, "Send this SMS via Vonage"), /*#__PURE__*/React.createElement("button", {
+	  }, "Copy ", form_data.phone, " to clipboard (for Google Messages)"), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      navigator.clipboard.writeText(gen_sms_msg(appt_time));
 	    }
-	  }, "Copy SMS to clipboard (for Google Messages)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "For spreadsheet:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_csv_entry(appt_time)), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	  }, "Copy SMS to clipboard (for Google Messages)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "For spreadsheet:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_csv_entry(appt_time)), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      navigator.clipboard.writeText(gen_csv_entry(appt_time));

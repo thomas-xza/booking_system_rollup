@@ -27,7 +27,13 @@ animate ellipse javascript
   }
 }
 
-pre, textarea {
+body {
+
+    line-height: 2em;
+
+}
+
+textarea {
 
     font-size: 1.6em;
 
@@ -35,13 +41,14 @@ pre, textarea {
 
 pre {
 
+    font-size: 1.3em;
     background-color: #EEEEEE;
+    margin:0;
 
 }
 
 button {
 
-    font-size: 1.25em;
     font-family: serif;
 
 }
