@@ -43,7 +43,13 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 
     const handle_time_change = (e) => {
 
-	set_appt_time(e.target.value)
+	if (e.target.value === "") {
+
+	    set_appt_time("DATE & TIME HERE")
+
+	} else {
+
+	    set_appt_time(e.target.value) }
 
     }
 
@@ -55,39 +61,38 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 		handle_time_change(e)
 	    }}/><br/>
 	    
-	For calendar:<br/>
+	<strong>For calendar:</strong><br/>
 
-	    <textarea className="oneline" value={gen_cal_entry(appt_time)}/><br/>
+	    <pre>{gen_cal_entry(appt_time)}</pre><br/>
 	    <button className="medium">Add to calendar</button>
 	    <button className="medium"
 	onClick={() => {navigator.clipboard.writeText(gen_cal_entry(appt_time))}}>
-	    Copy to clipboard
+	    Copy calendar entry to clipboard
 	</button>	    
 	    <br/><br/>
 
-	For text to client:<br/>
+	<strong>For text to client:</strong><br/>
 
 
-	    <textarea className="oneline" value={form_data.phone}/><br/>
 	    <button className="medium"
 	onClick={() => {navigator.clipboard.writeText(form_data.phone) }}>
-	    Copy to clipboard (for Google Messages)
+	    Copy {form_data.phone} to clipboard (for Google Messages)
 	</button>
 
-	    <textarea className="sms" value={gen_sms_msg(appt_time)}/><br/>
-	    <button className="medium">Send text via Vonage</button>
+	    <pre>{gen_sms_msg(appt_time)}</pre>
+	    <button className="medium">Send this SMS via Vonage</button>
 	    <button className="medium"
 	onClick={() => {navigator.clipboard.writeText(gen_sms_msg(appt_time)) }}>
-	    Copy to clipboard (for Google Messages)
+	    Copy SMS to clipboard (for Google Messages)
 	</button>	    
 	    <br/><br/>
 
-	For spreadsheet:<br/>
+	<strong>For spreadsheet:</strong><br/>
 
-	    <textarea className="oneline" value={gen_csv_entry(appt_time)}/><br/>
+	    <pre>{gen_csv_entry(appt_time)}</pre><br/>
 	    <button className="medium"
 	onClick={() => {navigator.clipboard.writeText(gen_csv_entry(appt_time)) }}>
-	    Copy to clipboard
+	    Copy entry to clipboard
 	</button>	    
 
 	    <br/><br/>

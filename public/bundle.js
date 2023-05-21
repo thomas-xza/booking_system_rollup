@@ -8569,7 +8569,11 @@
 <li>If the clinics change there is not *yet* a user-friendly way to update them on this website</li>
 <br/><br/><br/><br/><br/>`;
 	  const handle_time_change = e => {
-	    set_appt_time(e.target.value);
+	    if (e.target.value === "") {
+	      set_appt_time("DATE & TIME HERE");
+	    } else {
+	      set_appt_time(e.target.value);
+	    }
 	  };
 	  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("strong", null, "Input date & time here:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
 	    className: "oneline",
@@ -8577,43 +8581,31 @@
 	    onChange: e => {
 	      handle_time_change(e);
 	    }
-	  }), /*#__PURE__*/React.createElement("br", null), "For calendar:", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
-	    className: "oneline",
-	    value: gen_cal_entry()
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "For calendar:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_cal_entry()), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
 	    className: "medium"
 	  }, "Add to calendar"), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      navigator.clipboard.writeText(gen_cal_entry());
 	    }
-	  }, "Copy to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), "For text to client:", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
-	    className: "oneline",
-	    value: form_data.phone
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	  }, "Copy calendar entry to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "For text to client:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      navigator.clipboard.writeText(form_data.phone);
 	    }
-	  }, "Copy to clipboard (for Google Messages)"), /*#__PURE__*/React.createElement("textarea", {
-	    className: "sms",
-	    value: gen_sms_msg(appt_time)
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	  }, "Copy ", form_data.phone, " to clipboard (for Google Messages)"), /*#__PURE__*/React.createElement("pre", null, gen_sms_msg(appt_time)), /*#__PURE__*/React.createElement("button", {
 	    className: "medium"
-	  }, "Send text via Vonage"), /*#__PURE__*/React.createElement("button", {
+	  }, "Send this SMS via Vonage"), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      navigator.clipboard.writeText(gen_sms_msg(appt_time));
 	    }
-	  }, "Copy to clipboard (for Google Messages)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), "For spreadsheet:", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
-	    className: "oneline",
-	    value: gen_csv_entry(appt_time)
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	  }, "Copy SMS to clipboard (for Google Messages)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "For spreadsheet:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_csv_entry(appt_time)), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      navigator.clipboard.writeText(gen_csv_entry(appt_time));
 	    }
-	  }, "Copy to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
+	  }, "Copy entry to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
 	    dangerouslySetInnerHTML: {
 	      __html: closing_comment
 	    }

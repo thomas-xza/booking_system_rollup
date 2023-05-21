@@ -27,29 +27,29 @@ animate ellipse javascript
   }
 }
 
+pre, textarea {
+
+    font-size: 1.6em;
+
+}
+
+pre {
+
+    background-color: #EEEEEE;
+
+}
+
+button {
+
+    font-size: 1.25em;
+    font-family: serif;
+
+}
+
 textarea {
     
     width: 98%;
-    font-size: 2em;
+    height: 1.25em;
+    font-size: 1.25em;
     
-}
-
-textarea.oneline {
-
-    height: 1.4em;
-
-}
-
-textarea.sms {
-
-    height: 20em;
-
-}
-
-button.medium {
-
-    height: 2em;
-    width: 25em;
-    font-size: 1em;
-
 }
