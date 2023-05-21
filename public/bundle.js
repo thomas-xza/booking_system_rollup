@@ -8026,7 +8026,11 @@
 	  set_mapbox_resp
 	}) {
 	  if (typeof mapbox_resp.longitude !== 'undefined') {
-	    return JSON.stringify(mapbox_resp);
+	    // return (
+	    //     JSON.stringify(mapbox_resp)
+	    // )
+
+	    console.log(mapbox_resp);
 	  } else {
 	    load_distances(postcode, mapbox_resp, set_mapbox_resp);
 	    return /*#__PURE__*/React.createElement("div", {
@@ -8074,41 +8078,34 @@
 	  } catch {}
 	}
 
+	function new_obj(key_name, prev_boolean) {
+	  return {
+	    [key_name]: !prev_boolean
+	  };
+	}
 	function User_selections({
 	  checked_days,
 	  set_checked_days,
 	  phone_show,
 	  set_phone_show
 	}) {
-	  const handle_on_change = position => {
-	    set_checked_days(checked_days.map((item, index) => index === position ? !item : item));
+	  const days_of_week = ["monday", "tuesday", "wednesday", "thursday", "friday"];
+	  const handle_on_change = day => {
+	    set_checked_days({
+	      ...checked_days,
+	      ...new_obj(day, checked_days[day])
+	    });
 	  };
-	  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("input", {
-	    type: "checkbox",
-	    key: "checked_day_0",
-	    checked: checked_days[0],
-	    onChange: () => handle_on_change(0)
-	  }), "Monday", /*#__PURE__*/React.createElement("input", {
-	    type: "checkbox",
-	    key: "checked_day_1",
-	    checked: checked_days[1],
-	    onChange: () => handle_on_change(1)
-	  }), "Tuesday", /*#__PURE__*/React.createElement("input", {
-	    type: "checkbox",
-	    key: "checked_day_2",
-	    checked: checked_days[2],
-	    onChange: () => handle_on_change(2)
-	  }), "Wednesday", /*#__PURE__*/React.createElement("input", {
-	    type: "checkbox",
-	    key: "checked_day_3",
-	    checked: checked_days[3],
-	    onChange: () => handle_on_change(3)
-	  }), "Thursday", /*#__PURE__*/React.createElement("input", {
-	    type: "checkbox",
-	    key: "checked_day_4",
-	    checked: checked_days[4],
-	    onChange: () => handle_on_change(4)
-	  }), "Friday");
+	  return /*#__PURE__*/React.createElement("div", null, days_of_week.map(day => {
+	    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("label", {
+	      key: `checkbox_label_${day}`
+	    }, /*#__PURE__*/React.createElement("input", {
+	      type: "checkbox",
+	      key: `checkbox_box_${day}`,
+	      checked: checked_days[day],
+	      onChange: () => handle_on_change(day)
+	    }), day));
+	  }));
 	}
 
 	function Clinics_list({
@@ -8117,15 +8114,19 @@
 	  show_phone_only
 	}) {
 	  console.log("Clinics_list", clinics_w_dists);
-	  return clinics_w_dists.map((clinic, index) => {
-	    return /*#__PURE__*/React.createElement("li", {
-	      key: `clinic_${index}`
-	    }, clinic.title, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", {
-	      key: `clinic_${index}_dist`
-	    }, clinic.distance, " km"), /*#__PURE__*/React.createElement("li", {
-	      key: `clinic_${index}_time`
-	    }, clinic.time_start, " - ", clinic.time_end)));
-	  });
+	  return /*#__PURE__*/React.createElement(React.Fragment, null, clinics_w_dists.map(function (clinic, index) {
+	    if (checked_days[clinic.day_of_week] === true) {
+	      return /*#__PURE__*/React.createElement("li", {
+	        key: `clinic_${index}`
+	      }, clinic.title, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", {
+	        key: `clinic_${index}_advisor`
+	      }, clinic.advisor), /*#__PURE__*/React.createElement("li", {
+	        key: `clinic_${index}_dist`
+	      }, clinic.distance, " km"), /*#__PURE__*/React.createElement("li", {
+	        key: `clinic_${index}_time`
+	      }, clinic.day_of_week, " ", clinic.time_start, " - ", clinic.time_end)));
+	    }
+	  }));
 	}
 
 	var clinics = [
@@ -8409,7 +8410,13 @@
 	}) {
 	  const [mapbox_resp, set_mapbox_resp] = reactExports.useState({});
 	  const [clinics_w_dists, set_clinics_w_dists] = reactExports.useState([]);
-	  const [checked_days, set_checked_days] = reactExports.useState(new Array(5).fill(true));
+	  const [checked_days, set_checked_days] = reactExports.useState({
+	    "monday": true,
+	    "tuesday": true,
+	    "wednesday": true,
+	    "thursday": true,
+	    "friday": true
+	  });
 	  const [phone_show, set_phone_show] = reactExports.useState(false);
 	  reactExports.useEffect(() => {
 	    if (typeof mapbox_resp.longitude !== 'undefined') {

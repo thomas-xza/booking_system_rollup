@@ -4,9 +4,9 @@ export default function Mapbox({ postcode, mapbox_resp, set_mapbox_resp }) {
     
     if (typeof mapbox_resp.longitude !== 'undefined') {
 	
-	return (
-	    JSON.stringify(mapbox_resp)
-	)
+	// return (
+	//     JSON.stringify(mapbox_resp)
+	// )
 
 	console.log(mapbox_resp);	
 	

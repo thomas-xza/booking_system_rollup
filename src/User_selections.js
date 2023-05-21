@@ -22,16 +22,17 @@ export default function User_selections({ checked_days, set_checked_days, phone_
 
 	    <div>{ days_of_week.map( (day) => {
 
-		return (
-			<>
-			<input type="checkbox"
-                    key={`checkbox_${day}`}
+	    	return (
+	    		<>
+			<label key={`checkbox_label_${day}`}>
+	    		<input type="checkbox"
+                    key={`checkbox_box_${day}`}
                     checked={checked_days[day]}
                     onChange={() => handle_on_change(day)} />
-			
-			<label>{day}</label>
-			</>
-		       )
+	    		{day}
+		    </label>
+	    		</>
+	    	       )
 
 	    } ) }</div>
 

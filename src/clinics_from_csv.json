@@ -1,6 +1,4 @@
-{ 	"name": "rollup-tutorial",
-	"version": "1.0.0",
-	"clinics":[
+{ 	"clinics":[
     {
 	"title": "Telephone",
 	"alt_title": "",
