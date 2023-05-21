@@ -8177,7 +8177,6 @@
 			time_end: 1330,
 			postcode: "",
 			address: [
-				"This is a telephone appointment."
 			],
 			latitude: 0,
 			longitude: 0,
@@ -8289,7 +8288,6 @@
 			time_end: 1330,
 			postcode: "",
 			address: [
-				"This is a telephone appointment."
 			],
 			latitude: 0,
 			longitude: 0,
@@ -8353,7 +8351,6 @@
 			time_end: 1100,
 			postcode: "",
 			address: [
-				"This is a telephone appointment."
 			],
 			latitude: 0,
 			longitude: 0,
@@ -8385,7 +8382,6 @@
 			time_end: 1700,
 			postcode: "",
 			address: [
-				"This is a telephone appointment."
 			],
 			latitude: 0,
 			longitude: 0,
@@ -8547,26 +8543,77 @@
 	  booking,
 	  set_page_flow
 	}) {
-	  console.log(booking);
-	  const calendar_entry = form_data.name + " - " + form_data.phone;
-	  if (booking.longitude !== 0) {
-	    [booking.title, ...booking.address, booking.postcode];
-	  }
-	  const text_msg = ["Hi there. Thanks for talking with me. Your appointment details follow", "\nTime:", "", "\nAdvisor:", booking.advisor, "\nLocation", ...full_addr, "\nKing regards", "Lewisham Stop Smoking Service"].join("\n");
-	  const spreadsheet_entry = booking.title.split(" ")[0] + ",  , " + title_case(booking.advisor);
-	  const closing_comment = `OK here are the catches: <br/>
+	  const [appt_time, set_appt_time] = reactExports.useState("DATE & TIME HERE");
+	  const gen_cal_entry = () => {
+	    if (booking.longitude === 0) {
+	      return "Phone" + form_data.name + " - " + form_data.phone;
+	    }
+	    return form_data.name + "(F2F) - " + form_data.phone;
+	  };
+	  const full_addr = [booking.title, ...booking.address, booking.postcode].filter(el => {
+	    return el;
+	  });
+	  const gen_sms_msg = appt_time => {
+	    return ["Hi there. Thanks for talking with me. Your appointment details follow.\n", "Time: ", `${title_case(booking.day_of_week)} ${appt_time} \n`, "Advisor:", title_case(booking.advisor), "\nLocation", ...full_addr, "\nKing regards", "Lewisham Stop Smoking Service"].join("\n");
+	  };
+	  const gen_csv_entry = appt_time => {
+	    return `${booking.title.split(" ")[0]}, ${appt_time}, ${title_case(booking.advisor)}`;
+	  };
+	  const closing_comment = `<strong>OK here are the catches:</strong> <br/>
 	    <ul>
-	   <li> Can only get 'Add to calendar' to work if NHS
+	   <li> "Add to calendar" will only work if NHS
 	change to use <a href="https://learn.microsoft.com/en-us/graph/api/resources/calendar?view=graph-rest-1.0&preserve-view=true">the latest Microsoft JSON API</a> (could be a long time, NHS is currently on the
 <a href="https://digital.nhs.uk/developer/api-catalogue/nhsmail">Exchange API</a> which is <a href="https://github.com/OfficeDev/ews-managed-api">almost deprecated</a>) or if all LSSS staff move to <a href="https://developers.google.com/calendar/api/guides/overview">Google calendar</a> until then</li>
-<li>"Send text via Vonage" will only work if someone gives me a credit card to <a href="https://www.vonage.co.uk/communications-apis/sms/pricing/">pay the fees</a></li>`;
-	  return /*#__PURE__*/React.createElement(React.Fragment, null, "For calendar:", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
-	    value: calendar_entry
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", null, "Add to calendar"), /*#__PURE__*/React.createElement("button", null, "Copy to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), "For text to client:", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
-	    value: text_msg
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", null, "Send text via Vonage"), /*#__PURE__*/React.createElement("button", null, "Copy to clipboard (for Google Messages)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), "For spreadsheet:", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
-	    value: spreadsheet_entry
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", null, "Copy to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
+<li>It would also be possible to actually show only available appointments and select from them if something could be done about the calendar</li>
+<li>"Send text via Vonage" will only work if someone gives me a credit card to <a href="https://www.vonage.co.uk/communications-apis/sms/pricing/">pay the fees</a></li>
+<li>If the clinics change there is not *yet* a user-friendly way to update them on this website</li>
+<br/><br/><br/><br/><br/>`;
+	  const handle_time_change = e => {
+	    set_appt_time(e.target.value);
+	  };
+	  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("strong", null, "Input date & time here:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
+	    className: "oneline",
+	    value: appt_time,
+	    onChange: e => {
+	      handle_time_change(e);
+	    }
+	  }), /*#__PURE__*/React.createElement("br", null), "For calendar:", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
+	    className: "oneline",
+	    value: gen_cal_entry()
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	    className: "medium"
+	  }, "Add to calendar"), /*#__PURE__*/React.createElement("button", {
+	    className: "medium",
+	    onClick: () => {
+	      navigator.clipboard.writeText(gen_cal_entry());
+	    }
+	  }, "Copy to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), "For text to client:", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
+	    className: "oneline",
+	    value: form_data.phone
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	    className: "medium",
+	    onClick: () => {
+	      navigator.clipboard.writeText(form_data.phone);
+	    }
+	  }, "Copy to clipboard (for Google Messages)"), /*#__PURE__*/React.createElement("textarea", {
+	    className: "sms",
+	    value: gen_sms_msg(appt_time)
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	    className: "medium"
+	  }, "Send text via Vonage"), /*#__PURE__*/React.createElement("button", {
+	    className: "medium",
+	    onClick: () => {
+	      navigator.clipboard.writeText(gen_sms_msg(appt_time));
+	    }
+	  }, "Copy to clipboard (for Google Messages)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), "For spreadsheet:", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
+	    className: "oneline",
+	    value: gen_csv_entry(appt_time)
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	    className: "medium",
+	    onClick: () => {
+	      navigator.clipboard.writeText(gen_csv_entry(appt_time));
+	    }
+	  }, "Copy to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
 	    dangerouslySetInnerHTML: {
 	      __html: closing_comment
 	    }

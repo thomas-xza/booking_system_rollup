@@ -26,3 +26,30 @@ animate ellipse javascript
     width: 1.25em;    
   }
 }
+
+textarea {
+    
+    width: 98%;
+    font-size: 2em;
+    
+}
+
+textarea.oneline {
+
+    height: 1.4em;
+
+}
+
+textarea.sms {
+
+    height: 20em;
+
+}
+
+button.medium {
+
+    height: 2em;
+    width: 25em;
+    font-size: 1em;
+
+}
