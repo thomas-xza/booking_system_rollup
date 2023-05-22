@@ -40,12 +40,12 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 <li>"Send text via Vonage" will only work if someone gives me a credit card to <a href="https://www.vonage.co.uk/communications-apis/sms/pricing/">pay the fees</a></li>
 <li>If the clinics change there is not *yet* a user-friendly way to update them on this website</li>
 </ul>
-<br/><br/>
+<br/>
 
-<h3>Potential improvements:</h3><br/>
+<h3>Potential improvements:</h3>
 <ul>
 <li>After entering someone's details the 1st time, it could be stored within the browser (localStorage) on the computer, making selection possible, for the same person, next time</li>
-<li>It should be possible to change the set of clinics (currently hardcoded) when the applications loads, such as with a user-friendly file (.csv) that can be edited in Excel.</li>
+<li>It should be possible to change the set of clinics (currently hardcoded) early on, such as by uploading a user-friendly file (.csv) that can be edited in Excel.</li>
 </ul>
 <br/><br/><br/><br/><br/>
 `;
