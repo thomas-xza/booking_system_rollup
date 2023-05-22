@@ -46,9 +46,9 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
     
     return (
 
-	    <h1>Client/patient entry</h1>
-	    
 	    <div className="form">
+	    
+	    <h1>Client/patient entry</h1>
 	    
 	    <label>Name:</label>
 
@@ -78,7 +78,6 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 		<div class="loading">Awaiting your inputs</div>
 		
 	    }
-
 
 	</div>
    );
