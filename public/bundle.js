@@ -8017,7 +8017,12 @@
 	    onClick: handle_confirm
 	  }, "Find appointment") : /*#__PURE__*/React.createElement("div", {
 	    class: "loading"
-	  }, "Awaiting your inputs"));
+	  }, "Awaiting your inputs"), /*#__PURE__*/React.createElement("button", {
+	    className: "medium",
+	    onClick: () => {
+	      alert("Unless NHS update to a newer (more programmable) version of Outlook online, or LSSS move to a Google calendar, this button won't do anything - see 'Issues' at bottom of page.");
+	    }
+	  }));
 	}
 
 	function Mapbox({
