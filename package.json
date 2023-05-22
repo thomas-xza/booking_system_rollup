@@ -1,7 +1,8 @@
 {
     "main": "index.js",
     "scripts": {
-        "build": "rollup -c -w",
+        "build": "rollup -c",
+        "autobuild": "rollup -c -w",
         "test": "jest",
         "serve": "serve ./public",
         "serve_py": "python3 -m http.server -d public/"
