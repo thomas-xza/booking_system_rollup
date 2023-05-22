@@ -75,7 +75,10 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 	<strong>For calendar:</strong><br/>
 
 	    <pre>{gen_cal_entry(appt_time)}</pre>
-	    <button className="medium">Add to calendar</button>
+	    <button className="medium"
+	onClick={alert("Unless NHS update to a newer (more programmable) version of Outlook online, or LSSS move to a Google calendar, this button won't do anything - see 'Issues' at bottom of page.")}>
+	    Add to calendar
+	</button>
 	    <button className="medium"
 	onClick={() => {navigator.clipboard.writeText(gen_cal_entry(appt_time))}}>
 	    Copy calendar entry to clipboard
@@ -85,7 +88,9 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 	<strong>For text to client:</strong><br/>
 
 	    <pre>{gen_sms_msg(appt_time)}</pre>
-	    <button className="medium">Send this SMS via Vonage</button><br/>
+	    <button className="medium"
+	    onClick={alert("If someone gives me a credit card I can make this button work! $0.0446 per message as of May 2023.")}>
+	    Send this SMS via Vonage</button><br/>
 	    <button className="medium"
 	onClick={() => {navigator.clipboard.writeText(form_data.phone) }}>
 	    Copy {form_data.phone} to clipboard (for Google Messages)
