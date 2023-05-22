@@ -8017,12 +8017,7 @@
 	    onClick: handle_confirm
 	  }, "Find appointment") : /*#__PURE__*/React.createElement("div", {
 	    class: "loading"
-	  }, "Awaiting your inputs"), /*#__PURE__*/React.createElement("button", {
-	    className: "medium",
-	    onClick: () => {
-	      alert("Unless NHS update to a newer (more programmable) version of Outlook online, or LSSS move to a Google calendar, this button won't do anything - see 'Issues' at bottom of page.");
-	    }
-	  }));
+	  }, "Awaiting your inputs"));
 	}
 
 	function Mapbox({
@@ -8597,9 +8592,9 @@
 	    }
 	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "For calendar:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_cal_entry()), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
-	    onClick: alert(() => {
-	      "Unless NHS update to a newer (more programmable) version of Outlook online, or LSSS move to a Google calendar, this button won't do anything - see 'Issues' at bottom of page.";
-	    })
+	    onClick: () => {
+	      alert("Unless NHS update to a newer (more programmable) version of Outlook online, or LSSS move to a Google calendar, this button won't do anything - see 'Issues' at bottom of page.");
+	    }
 	  }, "Add to calendar"), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
@@ -8607,9 +8602,9 @@
 	    }
 	  }, "Copy calendar entry to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "For text to client:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_sms_msg(appt_time)), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
-	    onClick: alert(() => {
-	      "If someone gives me a credit card I can make this button work! $0.0446 per message as of May 2023.";
-	    })
+	    onClick: () => {
+	      alert("If someone gives me a credit card I can make this button work! $0.0446 per message as of May 2023.");
+	    }
 	  }, "Send this SMS via Vonage"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
