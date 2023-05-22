@@ -49,6 +49,11 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	    <div className="form">
 	    
 	    <h1>Client/patient entry</h1>
+
+	Here is some bogus info for testing purposes (copy and paste):<br/>
+	    John<br/>
+	    07777777777<br/>
+	    SE13 7RY<br/>
 	    
 	    <label>Name:</label>
 

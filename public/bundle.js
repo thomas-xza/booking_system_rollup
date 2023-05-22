@@ -8004,7 +8004,7 @@
 	  }, [form_data]);
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "form"
-	  }, /*#__PURE__*/React.createElement("h1", null, "Client/patient entry"), /*#__PURE__*/React.createElement("label", null, "Name:"), /*#__PURE__*/React.createElement("input", {
+	  }, /*#__PURE__*/React.createElement("h1", null, "Client/patient entry"), "Here is some bogus info for testing purposes (copy and paste):", /*#__PURE__*/React.createElement("br", null), "John", /*#__PURE__*/React.createElement("br", null), "07777777777", /*#__PURE__*/React.createElement("br", null), "SE13 7RY", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Name:"), /*#__PURE__*/React.createElement("input", {
 	    value: form_data.name,
 	    onChange: handle_name
 	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Phone:"), /*#__PURE__*/React.createElement("input", {
