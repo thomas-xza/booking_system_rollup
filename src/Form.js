@@ -83,7 +83,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 		<div class="loading">Awaiting your inputs</div>
 		
 	    }
-
+	
 	</div>
    );
 }
