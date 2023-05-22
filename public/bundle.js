@@ -8613,14 +8613,8 @@
 	}
 
 	function App() {
-	  const [page_flow, set_page_flow] = reactExports.useState(2);
-	  const [form_data, set_form_data] = reactExports.useState({
-	    name: "",
-	    phone: "07777777777",
-	    phone_valid: 0,
-	    postcode: "SE10 9NF",
-	    postcode_valid: 0
-	  });
+	  const [page_flow, set_page_flow] = reactExports.useState(1);
+	  const [form_data, set_form_data] = reactExports.useState({});
 	  const [booking, set_booking] = reactExports.useState();
 	  switch (page_flow) {
 	    case 0:

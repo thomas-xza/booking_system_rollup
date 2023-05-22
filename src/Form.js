@@ -45,7 +45,10 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
     },[form_data]);
     
     return (
-	<div className="form">
+
+	    <h1>Client/patient entry</h1>
+	    
+	    <div className="form">
 	    
 	    <label>Name:</label>
 
