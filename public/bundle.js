@@ -8192,7 +8192,7 @@
 			time_end: 1700,
 			postcode: "SE8 3QH",
 			address: [
-				""
+				"Windlass Place"
 			],
 			latitude: 51.48995,
 			longitude: -0.03526,
@@ -8208,7 +8208,8 @@
 			time_end: 1600,
 			postcode: "SE6 4JU",
 			address: [
-				"Catford Library"
+				"Catford Centre",
+				"23-24 Winslade Way"
 			],
 			latitude: 51.445868,
 			longitude: -0.020799,
@@ -8224,7 +8225,7 @@
 			time_end: 1400,
 			postcode: "SE6 3JB",
 			address: [
-				""
+				"24 Bellingham Green"
 			],
 			latitude: 51.430378,
 			longitude: -0.02426,
@@ -8240,7 +8241,8 @@
 			time_end: 1400,
 			postcode: "SE6 4JH",
 			address: [
-				""
+				"1st floor (upstairs)",
+				"Hawstead Road"
 			],
 			latitude: 51.449319,
 			longitude: -0.018045,
@@ -8248,7 +8250,7 @@
 			url: "https://www.nhs.uk/services/gp-surgery/novum-health-partnership-rushey-green-group-practice/G85633"
 		},
 		{
-			title: "University Hospital Lewisham",
+			title: "UHL Lewisham Hospital",
 			alt_title: "",
 			advisor: "birsel",
 			day_of_week: "tuesday",
@@ -8256,7 +8258,12 @@
 			time_end: 1700,
 			postcode: "SE13 6LH",
 			address: [
-				""
+				"Room 7",
+				"Suite 8",
+				"Pink Zone",
+				"1st Floor",
+				"UHL Lewisham Hospital",
+				"Lewisham High Street"
 			],
 			latitude: 51.454023,
 			longitude: -0.017942,
@@ -8272,7 +8279,7 @@
 			time_end: 1900,
 			postcode: "BR1 5EP",
 			address: [
-				""
+				"7-9 Moorside Rd"
 			],
 			latitude: 51.426849,
 			longitude: 0.00981,
@@ -8303,7 +8310,7 @@
 			time_end: 1400,
 			postcode: "SE6 2SS",
 			address: [
-				""
+				"50 Conisbrough Crescent"
 			],
 			latitude: 51.429997,
 			longitude: -0.013458,
@@ -8319,7 +8326,8 @@
 			time_end: 1500,
 			postcode: "SE8 4RJ",
 			address: [
-				""
+				"Deptford Lounge",
+				"9 Griffin Street"
 			],
 			latitude: 51.477479,
 			longitude: -0.023593,
@@ -8335,7 +8343,7 @@
 			time_end: 1700,
 			postcode: "SE23 1HU",
 			address: [
-				""
+				"201 Stansted Road"
 			],
 			latitude: 51.442387,
 			longitude: -0.041139,
@@ -8366,7 +8374,8 @@
 			time_end: 1700,
 			postcode: "SE12 8NP",
 			address: [
-				""
+				"Lee Health Centre",
+				"2 Handen Road"
 			],
 			latitude: 51.452782,
 			longitude: 0.009913,
@@ -8413,7 +8422,7 @@
 			time_end: 1430,
 			postcode: "BR1 5EP",
 			address: [
-				""
+				"7-9 Moorside Rd"
 			],
 			latitude: 51.426054,
 			longitude: 0.012947,
@@ -8429,7 +8438,7 @@
 			time_end: 1600,
 			postcode: "SE4 1JN",
 			address: [
-				""
+				"172 Adelaide Avenue"
 			],
 			latitude: 51.456803,
 			longitude: -0.024011,
@@ -8445,7 +8454,10 @@
 			time_end: 1630,
 			postcode: "SE14 6LD",
 			address: [
-				""
+				"Room 201, next to Suite 7",
+				"(at the top of the stairs, go left)",
+				"2nd floor",
+				"131 Amersham Vale"
 			],
 			latitude: 51.476288,
 			longitude: -0.03191,
@@ -8453,7 +8465,7 @@
 			url: "https://www.nhs.uk/services/service-directory/waldron-health-centre/N10876025"
 		},
 		{
-			title: "University Hospital Lewisham",
+			title: "UHL Lewisham Hospital",
 			alt_title: "",
 			advisor: "maria",
 			day_of_week: "friday",
@@ -8461,7 +8473,12 @@
 			time_end: 1600,
 			postcode: "SE13 6LH",
 			address: [
-				""
+				"Room 7",
+				"Suite 8",
+				"Pink Zone",
+				"1st Floor",
+				"Lewisham Hospital",
+				"Lewisham High Street"
 			],
 			latitude: 51.453023,
 			longitude: -0.017942,
