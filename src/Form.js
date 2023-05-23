@@ -14,7 +14,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
     const handle_phone = (e) => {
 
 	set_form_data({ ...form_data,
-			phone: e.target.value,
+			phone: e.target.value.replace("\t", " "),
 			phone_valid: validate_phone(e.target.value) });
 
     }
@@ -59,14 +59,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
 	    <input value={form_data.name} onChange={handle_name}>
 	    </input><br/>
-	    
-	    <label>Phone:</label>
 
-	    <input value={form_data.phone} onChange={handle_phone}>
-	    </input>
-	    {form_data.phone_valid === 0 && <em>(awaiting valid input)</em>}
-	    <br/>
-	    
 	    <label>Postcode:</label>
 	    
 	    <input value={form_data.postcode} onChange={handle_postcode}>
@@ -74,6 +67,13 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	    {form_data.postcode_valid === 0 && <em>(awaiting valid input)</em>}
 	    <br/>
 
+	    <label>Phone:</label>
+
+	    <input value={form_data.phone} onChange={handle_phone}>
+	    </input>
+	    {form_data.phone_valid === 0 && <em>(awaiting valid input)</em>}
+	    <br/>
+	    
 	    {
 		form_data.postcode_valid === 1 &&
 		    form_data.phone_valid === 1 ?
