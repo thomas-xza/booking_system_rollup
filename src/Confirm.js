@@ -9,7 +9,7 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
     
     const gen_cal_entry = () => {
 
-	const nice_phone = form_data.phone.match(/.{1,4}/g).join(" ")
+	const nice_phone = form_data.phone.split(" ").join("").match(/.{1,4}/g).join(" ")
 
 	if (booking.longitude === 0) {
 	    return "Phone " + form_data.name + " - " + nice_phone }
@@ -118,6 +118,13 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 	</button>	    
 
 	    <br/><br/>
+
+	{ JSON.stringify(form_data, null, 4)
+	  .replaceAll(",",",\n")
+	  .replaceAll("{","{\n")
+	  .replaceAll("}","\n}") }
+
+	<br/><br/>
 
 	<hr/>
 

@@ -5,6 +5,22 @@ import { validate_postcode, validate_phone } from './validators.js';
 
 export default function Form({ form_data, set_form_data, set_page_flow }) {
 
+    const handle_test = () => {
+
+	set_form_data({ name: "John Smith",
+			postcode: "SE13 7RY", postcode_valid: 1,
+			phone: "0777 7777 777", phone_valid: 1 })	
+	
+    };
+
+    const handle_clear = () => {
+
+	set_form_data({ name: "",
+			postcode: "", postcode_valid: 0,
+			phone: "", phone_valid: 0 })	
+	
+    };
+
     const handle_name = (e) => {
 
 	set_form_data({ ...form_data, name: e.target.value })
@@ -50,11 +66,10 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	    
 	    <h1>Client/patient entry</h1>
 
-	Here is some bogus info for testing purposes (copy and paste):<br/>
-	    John<br/>
-	    07777777777<br/>
-	    SE13 7RY<br/>
-	    
+	    <button onClick={handle_test}>Load test data</button >
+	    <button onClick={handle_clear}>Clear form</button >
+	    <br/>
+		    
 	    <label>Name:</label>
 
 	    <input value={form_data.name} onChange={handle_name}>
