@@ -8531,7 +8531,12 @@
 	      calculate_distances(mapbox_resp, clinics_w_dists, set_clinics_w_dists);
 	    }
 	  }, [mapbox_resp]);
-	  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Booking selection"), /*#__PURE__*/React.createElement(Mapbox, {
+	  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+	    className: "medium",
+	    onClick: () => {
+	      set_page_flow(10);
+	    }
+	  }, "Back to initial form"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h1", null, "Booking selection"), /*#__PURE__*/React.createElement(Mapbox, {
 	    postcode: form_data.postcode,
 	    mapbox_resp: mapbox_resp,
 	    set_mapbox_resp: set_mapbox_resp
@@ -8562,10 +8567,11 @@
 	}) {
 	  const [appt_time, set_appt_time] = reactExports.useState("DATE & TIME HERE");
 	  const gen_cal_entry = () => {
+	    const nice_phone = form_data.phone.match(/.{1,4}/g).join(" ");
 	    if (booking.longitude === 0) {
-	      return "Phone" + form_data.name + " - " + form_data.phone;
+	      return "Phone " + form_data.name + " - " + nice_phone;
 	    }
-	    return form_data.name + "(F2F) - " + form_data.phone;
+	    return form_data.name + "(F2F) - " + nice_phone;
 	  };
 	  const full_addr = [booking.title, ...booking.address, booking.postcode].filter(el => {
 	    return el;
@@ -8601,28 +8607,33 @@
 	      set_appt_time(e.target.value);
 	    }
 	  };
-	  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Confirmation"), /*#__PURE__*/React.createElement("strong", null, "Input date & time here:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
+	  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
+	    className: "medium",
+	    onClick: () => {
+	      set_page_flow(10);
+	    }
+	  }, "Back to initial form"), /*#__PURE__*/React.createElement("button", {
+	    className: "medium",
+	    onClick: () => {
+	      set_page_flow(20);
+	    }
+	  }, "Back to clinic selection"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h1", null, "Confirmation"), /*#__PURE__*/React.createElement("strong", null, "1. Copy to calendar:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_cal_entry()), /*#__PURE__*/React.createElement("button", {
+	    className: "medium",
+	    onClick: () => {
+	      navigator.clipboard.writeText(gen_cal_entry());
+	    }
+	  }, "Copy calendar entry to clipboard"), "     ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	    className: "medium",
+	    onClick: () => {
+	      alert("Unless NHS update to a newer (more programmable) version of Outlook online, or LSSS move to a Google calendar, this button won't do anything - see 'Issues' at bottom of page.");
+	    }
+	  }, "Add to calendar"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "2. Paste date & time from calendar here:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
 	    className: "oneline",
 	    value: appt_time,
 	    onChange: e => {
 	      handle_time_change(e);
 	    }
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "For calendar:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_cal_entry()), /*#__PURE__*/React.createElement("button", {
-	    className: "medium",
-	    onClick: () => {
-	      alert("Unless NHS update to a newer (more programmable) version of Outlook online, or LSSS move to a Google calendar, this button won't do anything - see 'Issues' at bottom of page.");
-	    }
-	  }, "Add to calendar"), /*#__PURE__*/React.createElement("button", {
-	    className: "medium",
-	    onClick: () => {
-	      navigator.clipboard.writeText(gen_cal_entry());
-	    }
-	  }, "Copy calendar entry to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "For text to client:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_sms_msg(appt_time)), /*#__PURE__*/React.createElement("button", {
-	    className: "medium",
-	    onClick: () => {
-	      alert("If someone gives me a credit card I can make this button work! $0.0446 per message as of May 2023.");
-	    }
-	  }, "Send this SMS via Vonage"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "3. Copy text for client:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_sms_msg(appt_time)), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      navigator.clipboard.writeText(form_data.phone);
@@ -8632,12 +8643,17 @@
 	    onClick: () => {
 	      navigator.clipboard.writeText(gen_sms_msg(appt_time));
 	    }
-	  }, "Copy SMS to clipboard (for Google Messages)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "For spreadsheet:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_csv_entry(appt_time)), /*#__PURE__*/React.createElement("button", {
+	  }, "Copy SMS to clipboard (for Google Messages)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	    className: "medium",
+	    onClick: () => {
+	      alert("If someone gives me a credit card I can make this button work! $0.0446 per message as of May 2023.");
+	    }
+	  }, "Send this SMS via Vonage"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "4. Copy text for spreadsheet:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_csv_entry(appt_time)), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      navigator.clipboard.writeText(gen_csv_entry(appt_time));
 	    }
-	  }, "Copy entry to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
+	  }, "Copy entry to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("div", {
 	    dangerouslySetInnerHTML: {
 	      __html: closing_comment
 	    }

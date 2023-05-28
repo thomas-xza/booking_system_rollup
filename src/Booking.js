@@ -33,6 +33,9 @@ export default function Booking({ form_data, booking, set_booking, set_page_flow
     return (
 	    <div>
 	    
+            <button className="medium" onClick={ () => {set_page_flow(10)} }>Back to initial form</button>
+	    <br/>
+
 	    <h1>Booking selection</h1>
 
 	    <Mapbox postcode={form_data.postcode}

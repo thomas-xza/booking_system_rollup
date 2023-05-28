@@ -9,10 +9,12 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
     
     const gen_cal_entry = () => {
 
+	const nice_phone = form_data.phone.match(/.{1,4}/g).join(" ")
+
 	if (booking.longitude === 0) {
-	    return "Phone" + form_data.name + " - " + form_data.phone }
+	    return "Phone " + form_data.name + " - " + nice_phone }
 	
-	return form_data.name + "(F2F) - " + form_data.phone
+	return form_data.name + "(F2F) - " + nice_phone
     }
 
     const full_addr = [ booking.title, ...booking.address, booking.postcode ]
@@ -65,32 +67,34 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
     return (
 	    <>
 
+	    <button className="medium" onClick={ () => {set_page_flow(10)} }>Back to initial form</button>
+
+	    <button className="medium" onClick={ () => {set_page_flow(20)} }>Back to clinic selection</button>
+	<br/>
+
 	<h1>Confirmation</h1>
 
-	    <strong>Input date & time here:</strong><br/>
-	    <textarea className="oneline" value={appt_time} onChange={(e) => {
-		handle_time_change(e)
-	    }}/><br/><br/>
-	    
-	<strong>For calendar:</strong><br/>
+	<strong>1. Copy to calendar:</strong><br/>
 
 	    <pre>{gen_cal_entry(appt_time)}</pre>
+	    <button className="medium"
+	onClick={() => {navigator.clipboard.writeText(gen_cal_entry(appt_time))}}>
+	    Copy calendar entry to clipboard
+	</button>	    <br/>
 	    <button className="medium"
 	onClick={() => {alert("Unless NHS update to a newer (more programmable) version of Outlook online, or LSSS move to a Google calendar, this button won't do anything - see 'Issues' at bottom of page.")} }>
 	    Add to calendar
 	</button>
-	    <button className="medium"
-	onClick={() => {navigator.clipboard.writeText(gen_cal_entry(appt_time))}}>
-	    Copy calendar entry to clipboard
-	</button>	    
 	    <br/><br/>
 
-	<strong>For text to client:</strong><br/>
+	    <strong>2. Paste date & time from calendar here:</strong><br/>
+	    <textarea className="oneline" value={appt_time} onChange={(e) => {
+		handle_time_change(e)
+	    }}/><br/><br/>
+	    
+	<strong>3. Copy text for client:</strong><br/>
 
 	    <pre>{gen_sms_msg(appt_time)}</pre>
-	    <button className="medium"
-	onClick={() => {alert("If someone gives me a credit card I can make this button work! $0.0446 per message as of May 2023.")} }>
-	    Send this SMS via Vonage</button><br/>
 	    <button className="medium"
 	onClick={() => {navigator.clipboard.writeText(form_data.phone) }}>
 	    Copy {form_data.phone} to clipboard (for Google Messages)
@@ -98,10 +102,14 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 	    <button className="medium"
 	onClick={() => {navigator.clipboard.writeText(gen_sms_msg(appt_time)) }}>
 	    Copy SMS to clipboard (for Google Messages)
-	</button>	    
+	</button>
+	    <br/>
+	    <button className="medium"
+	onClick={() => {alert("If someone gives me a credit card I can make this button work! $0.0446 per message as of May 2023.")} }>
+	    Send this SMS via Vonage</button>
 	    <br/><br/>
 
-	<strong>For spreadsheet:</strong><br/>
+	<strong>4. Copy text for spreadsheet:</strong><br/>
 
 	    <pre>{gen_csv_entry(appt_time)}</pre>
 	    <button className="medium"
@@ -110,6 +118,8 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 	</button>	    
 
 	    <br/><br/>
+
+	<hr/>
 
 	    <div dangerouslySetInnerHTML={{__html: closing_comment }}/>
 
