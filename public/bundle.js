@@ -8278,7 +8278,9 @@
 	  set_page_flow
 	}) {
 	  function handle_change(e) {
-	    set_clinics_obj(JSON.parse(e.target.value));
+	    // reload_parse();
+
+	    set_clinics_obj(e.target.value);
 	  }
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "editor"
