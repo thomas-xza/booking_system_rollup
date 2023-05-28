@@ -32,7 +32,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	if ( form_data.phone_valid === 1
 	     && form_data.postcode_valid === 1 ) {
 
-	    set_page_flow(2);
+	    set_page_flow(20);
 
 	}
 	

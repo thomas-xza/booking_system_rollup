@@ -4,7 +4,7 @@
         "build": "rollup -c",
         "autobuild": "rollup -c -w",
         "test": "jest",
-	"inline": "bash inline_version.sh",
+        "inline": "bash inline_version.sh",
         "serve": "serve ./public",
         "serve_py": "python3 -m http.server -d public/"
     },

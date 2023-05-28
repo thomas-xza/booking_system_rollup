@@ -7996,7 +7996,7 @@
 	  };
 	  const handle_confirm = e => {
 	    if (form_data.phone_valid === 1 && form_data.postcode_valid === 1) {
-	      set_page_flow(2);
+	      set_page_flow(20);
 	    }
 	  };
 	  reactExports.useEffect(() => {
@@ -8126,7 +8126,7 @@
 	}) {
 	  const handle_selection = e => {
 	    set_booking(clinic);
-	    set_page_flow(3);
+	    set_page_flow(30);
 	  };
 	  return /*#__PURE__*/React.createElement("li", {
 	    key: `clinic_${index}`
@@ -8645,7 +8645,7 @@
 	}
 
 	function App() {
-	  const [page_flow, set_page_flow] = reactExports.useState(1);
+	  const [page_flow, set_page_flow] = reactExports.useState(10);
 	  const [form_data, set_form_data] = reactExports.useState({});
 	  const [booking, set_booking] = reactExports.useState();
 	  switch (page_flow) {
@@ -8653,20 +8653,20 @@
 	      return /*#__PURE__*/React.createElement(Oauth, {
 	        set_page_flow: set_page_flow
 	      });
-	    case 1:
+	    case 10:
 	      return /*#__PURE__*/React.createElement(Form, {
 	        form_data: form_data,
 	        set_form_data: set_form_data,
 	        set_page_flow: set_page_flow
 	      });
-	    case 2:
+	    case 20:
 	      return /*#__PURE__*/React.createElement(Booking, {
 	        form_data: form_data,
 	        booking: booking,
 	        set_booking: set_booking,
 	        set_page_flow: set_page_flow
 	      });
-	    case 3:
+	    case 30:
 	      return /*#__PURE__*/React.createElement(Confirm, {
 	        form_data: form_data,
 	        booking: booking,

@@ -6,7 +6,7 @@ export default function Clinic_single({ clinic, index, set_booking, set_page_flo
 
 	set_booking(clinic)
 
-	set_page_flow(3)
+	set_page_flow(30)
 
     }
 

@@ -8,7 +8,7 @@ import Confirm from './Confirm.js'
 
 export default function App() {
 
-    const [page_flow, set_page_flow] = useState(1);
+    const [page_flow, set_page_flow] = useState(10);
 
     const [form_data, set_form_data] = useState({});
     
@@ -24,7 +24,7 @@ export default function App() {
 	    />	    
 	)
 
-    case 1:
+    case 10:
 
 	return (
 	    <Form
@@ -34,7 +34,7 @@ export default function App() {
 	    />
 	)
 
-    case 2:
+    case 20:
 
 	return(
 	    <Booking
@@ -45,7 +45,7 @@ export default function App() {
 	    />
 	)
 
-    case 3:
+    case 30:
 
 	return(
 	    <Confirm
