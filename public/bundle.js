@@ -8598,7 +8598,9 @@
 	  const phone_chk = pos => {
 	    if (custom_extras[0] === true && pos === 0) {
 	      return "Call ";
-	    } else if (custom_extras[0] === false && pos === 1) {
+	    } else if (custom_extras[0] === false && pos === 0 && booking.advisor === "alison") {
+	      return "F2F ";
+	    } else if (custom_extras[0] === false && pos === 1 && booking.advisor !== "alison") {
 	      return " F2F";
 	    }
 	    return "";
