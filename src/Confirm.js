@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
+import Confirm_checkboxes from './Confirm_checkboxes.js';
 import Confirm_calendar from './Confirm_calendar.js';
 import Confirm_sms from './Confirm_sms.js';
 import Confirm_outro from './Confirm_outro.js';
@@ -10,6 +11,8 @@ import { title_case } from './general_funcs.js';
 export default function Confirm({ form_data, booking, set_page_flow }) {
 
     const [appt_time, set_appt_time] = useState("DATE & TIME HERE");
+    
+    const [checkboxes, set_checkboxes] = useState([ booking.longitude === 0, 0 ]);
     
     const handle_time_change = (e) => {
 
@@ -24,9 +27,15 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
     }
 
     const gen_csv_entry = (appt_time) => {
-	
-	return `${booking.title.split(" ")[0]}, ${appt_time.split(",").join(" ")}, ${title_case(booking.advisor)}`
-    
+
+	const csv_entry_end = `, ${appt_time.split(",").join(" ")}, ${title_case(booking.advisor)}`
+
+	if (checkboxes[0] === true) {
+
+	    return "Telephone" + csv_entry_end
+
+	} else { return booking.title.split(" ")[0] + csv_entry_end }
+
     }
 
     return (
@@ -39,13 +48,22 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 
 	    <h1>Confirmation</h1>
 
-	    <strong>1. Copy to calendar:</strong><br/>
+	    <strong>1. Final selections:</strong><br/>
 
-	    <Confirm_calendar form_data={form_data} booking={booking}/>
+	    <Confirm_checkboxes
+	form_data={form_data}
+	booking={booking}
+	checkboxes={checkboxes}
+	set_checkboxes={set_checkboxes} /> <br/>
 
-	    <br/>
+	    <strong>2. Copy to calendar:</strong><br/>
 
-	    <strong>2. Paste date & time from calendar:</strong><br/>
+	    <Confirm_calendar
+	form_data={form_data}
+	booking={booking}
+	checkboxes={checkboxes} /> <br/>
+
+	    <strong>3. Paste date & time from calendar:</strong><br/>
 
 	<div className="jsx">
 
@@ -55,13 +73,17 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 
 	</div>
 	    
-	    <strong>3. Copy text for client:</strong><br/>
+	    <strong>4. Copy text for client:</strong><br/>
 
-	    <Confirm_sms form_data={form_data} booking={booking} appt_time={appt_time}/>
+	    <Confirm_sms
+	form_data={form_data}
+	booking={booking}
+	checkboxes={checkboxes}
+	appt_time={appt_time}/>
 
 	    <br/>
 
-	    <strong>4. Copy text for spreadsheet:</strong><br/>
+	    <strong>5. Copy text for spreadsheet:</strong><br/>
 
 	<div className="jsx">
 

@@ -8587,33 +8587,15 @@
 	  }));
 	}
 
-	function Confirm_calendar({
+	function Confirm_checkboxes({
 	  form_data,
-	  booking
+	  booking,
+	  checkboxes,
+	  set_checkboxes
 	}) {
-	  const [custom_extras, set_custom_extras] = reactExports.useState([booking.longitude === 0, false]);
-	  const gen_cal_entry = () => {
-	    return `${phone_chk(0)}${form_data.name}${phone_chk(1)} - ${phone()} - ${form_data.postcode} ${tdt_chk()}`;
-	  };
-	  const phone_chk = pos => {
-	    if (custom_extras[0] === true && pos === 0) {
-	      return "Call ";
-	    } else if (custom_extras[0] === false && pos === 0 && booking.advisor === "alison") {
-	      return "F2F ";
-	    } else if (custom_extras[0] === false && pos === 1 && booking.advisor !== "alison") {
-	      return " F2F";
-	    }
-	    return "";
-	  };
-	  const tdt_chk = () => {
-	    return custom_extras[1] === true ? "[TDT]" : "";
-	  };
-	  const phone = () => {
-	    return form_data.phone.replace(/[\- \(\)]/g, "").match(/.{1,4}/g).join(" ");
-	  };
 	  const handle_checkbox = position => {
-	    const new_state = custom_extras.map((item, index) => index === position ? !item : item);
-	    set_custom_extras(new_state);
+	    const new_state = checkboxes.map((item, index) => index === position ? !item : item);
+	    set_checkboxes(new_state);
 	  };
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "jsx"
@@ -8622,16 +8604,45 @@
 	  }, /*#__PURE__*/React.createElement("input", {
 	    type: "checkbox",
 	    key: "checkbox_box_phone",
-	    checked: custom_extras[0],
+	    checked: checkboxes[0],
 	    onChange: () => handle_checkbox(0)
 	  }), "Phone"), /*#__PURE__*/React.createElement("label", {
 	    key: "checkbox_label_tdt"
 	  }, /*#__PURE__*/React.createElement("input", {
 	    type: "checkbox",
 	    key: "checkbox_box_tdt",
-	    checked: custom_extras[1],
+	    checked: checkboxes[1],
 	    onChange: () => handle_checkbox(1)
-	  }), "TDT"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_cal_entry()), /*#__PURE__*/React.createElement("button", {
+	  }), "TDT"));
+	}
+
+	function Confirm_calendar({
+	  form_data,
+	  booking,
+	  checkboxes
+	}) {
+	  const gen_cal_entry = () => {
+	    return `${phone_chk(0)}${form_data.name}${phone_chk(1)} - ${phone()} - ${form_data.postcode} ${tdt_chk()}`;
+	  };
+	  const phone_chk = pos => {
+	    if (checkboxes[0] === true && pos === 0) {
+	      return "Call ";
+	    } else if (checkboxes[0] === false && pos === 0 && booking.advisor === "alison") {
+	      return "F2F ";
+	    } else if (checkboxes[0] === false && pos === 1 && booking.advisor !== "alison") {
+	      return " F2F";
+	    }
+	    return "";
+	  };
+	  const tdt_chk = () => {
+	    return checkboxes[1] === true ? "[TDT]" : "";
+	  };
+	  const phone = () => {
+	    return form_data.phone.replace(/[\- \(\)]/g, "").match(/.{1,4}/g).join(" ");
+	  };
+	  return /*#__PURE__*/React.createElement("div", {
+	    className: "jsx"
+	  }, /*#__PURE__*/React.createElement("pre", null, gen_cal_entry()), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      navigator.clipboard.writeText(gen_cal_entry());
@@ -8653,13 +8664,20 @@
 	function Confirm_sms({
 	  form_data,
 	  booking,
-	  appt_time
+	  appt_time,
+	  checkboxes
 	}) {
-	  const full_addr = [booking.title, ...booking.address, booking.postcode].filter(el => {
-	    return el;
-	  });
+	  const full_addr = () => {
+	    if (checkboxes[0] === true) {
+	      return ["Telephone"];
+	    } else {
+	      return [booking.title, ...booking.address, booking.postcode].filter(non_null => {
+	        return non_null;
+	      });
+	    }
+	  };
 	  const gen_sms_msg = appt_time => {
-	    return ["Hi there. Thanks for talking with me. Your appointment details follow.\n", "Time: ", `${title_case(booking.day_of_week)} ${appt_time} \n`, "Advisor:", title_case(booking.advisor), "\nLocation", ...full_addr, "\nPlease contact us if you would like to change time or location.", "\nKing regards", "Lewisham Stop Smoking Service"].join("\n");
+	    return ["Hi there. Thanks for talking with me. Your appointment details follow.\n", "Time: ", `${title_case(booking.day_of_week)} ${appt_time} \n`, "Advisor:", title_case(booking.advisor), "\nLocation:", ...full_addr(), "\nIf you would like to change time or location please contact us via text, freephone, or email ", "\nKing regards", "Lewisham Stop Smoking Service", "\n08000820388", "quit@smokefreelewisham.co.uk"].join("\n");
 	  };
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "jsx"
@@ -8673,7 +8691,7 @@
 	    onClick: () => {
 	      navigator.clipboard.writeText(gen_sms_msg(appt_time));
 	    }
-	  }, "Copy SMS to clipboard (for Google Messages)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	  }, "Copy SMS to clipboard (for Google Messages)"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      alert("If someone gives me a credit card I can make this button work! $0.0446 per message as of May 2023.");
@@ -8713,6 +8731,7 @@
 	  set_page_flow
 	}) {
 	  const [appt_time, set_appt_time] = reactExports.useState("DATE & TIME HERE");
+	  const [checkboxes, set_checkboxes] = reactExports.useState([booking.longitude === 0, 0]);
 	  const handle_time_change = e => {
 	    if (e.target.value === "") {
 	      set_appt_time("DATE & TIME HERE");
@@ -8721,7 +8740,12 @@
 	    }
 	  };
 	  const gen_csv_entry = appt_time => {
-	    return `${booking.title.split(" ")[0]}, ${appt_time.split(",").join(" ")}, ${title_case(booking.advisor)}`;
+	    const csv_entry_end = `, ${appt_time.split(",").join(" ")}, ${title_case(booking.advisor)}`;
+	    if (checkboxes[0] === true) {
+	      return "Telephone" + csv_entry_end;
+	    } else {
+	      return booking.title.split(" ")[0] + csv_entry_end;
+	    }
 	  };
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "Confirm"
@@ -8735,10 +8759,16 @@
 	    onClick: () => {
 	      set_page_flow(20);
 	    }
-	  }, "Back to clinic selection"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h1", null, "Confirmation"), /*#__PURE__*/React.createElement("strong", null, "1. Copy to calendar:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Confirm_calendar, {
+	  }, "Back to clinic selection"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h1", null, "Confirmation"), /*#__PURE__*/React.createElement("strong", null, "1. Final selections:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Confirm_checkboxes, {
 	    form_data: form_data,
-	    booking: booking
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "2. Paste date & time from calendar:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
+	    booking: booking,
+	    checkboxes: checkboxes,
+	    set_checkboxes: set_checkboxes
+	  }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "2. Copy to calendar:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Confirm_calendar, {
+	    form_data: form_data,
+	    booking: booking,
+	    checkboxes: checkboxes
+	  }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "3. Paste date & time from calendar:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
 	    className: "jsx"
 	  }, /*#__PURE__*/React.createElement("textarea", {
 	    className: "oneline",
@@ -8746,11 +8776,12 @@
 	    onChange: e => {
 	      handle_time_change(e);
 	    }
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null)), /*#__PURE__*/React.createElement("strong", null, "3. Copy text for client:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Confirm_sms, {
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null)), /*#__PURE__*/React.createElement("strong", null, "4. Copy text for client:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Confirm_sms, {
 	    form_data: form_data,
 	    booking: booking,
+	    checkboxes: checkboxes,
 	    appt_time: appt_time
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "4. Copy text for spreadsheet:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "5. Copy text for spreadsheet:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
 	    className: "jsx"
 	  }, /*#__PURE__*/React.createElement("pre", null, gen_csv_entry(appt_time)), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
@@ -8771,19 +8802,20 @@
 	}
 
 	function App() {
-	  const [page_flow, set_page_flow] = reactExports.useState(10);
+	  // const [page_flow, set_page_flow] = useState(10);
+
+	  // const [form_data, set_form_data] = useState({ "name": "",
+	  // 						  "postcode": "", postcode_valid: 0,
+	  // 						  "phone": "", phone_valid: 0 });
+
+	  const [page_flow, set_page_flow] = reactExports.useState(20);
 	  const [form_data, set_form_data] = reactExports.useState({
-	    "name": "",
-	    "postcode": "",
-	    postcode_valid: 0,
-	    "phone": "",
-	    phone_valid: 0
+	    "name": "J",
+	    "postcode": "SE13 6LH",
+	    postcode_valid: 1,
+	    "phone": "07777777777",
+	    phone_valid: 1
 	  });
-
-	  // const [form_data, set_form_data] = useState({ "name": "J",
-	  // 						  "postcode": "SE13 6LH", postcode_valid: 1,
-	  // 						  "phone": "07777777777", phone_valid: 1 });
-
 	  const [booking, set_booking] = reactExports.useState();
 	  switch (page_flow) {
 	    case 0:
