@@ -7952,253 +7952,7 @@
 	  return hello;
 	}
 
-	function validate_postcode(postcode) {
-	  const processed = postcode.toUpperCase().match(/[A-Z]{1,2}[0-9]{1,2} +[0-9]{1,2}[A-Z]{2}/) || [];
-	  return processed[0] ? 1 : 0;
-	}
-	function validate_phone(phone) {
-	  const init = phone.match(/[0-9]/g) || [];
-	  const all_nums = init.join('').replace(/^447/i, '07');
-	  if (all_nums.length === 11) {
-	    return 1;
-	  } else {
-	    return 0;
-	  }
-	  // 	  .match(/[0-9]{11}/) || [];
-
-	  // return (processed[0]) ? 1 : 0;
-	}
-
-	function Form({
-	  form_data,
-	  set_form_data,
-	  set_page_flow
-	}) {
-	  const handle_test = () => {
-	    set_form_data({
-	      name: "John Smith",
-	      postcode: "SE13 7RY",
-	      postcode_valid: 1,
-	      phone: "0777 7777 777",
-	      phone_valid: 1
-	    });
-	  };
-	  const handle_clear = () => {
-	    set_form_data({
-	      name: "",
-	      postcode: "",
-	      postcode_valid: 0,
-	      phone: "",
-	      phone_valid: 0
-	    });
-	  };
-	  const handle_name = e => {
-	    set_form_data({
-	      ...form_data,
-	      name: e.target.value
-	    });
-	  };
-	  const handle_phone = e => {
-	    set_form_data({
-	      ...form_data,
-	      phone: e.target.value.replace("\t", " "),
-	      phone_valid: validate_phone(e.target.value)
-	    });
-	  };
-	  const handle_postcode = e => {
-	    set_form_data({
-	      ...form_data,
-	      postcode: e.target.value,
-	      postcode_valid: validate_postcode(e.target.value)
-	    });
-	  };
-	  const handle_confirm = e => {
-	    if (form_data.phone_valid === 1 && form_data.postcode_valid === 1) {
-	      set_page_flow(20);
-	    }
-	  };
-	  reactExports.useEffect(() => {
-	    console.log(form_data);
-	  }, [form_data]);
-	  return /*#__PURE__*/React.createElement("div", {
-	    className: "form"
-	  }, /*#__PURE__*/React.createElement("button", {
-	    onClick: () => {}
-	  }, "Back to clinic editor"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h1", null, "Client/patient entry"), /*#__PURE__*/React.createElement("label", null, "Name:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
-	    value: form_data.name,
-	    onChange: handle_name
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Postcode:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
-	    value: form_data.postcode,
-	    onChange: handle_postcode
-	  }), form_data.postcode_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Phone:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
-	    value: form_data.phone,
-	    onChange: handle_phone
-	  }), form_data.phone_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
-	    class: "jsx"
-	  }, /*#__PURE__*/React.createElement("button", {
-	    onClick: handle_test
-	  }, "Load test data"), /*#__PURE__*/React.createElement("button", {
-	    onClick: handle_clear
-	  }, "Clear form"), /*#__PURE__*/React.createElement("br", null), form_data.postcode_valid === 1 && form_data.phone_valid === 1 ? /*#__PURE__*/React.createElement("button", {
-	    onClick: handle_confirm
-	  }, "Find appointment") : /*#__PURE__*/React.createElement("div", {
-	    className: "loading"
-	  }, "Awaiting your inputs")));
-	}
-
-	function Mapbox({
-	  postcode,
-	  mapbox_resp,
-	  set_mapbox_resp
-	}) {
-	  if (typeof mapbox_resp.longitude !== 'undefined') {
-	    // return (
-	    //     JSON.stringify(mapbox_resp)
-	    // )
-
-	    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("em", null, postcode, " is located in ", mapbox_resp.borough), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Select client/patient availability"), ":");
-	  } else {
-	    load_distances(postcode, mapbox_resp, set_mapbox_resp);
-	    return /*#__PURE__*/React.createElement("div", {
-	      className: "loading"
-	    }, "Loading Mapbox API");
-	  }
-	}
-	async function load_distances(postcode, mapbox_resp, set_mapbox_resp) {
-	  const url = postcode_to_url(postcode);
-	  const mapbox_json = await fetch_with_retries(url);
-	  store_data(postcode, mapbox_json, mapbox_resp, set_mapbox_resp);
-	}
-	async function fetch_with_retries(url, retry_count) {
-	  try {
-	    return await fetch(url).then(res => res.json());
-	  } catch (error) {
-	    console.log("retrying fetch(), retry_count");
-	    return fetch_with_retries(url);
-	  }
-	}
-	function postcode_to_url(postcode) {
-	  //  Note: limit as of 2023-04 is 600 geocode requests/minute
-	  //  https://docs.mapbox.com/api/overview/
-
-	  //  'AAA AAA'
-	  //  -->  'https://api.mapbox.com/...AAA AAA...'
-
-	  const mapbox_api_key = 'pk.eyJ1IjoidGVzdC14emEiLCJhIjoiY2xnOXNiaWRvMWFtcDNlcWxzZjRmZDdldSJ9.lKZ_CDvdIh1Y9dw2DGjbOA';
-	  return 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + postcode + ', United Kingdom.json?access_token=' + mapbox_api_key;
-	}
-	function store_data(postcode, mapbox_json, mapbox_resp, set_mapbox_resp) {
-	  console.log("store_data()", mapbox_json, "\n", mapbox_json.features[0]);
-	  try {
-	    const top_hit_coords = mapbox_json.features[0].geometry.coordinates;
-	    const borough = mapbox_json.features[0].context[0].text || "";
-	    const source_obj = {
-	      'postcode': postcode,
-	      'longitude': top_hit_coords[0],
-	      'latitude': top_hit_coords[1],
-	      'borough': borough
-	    };
-	    console.log("source_obj()", source_obj);
-	    set_mapbox_resp(source_obj);
-	  } catch {}
-	}
-
-	function new_obj(key_name, prev_boolean) {
-	  return {
-	    [key_name]: !prev_boolean
-	  };
-	}
-	function User_selections({
-	  checked_days,
-	  set_checked_days,
-	  phone_show,
-	  set_phone_show
-	}) {
-	  const days_of_week = ["monday", "tuesday", "wednesday", "thursday", "friday"];
-	  const handle_on_change = day => {
-	    set_checked_days({
-	      ...checked_days,
-	      ...new_obj(day, checked_days[day])
-	    });
-	  };
-	  const handle_on_change_phone = phone_show => {
-	    set_phone_show(!phone_show);
-	  };
-	  return /*#__PURE__*/React.createElement("div", null, days_of_week.map((day, index) => {
-	    return /*#__PURE__*/React.createElement("label", {
-	      key: `checkbox_label_${day}_${index}`
-	    }, /*#__PURE__*/React.createElement("input", {
-	      type: "checkbox",
-	      key: `checkbox_box_${day}_${index}`,
-	      checked: checked_days[day],
-	      onChange: () => handle_on_change(day)
-	    }), day);
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", {
-	    key: "checkbox_label_phone"
-	  }, /*#__PURE__*/React.createElement("input", {
-	    type: "checkbox",
-	    key: "checkbox_box_phone",
-	    checked: phone_show,
-	    onChange: () => handle_on_change_phone(phone_show)
-	  }), "Show phone appointments"));
-	}
-
-	function Clinic_single({
-	  clinic,
-	  index,
-	  set_booking,
-	  set_page_flow
-	}) {
-	  const handle_selection = e => {
-	    set_booking(clinic);
-	    set_page_flow(30);
-	  };
-	  const map_link_to_clinic = `https://duckduckgo.com/?q=${clinic.postcode.split(" ").join("+")}&t=h_&ia=web&iaxm=maps`;
-	  return /*#__PURE__*/React.createElement("li", {
-	    key: `clinic_${index}`
-	  }, clinic.title, /*#__PURE__*/React.createElement("ul", null, clinic.longitude !== 0 ? /*#__PURE__*/React.createElement("li", {
-	    key: `clinic_${index}_dist`
-	  }, /*#__PURE__*/React.createElement("a", {
-	    href: map_link_to_clinic,
-	    target: "_blank"
-	  }, clinic.distance, " km")) : null, /*#__PURE__*/React.createElement("li", {
-	    key: `clinic_${index}_time`
-	  }, clinic.time_start, " - ", clinic.time_end), /*#__PURE__*/React.createElement("li", {
-	    key: `clinic_${index}_day`
-	  }, clinic.day_of_week), /*#__PURE__*/React.createElement("li", {
-	    key: `clinic_${index}_advisor`
-	  }, clinic.advisor), /*#__PURE__*/React.createElement("button", {
-	    key: `clinic_${index}_button`,
-	    onClick: handle_selection
-	  }, "Select this clinic")));
-	}
-
-	function Clinics_list({
-	  clinics_w_dists,
-	  checked_days,
-	  phone_show,
-	  set_booking,
-	  set_page_flow
-	}) {
-	  // console.log("Clinics_list", clinics_w_dists);
-
-	  return /*#__PURE__*/React.createElement("ul", {
-	    className: "clinics_list"
-	  }, clinics_w_dists.map(function (clinic, index) {
-	    if (checked_days[clinic.day_of_week] === true) {
-	      if (clinic.longitude === 0 && phone_show === true || clinic.longitude !== 0) {
-	        return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Clinic_single, {
-	          clinic: clinic,
-	          index: index,
-	          set_booking: set_booking,
-	          set_page_flow: set_page_flow
-	        }), /*#__PURE__*/React.createElement("br", null));
-	      }
-	    }
-	  }));
-	}
-
-	var clinics = [
+	var default_clinics = [
 		{
 			title: "Telephone",
 			alt_title: "",
@@ -8518,6 +8272,273 @@
 		}
 	];
 
+	function Editor({
+	  clinics_obj,
+	  set_clinics_obj,
+	  set_page_flow
+	}) {
+	  function handle_change(e) {
+	    set_clinics_obj(JSON.parse(e.target.value));
+	  }
+	  return /*#__PURE__*/React.createElement("div", {
+	    className: "editor"
+	  }, /*#__PURE__*/React.createElement("button", {
+	    onClick: () => {
+	    }
+	  }, "Forward with default set (as of May 2023)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h1", null, "Clinic set editor"), /*#__PURE__*/React.createElement("textarea", {
+	    value: JSON.stringify(clinics_obj, null, 4),
+	    onChange: e => {
+	      handle_change(e);
+	    }
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null));
+	}
+
+	function validate_postcode(postcode) {
+	  const processed = postcode.toUpperCase().match(/[A-Z]{1,2}[0-9]{1,2} +[0-9]{1,2}[A-Z]{2}/) || [];
+	  return processed[0] ? 1 : 0;
+	}
+	function validate_phone(phone) {
+	  const init = phone.match(/[0-9]/g) || [];
+	  const all_nums = init.join('').replace(/^447/i, '07');
+	  if (all_nums.length === 11) {
+	    return 1;
+	  } else {
+	    return 0;
+	  }
+	  // 	  .match(/[0-9]{11}/) || [];
+
+	  // return (processed[0]) ? 1 : 0;
+	}
+
+	function Form({
+	  form_data,
+	  set_form_data,
+	  set_page_flow
+	}) {
+	  const handle_test = () => {
+	    set_form_data({
+	      name: "John Smith",
+	      postcode: "SE13 7RY",
+	      postcode_valid: 1,
+	      phone: "0777 7777 777",
+	      phone_valid: 1
+	    });
+	  };
+	  const handle_clear = () => {
+	    set_form_data({
+	      name: "",
+	      postcode: "",
+	      postcode_valid: 0,
+	      phone: "",
+	      phone_valid: 0
+	    });
+	  };
+	  const handle_name = e => {
+	    set_form_data({
+	      ...form_data,
+	      name: e.target.value
+	    });
+	  };
+	  const handle_phone = e => {
+	    set_form_data({
+	      ...form_data,
+	      phone: e.target.value.replace("\t", " "),
+	      phone_valid: validate_phone(e.target.value)
+	    });
+	  };
+	  const handle_postcode = e => {
+	    set_form_data({
+	      ...form_data,
+	      postcode: e.target.value,
+	      postcode_valid: validate_postcode(e.target.value)
+	    });
+	  };
+	  const handle_confirm = e => {
+	    if (form_data.phone_valid === 1 && form_data.postcode_valid === 1) {
+	      set_page_flow(20);
+	    }
+	  };
+	  reactExports.useEffect(() => {
+	    console.log(form_data);
+	  }, [form_data]);
+	  return /*#__PURE__*/React.createElement("div", {
+	    className: "form"
+	  }, /*#__PURE__*/React.createElement("button", {
+	    onClick: () => {}
+	  }, "Back to clinic editor"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h1", null, "Client/patient entry"), /*#__PURE__*/React.createElement("label", null, "Name:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+	    value: form_data.name,
+	    onChange: handle_name
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Postcode:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+	    value: form_data.postcode,
+	    onChange: handle_postcode
+	  }), form_data.postcode_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Phone:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+	    value: form_data.phone,
+	    onChange: handle_phone
+	  }), form_data.phone_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
+	    class: "jsx"
+	  }, /*#__PURE__*/React.createElement("button", {
+	    onClick: handle_test
+	  }, "Load test data"), /*#__PURE__*/React.createElement("button", {
+	    onClick: handle_clear
+	  }, "Clear form"), /*#__PURE__*/React.createElement("br", null), form_data.postcode_valid === 1 && form_data.phone_valid === 1 ? /*#__PURE__*/React.createElement("button", {
+	    onClick: handle_confirm
+	  }, "Find appointment") : /*#__PURE__*/React.createElement("div", {
+	    className: "loading"
+	  }, "Awaiting your inputs")));
+	}
+
+	function Mapbox({
+	  postcode,
+	  mapbox_resp,
+	  set_mapbox_resp
+	}) {
+	  if (typeof mapbox_resp.longitude !== 'undefined') {
+	    // return (
+	    //     JSON.stringify(mapbox_resp)
+	    // )
+
+	    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("em", null, postcode, " is located in ", mapbox_resp.borough), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Select client/patient availability"), ":");
+	  } else {
+	    load_distances(postcode, mapbox_resp, set_mapbox_resp);
+	    return /*#__PURE__*/React.createElement("div", {
+	      className: "loading"
+	    }, "Loading Mapbox API");
+	  }
+	}
+	async function load_distances(postcode, mapbox_resp, set_mapbox_resp) {
+	  const url = postcode_to_url(postcode);
+	  const mapbox_json = await fetch_with_retries(url);
+	  store_data(postcode, mapbox_json, mapbox_resp, set_mapbox_resp);
+	}
+	async function fetch_with_retries(url, retry_count) {
+	  try {
+	    return await fetch(url).then(res => res.json());
+	  } catch (error) {
+	    console.log("retrying fetch(), retry_count");
+	    return fetch_with_retries(url);
+	  }
+	}
+	function postcode_to_url(postcode) {
+	  //  Note: limit as of 2023-04 is 600 geocode requests/minute
+	  //  https://docs.mapbox.com/api/overview/
+
+	  //  'AAA AAA'
+	  //  -->  'https://api.mapbox.com/...AAA AAA...'
+
+	  const mapbox_api_key = 'pk.eyJ1IjoidGVzdC14emEiLCJhIjoiY2xnOXNiaWRvMWFtcDNlcWxzZjRmZDdldSJ9.lKZ_CDvdIh1Y9dw2DGjbOA';
+	  return 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + postcode + ', United Kingdom.json?access_token=' + mapbox_api_key;
+	}
+	function store_data(postcode, mapbox_json, mapbox_resp, set_mapbox_resp) {
+	  console.log("store_data()", mapbox_json, "\n", mapbox_json.features[0]);
+	  try {
+	    const top_hit_coords = mapbox_json.features[0].geometry.coordinates;
+	    const borough = mapbox_json.features[0].context[0].text || "";
+	    const source_obj = {
+	      'postcode': postcode,
+	      'longitude': top_hit_coords[0],
+	      'latitude': top_hit_coords[1],
+	      'borough': borough
+	    };
+	    console.log("source_obj()", source_obj);
+	    set_mapbox_resp(source_obj);
+	  } catch {}
+	}
+
+	function new_obj(key_name, prev_boolean) {
+	  return {
+	    [key_name]: !prev_boolean
+	  };
+	}
+	function User_selections({
+	  checked_days,
+	  set_checked_days,
+	  phone_show,
+	  set_phone_show
+	}) {
+	  const days_of_week = ["monday", "tuesday", "wednesday", "thursday", "friday"];
+	  const handle_on_change = day => {
+	    set_checked_days({
+	      ...checked_days,
+	      ...new_obj(day, checked_days[day])
+	    });
+	  };
+	  const handle_on_change_phone = phone_show => {
+	    set_phone_show(!phone_show);
+	  };
+	  return /*#__PURE__*/React.createElement("div", null, days_of_week.map((day, index) => {
+	    return /*#__PURE__*/React.createElement("label", {
+	      key: `checkbox_label_${day}_${index}`
+	    }, /*#__PURE__*/React.createElement("input", {
+	      type: "checkbox",
+	      key: `checkbox_box_${day}_${index}`,
+	      checked: checked_days[day],
+	      onChange: () => handle_on_change(day)
+	    }), day);
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", {
+	    key: "checkbox_label_phone"
+	  }, /*#__PURE__*/React.createElement("input", {
+	    type: "checkbox",
+	    key: "checkbox_box_phone",
+	    checked: phone_show,
+	    onChange: () => handle_on_change_phone(phone_show)
+	  }), "Show phone appointments"));
+	}
+
+	function Clinic_single({
+	  clinic,
+	  index,
+	  set_booking,
+	  set_page_flow
+	}) {
+	  const handle_selection = e => {
+	    set_booking(clinic);
+	    set_page_flow(30);
+	  };
+	  const map_link_to_clinic = `https://duckduckgo.com/?q=${clinic.postcode.split(" ").join("+")}&t=h_&ia=web&iaxm=maps`;
+	  return /*#__PURE__*/React.createElement("li", {
+	    key: `clinic_${index}`
+	  }, clinic.title, /*#__PURE__*/React.createElement("ul", null, clinic.longitude !== 0 ? /*#__PURE__*/React.createElement("li", {
+	    key: `clinic_${index}_dist`
+	  }, /*#__PURE__*/React.createElement("a", {
+	    href: map_link_to_clinic,
+	    target: "_blank"
+	  }, clinic.distance, " km")) : null, /*#__PURE__*/React.createElement("li", {
+	    key: `clinic_${index}_time`
+	  }, clinic.time_start, " - ", clinic.time_end), /*#__PURE__*/React.createElement("li", {
+	    key: `clinic_${index}_day`
+	  }, clinic.day_of_week), /*#__PURE__*/React.createElement("li", {
+	    key: `clinic_${index}_advisor`
+	  }, clinic.advisor), /*#__PURE__*/React.createElement("button", {
+	    key: `clinic_${index}_button`,
+	    onClick: handle_selection
+	  }, "Select this clinic")));
+	}
+
+	function Clinics_list({
+	  clinics_w_dists,
+	  checked_days,
+	  phone_show,
+	  set_booking,
+	  set_page_flow
+	}) {
+	  // console.log("Clinics_list", clinics_w_dists);
+
+	  return /*#__PURE__*/React.createElement("ul", {
+	    className: "clinics_list"
+	  }, clinics_w_dists.map(function (clinic, index) {
+	    if (checked_days[clinic.day_of_week] === true) {
+	      if (clinic.longitude === 0 && phone_show === true || clinic.longitude !== 0) {
+	        return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Clinic_single, {
+	          clinic: clinic,
+	          index: index,
+	          set_booking: set_booking,
+	          set_page_flow: set_page_flow
+	        }), /*#__PURE__*/React.createElement("br", null));
+	      }
+	    }
+	  }));
+	}
+
 	function calculate_distances(mapbox_resp, clinics_w_dists, set_clinics_w_dists) {
 	  const clinics_calc = clinics.map(function (clinic) {
 	    if (clinic.longitude !== 0) {
@@ -8802,7 +8823,8 @@
 	}
 
 	function App() {
-	  const [page_flow, set_page_flow] = reactExports.useState(10);
+	  const [clinics_obj, set_clinics_obj] = reactExports.useState(default_clinics);
+	  const [page_flow, set_page_flow] = reactExports.useState(5);
 	  const [form_data, set_form_data] = reactExports.useState({
 	    "name": "",
 	    "postcode": "",
@@ -8821,6 +8843,12 @@
 	  switch (page_flow) {
 	    case 0:
 	      return /*#__PURE__*/React.createElement(Oauth, {
+	        set_page_flow: set_page_flow
+	      });
+	    case 5:
+	      return /*#__PURE__*/React.createElement(Editor, {
+	        clinics_obj: clinics_obj,
+	        set_clinics_obj: set_clinics_obj,
 	        set_page_flow: set_page_flow
 	      });
 	    case 10:

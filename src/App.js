@@ -2,13 +2,18 @@ import React from 'react';
 import { useState } from 'react';
 
 import Oauth from './Oauth.js'
+import Editor from './Editor.js'
 import Form from './Form.js'
 import Booking from './Booking.js'
 import Confirm from './Confirm.js'
 
+import { default_clinics } from './clinics_from_csv.json';
+
 export default function App() {
 
-    const [page_flow, set_page_flow] = useState(10);
+    const [clinics_obj, set_clinics_obj] = useState(default_clinics);
+
+    const [page_flow, set_page_flow] = useState(5);
 
     const [form_data, set_form_data] = useState({ "name": "",
     						  "postcode": "", postcode_valid: 0,
@@ -28,6 +33,16 @@ export default function App() {
 
 	return(
 	    <Oauth
+		set_page_flow={set_page_flow}
+	    />	    
+	)
+
+    case 5:
+
+	return(
+	    <Editor
+		clinics_obj={clinics_obj}
+		set_clinics_obj={set_clinics_obj}
 		set_page_flow={set_page_flow}
 	    />	    
 	)

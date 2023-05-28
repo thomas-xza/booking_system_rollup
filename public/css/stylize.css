@@ -58,6 +58,19 @@ button {
 
 }
 
+.editor {
+    height: 100%;
+
+  
+}
+
+.editor > textarea {
+
+    width: 98%;
+    height: 50em;
+
+}
+
 .form > input {
 
     padding: 0.25em 0.25em;

@@ -1,4 +1,4 @@
-{ 	"clinics":[
+{ 	"default_clinics":[
     {
 	"title": "Telephone",
 	"alt_title": "",
