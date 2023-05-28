@@ -18,8 +18,6 @@ export default function Mapbox({ postcode, mapbox_resp, set_mapbox_resp }) {
 		<div className="loading">Loading Mapbox API</div>
 	)
 
-
-	console.log(mapbox_resp);
     }
 
 };

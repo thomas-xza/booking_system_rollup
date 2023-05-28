@@ -10,7 +10,9 @@ export default function App() {
 
     const [page_flow, set_page_flow] = useState(10);
 
-    const [form_data, set_form_data] = useState({});
+    const [form_data, set_form_data] = useState({ "name": "",
+						  "postcode": "", postcode_valid: 0,
+						  "phone": "", phone_valid: 0 });
     
     const [booking, set_booking] = useState();
 

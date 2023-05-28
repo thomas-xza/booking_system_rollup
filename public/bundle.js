@@ -8177,7 +8177,8 @@
 	  set_booking,
 	  set_page_flow
 	}) {
-	  console.log("Clinics_list", clinics_w_dists);
+	  // console.log("Clinics_list", clinics_w_dists);
+
 	  return /*#__PURE__*/React.createElement(React.Fragment, null, clinics_w_dists.map(function (clinic, index) {
 	    if (checked_days[clinic.day_of_week] === true) {
 	      if (clinic.longitude === 0 && phone_show === true || clinic.longitude !== 0) {
@@ -8185,8 +8186,7 @@
 	          clinic: clinic,
 	          index: index,
 	          set_booking: set_booking,
-	          set_page_flow: set_page_flow,
-	          key: index
+	          set_page_flow: set_page_flow
 	        }), /*#__PURE__*/React.createElement("br", null));
 	      }
 	    }
@@ -8724,7 +8724,13 @@
 
 	function App() {
 	  const [page_flow, set_page_flow] = reactExports.useState(10);
-	  const [form_data, set_form_data] = reactExports.useState({});
+	  const [form_data, set_form_data] = reactExports.useState({
+	    "name": "",
+	    "postcode": "",
+	    postcode_valid: 0,
+	    "phone": "",
+	    phone_valid: 0
+	  });
 	  const [booking, set_booking] = reactExports.useState();
 	  switch (page_flow) {
 	    case 0:
