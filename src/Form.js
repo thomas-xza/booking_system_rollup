@@ -95,7 +95,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 		    
 		<button onClick={handle_confirm}>Find appointment</button >
 		:
-		<div class="loading">Awaiting your inputs</div>
+		<div className="loading">Awaiting your inputs</div>
 		
 	    }
 	

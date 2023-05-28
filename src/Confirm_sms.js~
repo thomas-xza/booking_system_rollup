@@ -11,6 +11,23 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 
     const [appt_time, set_appt_time] = useState("DATE & TIME HERE");
     
+    const full_addr = [ booking.title, ...booking.address, booking.postcode ]
+	  .filter( (el) => { return el } );
+
+    const gen_sms_msg = (appt_time) => { return [
+	"Hi there. Thanks for talking with me. Your appointment details follow.\n",
+	"Time: ", `${title_case(booking.day_of_week)} ${appt_time} \n`,
+	"Advisor:", title_case(booking.advisor), "\nLocation", ...full_addr,
+	"\nPlease contact us if you would like to change time or location.",
+	"\nKing regards", "Lewisham Stop Smoking Service"
+    ].join("\n") };
+
+    const gen_csv_entry = (appt_time) => {
+	
+	return `${booking.title.split(" ")[0]}, ${appt_time}, ${title_case(booking.advisor)}`
+    
+    }
+
     const handle_time_change = (e) => {
 
 	if (e.target.value === "") {
@@ -23,21 +40,15 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 
     }
 
-    const gen_csv_entry = (appt_time) => {
-	
-	return `${booking.title.split(" ")[0]}, ${appt_time.split(",").join(" ")}, ${title_case(booking.advisor)}`
-    
-    }
-
     return (
 	    <>
 
 	    <button className="medium" onClick={ () => {set_page_flow(10)} }>Back to initial form</button>
 
 	    <button className="medium" onClick={ () => {set_page_flow(20)} }>Back to clinic selection</button>
-	    <br/>
+	<br/>
 
-	    <h1>Confirmation</h1>
+	<h1>Confirmation</h1>
 
 	    <strong>1. Copy to calendar:</strong><br/>
 
@@ -50,13 +61,24 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 		handle_time_change(e)
 	    }}/><br/><br/>
 	    
-	    <strong>3. Copy text for client:</strong><br/>
+	<strong>3. Copy text for client:</strong><br/>
 
-	    <Confirm_sms form_data={form_data} booking={booking} appt_time={appt_time}/>
-
+	    <pre>{gen_sms_msg(appt_time)}</pre>
+	    <button className="medium"
+	onClick={() => {navigator.clipboard.writeText(form_data.phone) }}>
+	    Copy {form_data.phone} to clipboard (for Google Messages)
+	</button>
+	    <button className="medium"
+	onClick={() => {navigator.clipboard.writeText(gen_sms_msg(appt_time)) }}>
+	    Copy SMS to clipboard (for Google Messages)
+	</button>
+	    <br/>
+	    <button className="medium"
+	onClick={() => {alert("If someone gives me a credit card I can make this button work! $0.0446 per message as of May 2023.")} }>
+	    Send this SMS via Vonage</button>
 	    <br/><br/>
 
-	    <strong>4. Copy text for spreadsheet:</strong><br/>
+	<strong>4. Copy text for spreadsheet:</strong><br/>
 
 	    <pre>{gen_csv_entry(appt_time)}</pre>
 	    <button className="medium"
@@ -76,7 +98,7 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 	    Copy {form_data.postcode} to clipboard
 	</button>	    
 
-	    <Confirm_outro/>
+	<Confirm_outro/>
 
 	</>
     );
