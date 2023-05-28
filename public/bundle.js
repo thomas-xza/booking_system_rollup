@@ -8802,20 +8802,21 @@
 	}
 
 	function App() {
-	  // const [page_flow, set_page_flow] = useState(10);
-
-	  // const [form_data, set_form_data] = useState({ "name": "",
-	  // 						  "postcode": "", postcode_valid: 0,
-	  // 						  "phone": "", phone_valid: 0 });
-
-	  const [page_flow, set_page_flow] = reactExports.useState(20);
+	  const [page_flow, set_page_flow] = reactExports.useState(10);
 	  const [form_data, set_form_data] = reactExports.useState({
-	    "name": "J",
-	    "postcode": "SE13 6LH",
-	    postcode_valid: 1,
-	    "phone": "07777777777",
-	    phone_valid: 1
+	    "name": "",
+	    "postcode": "",
+	    postcode_valid: 0,
+	    "phone": "",
+	    phone_valid: 0
 	  });
+
+	  // const [page_flow, set_page_flow] = useState(20);
+
+	  // const [form_data, set_form_data] = useState({ "name": "J",
+	  // 						  "postcode": "SE13 6LH", postcode_valid: 1,
+	  // 						  "phone": "07777777777", phone_valid: 1 });
+
 	  const [booking, set_booking] = reactExports.useState();
 	  switch (page_flow) {
 	    case 0:
