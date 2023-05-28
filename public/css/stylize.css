@@ -1,5 +1,3 @@
-animate ellipse javascript
-animate ellipse javascript
 
 .loading {
 
@@ -29,34 +27,55 @@ animate ellipse javascript
 
 body {
 
-    line-height: 2em;
+    padding: 1em;    
+    line-height: 1.5em;
 
 }
 
-textarea {
+h1 {
 
-    font-size: 1.6em;
+    margin: 0.5em 0 1em 0;
 
+}
+
+input[type='checkbox'] {
+  
+  margin: 0.5em 0.5em 0.5em 2em;
 }
 
 pre {
 
-    font-size: 1.3em;
     background-color: #EEEEEE;
-    margin:0;
+    margin: 0.5em 0;
+    padding: 0.25em;
 
 }
 
 button {
 
     font-family: serif;
+    font-size: 0.9em;
 
 }
 
-textarea {
+.form > input {
+
+    padding: 0.25em 0.25em;
+    margin: 0.5em 0.5em 1.5em 0;
+    width: 50%;
+
+}
+
+.jsx > button {
+  
+    margin: 0.5em 0.5em 0 0;
+
+}
+
+.jsx > textarea.oneline {
     
     width: 98%;
     height: 1.25em;
-    font-size: 1.25em;
+    margin: 0.5em 0;
     
 }

@@ -64,31 +64,36 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
 	    <div className="form">
 	    
-	    <h1>Client/patient entry</h1>
-
-	    <button onClick={handle_test}>Load test data</button >
-	    <button onClick={handle_clear}>Clear form</button >
+	    <button onClick={() => {}}>Back to clinic editor</button >
 	    <br/>
 		    
-	    <label>Name:</label>
+	    <h1>Client/patient entry</h1>
+
+	    <label>Name:</label><br/>
 
 	    <input value={form_data.name} onChange={handle_name}>
 	    </input><br/>
 
-	    <label>Postcode:</label>
+	    <label>Postcode:</label><br/>
 	    
 	    <input value={form_data.postcode} onChange={handle_postcode}>
 	    </input>
 	    {form_data.postcode_valid === 0 && <em>(awaiting valid input)</em>}
 	    <br/>
 
-	    <label>Phone:</label>
+	    <label>Phone:</label><br/>
 
 	    <input value={form_data.phone} onChange={handle_phone}>
 	    </input>
 	    {form_data.phone_valid === 0 && <em>(awaiting valid input)</em>}
 	    <br/>
+
+	<div class="jsx">
 	    
+	    <button onClick={handle_test}>Load test data</button >
+	    <button onClick={handle_clear}>Clear form</button >
+	    <br/>
+		    
 	    {
 		form_data.postcode_valid === 1 &&
 		    form_data.phone_valid === 1 ?
@@ -98,6 +103,8 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 		<div className="loading">Awaiting your inputs</div>
 		
 	    }
+
+	</div>
 	
 	</div>
    );

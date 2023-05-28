@@ -25,7 +25,7 @@ export default function Confirm_outro() {
     return (
 	<>
 
-	    <br/><br/>
+	    <br/>
 
 	    <hr/>
 	    <div dangerouslySetInnerHTML={{__html: closing_comment }}/>

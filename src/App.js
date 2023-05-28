@@ -8,11 +8,11 @@ import Confirm from './Confirm.js'
 
 export default function App() {
 
-    const [page_flow, set_page_flow] = useState(10);
+    const [page_flow, set_page_flow] = useState(20);
 
-    const [form_data, set_form_data] = useState({ "name": "",
-						  "postcode": "", postcode_valid: 0,
-						  "phone": "", phone_valid: 0 });
+    const [form_data, set_form_data] = useState({ "name": "J",
+						  "postcode": "SE13 6LH", postcode_valid: 0,
+						  "phone": "07777777777", phone_valid: 0 });
     
     const [booking, set_booking] = useState();
 

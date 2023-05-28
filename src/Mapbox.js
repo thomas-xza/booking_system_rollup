@@ -8,7 +8,14 @@ export default function Mapbox({ postcode, mapbox_resp, set_mapbox_resp }) {
 	//     JSON.stringify(mapbox_resp)
 	// )
 
-	console.log(mapbox_resp);	
+	return (
+	    <>
+		<em>{postcode} is located in {mapbox_resp.borough}</em>
+		<br/>
+		<br/>
+		<strong>Select client/patient availability</strong>:
+	    </>
+	)
 	
     } else {
 	
@@ -38,7 +45,7 @@ async function fetch_with_retries(url, retry_count) {
 	
 	return await fetch(url)
 	    .then(res => res.json());
-n
+
     } catch (error) {
 
 	console.log("retrying fetch(), retry_count");
@@ -70,16 +77,19 @@ export function store_data(postcode, mapbox_json, mapbox_resp, set_mapbox_resp) 
     console.log("store_data()", mapbox_json, "\n", mapbox_json.features[0])
 
     try {
+	
 	const top_hit_coords = mapbox_json.features[0].geometry.coordinates;
+
+	const borough = mapbox_json.features[0].context[0].text || ""
 
 	const source_obj = {
 	    'postcode': postcode,
 	    'longitude': top_hit_coords[0],
-	    'latitude': top_hit_coords[1]
-	    // 'borough': mapbox_json.features[0].context[0].text || ""
+	    'latitude': top_hit_coords[1],
+	    'borough': borough
 	};
 
-	console.log(source_obj);
+	console.log("source_obj()", source_obj);
 
 	set_mapbox_resp(source_obj);
 

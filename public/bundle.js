@@ -8022,24 +8022,28 @@
 	  }, [form_data]);
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "form"
-	  }, /*#__PURE__*/React.createElement("h1", null, "Client/patient entry"), /*#__PURE__*/React.createElement("button", {
+	  }, /*#__PURE__*/React.createElement("button", {
+	    onClick: () => {}
+	  }, "Back to clinic editor"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h1", null, "Client/patient entry"), /*#__PURE__*/React.createElement("label", null, "Name:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+	    value: form_data.name,
+	    onChange: handle_name
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Postcode:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+	    value: form_data.postcode,
+	    onChange: handle_postcode
+	  }), form_data.postcode_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Phone:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+	    value: form_data.phone,
+	    onChange: handle_phone
+	  }), form_data.phone_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
+	    class: "jsx"
+	  }, /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_test
 	  }, "Load test data"), /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_clear
-	  }, "Clear form"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Name:"), /*#__PURE__*/React.createElement("input", {
-	    value: form_data.name,
-	    onChange: handle_name
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Postcode:"), /*#__PURE__*/React.createElement("input", {
-	    value: form_data.postcode,
-	    onChange: handle_postcode
-	  }), form_data.postcode_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Phone:"), /*#__PURE__*/React.createElement("input", {
-	    value: form_data.phone,
-	    onChange: handle_phone
-	  }), form_data.phone_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), form_data.postcode_valid === 1 && form_data.phone_valid === 1 ? /*#__PURE__*/React.createElement("button", {
+	  }, "Clear form"), /*#__PURE__*/React.createElement("br", null), form_data.postcode_valid === 1 && form_data.phone_valid === 1 ? /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_confirm
 	  }, "Find appointment") : /*#__PURE__*/React.createElement("div", {
 	    className: "loading"
-	  }, "Awaiting your inputs"));
+	  }, "Awaiting your inputs")));
 	}
 
 	function Mapbox({
@@ -8052,7 +8056,7 @@
 	    //     JSON.stringify(mapbox_resp)
 	    // )
 
-	    console.log(mapbox_resp);
+	    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("em", null, postcode, " is located in ", mapbox_resp.borough), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Select client/patient availability"), ":");
 	  } else {
 	    load_distances(postcode, mapbox_resp, set_mapbox_resp);
 	    return /*#__PURE__*/React.createElement("div", {
@@ -8068,7 +8072,6 @@
 	async function fetch_with_retries(url, retry_count) {
 	  try {
 	    return await fetch(url).then(res => res.json());
-	    n;
 	  } catch (error) {
 	    console.log("retrying fetch(), retry_count");
 	    return fetch_with_retries(url);
@@ -8088,14 +8091,14 @@
 	  console.log("store_data()", mapbox_json, "\n", mapbox_json.features[0]);
 	  try {
 	    const top_hit_coords = mapbox_json.features[0].geometry.coordinates;
+	    const borough = mapbox_json.features[0].context[0].text || "";
 	    const source_obj = {
 	      'postcode': postcode,
 	      'longitude': top_hit_coords[0],
-	      'latitude': top_hit_coords[1]
-	      // 'borough': mapbox_json.features[0].context[0].text || ""
+	      'latitude': top_hit_coords[1],
+	      'borough': borough
 	    };
-
-	    console.log(source_obj);
+	    console.log("source_obj()", source_obj);
 	    set_mapbox_resp(source_obj);
 	  } catch {}
 	}
@@ -8179,7 +8182,9 @@
 	}) {
 	  // console.log("Clinics_list", clinics_w_dists);
 
-	  return /*#__PURE__*/React.createElement(React.Fragment, null, clinics_w_dists.map(function (clinic, index) {
+	  return /*#__PURE__*/React.createElement("ul", {
+	    className: "clinics_list"
+	  }, clinics_w_dists.map(function (clinic, index) {
 	    if (checked_days[clinic.day_of_week] === true) {
 	      if (clinic.longitude === 0 && phone_show === true || clinic.longitude !== 0) {
 	        return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Clinic_single, {
@@ -8557,7 +8562,9 @@
 	      calculate_distances(mapbox_resp, clinics_w_dists, set_clinics_w_dists);
 	    }
 	  }, [mapbox_resp]);
-	  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+	  return /*#__PURE__*/React.createElement("div", {
+	    className: "booking_select"
+	  }, /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      set_page_flow(10);
@@ -8571,7 +8578,7 @@
 	    set_checked_days: set_checked_days,
 	    phone_show: phone_show,
 	    set_phone_show: set_phone_show
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Ordered by closest first..."), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Clinics_list, {
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Ordered by closest first..."), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Clinics_list, {
 	    clinics_w_dists: clinics_w_dists,
 	    checked_days: checked_days,
 	    phone_show: phone_show,
@@ -8584,14 +8591,45 @@
 	  form_data,
 	  booking
 	}) {
+	  const [custom_extras, set_custom_extras] = reactExports.useState([booking.longitude === 0, false]);
 	  const gen_cal_entry = () => {
-	    const nice_phone = form_data.phone.replace(/[\- \(\)]/g, "").match(/.{1,4}/g).join(" ");
-	    if (booking.longitude === 0) {
-	      return "Phone " + form_data.name + " - " + nice_phone;
-	    }
-	    return form_data.name + " F2F - " + nice_phone;
+	    return `${phone_chk(0)}${form_data.name}${phone_chk(1)} - ${phone()} - ${form_data.postcode} ${tdt_chk()}`;
 	  };
-	  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("pre", null, gen_cal_entry()), /*#__PURE__*/React.createElement("button", {
+	  const phone_chk = pos => {
+	    if (custom_extras[0] === true && pos === 0) {
+	      return "Call ";
+	    } else if (custom_extras[0] === false && pos === 1) {
+	      return " F2F";
+	    }
+	    return "";
+	  };
+	  const tdt_chk = () => {
+	    return custom_extras[1] === true ? "[TDT]" : "";
+	  };
+	  const phone = () => {
+	    return form_data.phone.replace(/[\- \(\)]/g, "").match(/.{1,4}/g).join(" ");
+	  };
+	  const handle_checkbox = position => {
+	    const new_state = custom_extras.map((item, index) => index === position ? !item : item);
+	    set_custom_extras(new_state);
+	  };
+	  return /*#__PURE__*/React.createElement("div", {
+	    className: "jsx"
+	  }, /*#__PURE__*/React.createElement("label", {
+	    key: "checkbox_label_phone"
+	  }, /*#__PURE__*/React.createElement("input", {
+	    type: "checkbox",
+	    key: "checkbox_box_phone",
+	    checked: custom_extras[0],
+	    onChange: () => handle_checkbox(0)
+	  }), "Phone"), /*#__PURE__*/React.createElement("label", {
+	    key: "checkbox_label_tdt"
+	  }, /*#__PURE__*/React.createElement("input", {
+	    type: "checkbox",
+	    key: "checkbox_box_tdt",
+	    checked: custom_extras[1],
+	    onChange: () => handle_checkbox(1)
+	  }), "TDT"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_cal_entry()), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      navigator.clipboard.writeText(gen_cal_entry());
@@ -8621,7 +8659,9 @@
 	  const gen_sms_msg = appt_time => {
 	    return ["Hi there. Thanks for talking with me. Your appointment details follow.\n", "Time: ", `${title_case(booking.day_of_week)} ${appt_time} \n`, "Advisor:", title_case(booking.advisor), "\nLocation", ...full_addr, "\nPlease contact us if you would like to change time or location.", "\nKing regards", "Lewisham Stop Smoking Service"].join("\n");
 	  };
-	  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("pre", null, gen_sms_msg(appt_time)), /*#__PURE__*/React.createElement("button", {
+	  return /*#__PURE__*/React.createElement("div", {
+	    className: "jsx"
+	  }, /*#__PURE__*/React.createElement("pre", null, gen_sms_msg(appt_time)), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      navigator.clipboard.writeText(form_data.phone);
@@ -8658,7 +8698,7 @@
 </ul>
 <br/><br/><br/><br/><br/>
 `;
-	  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("div", {
+	  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("div", {
 	    dangerouslySetInnerHTML: {
 	      __html: closing_comment
 	    }
@@ -8681,7 +8721,9 @@
 	  const gen_csv_entry = appt_time => {
 	    return `${booking.title.split(" ")[0]}, ${appt_time.split(",").join(" ")}, ${title_case(booking.advisor)}`;
 	  };
-	  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
+	  return /*#__PURE__*/React.createElement("div", {
+	    className: "Confirm"
+	  }, /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      set_page_flow(10);
@@ -8694,17 +8736,21 @@
 	  }, "Back to clinic selection"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h1", null, "Confirmation"), /*#__PURE__*/React.createElement("strong", null, "1. Copy to calendar:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Confirm_calendar, {
 	    form_data: form_data,
 	    booking: booking
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "2. Paste date & time from calendar:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("textarea", {
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "2. Paste date & time from calendar:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
+	    className: "jsx"
+	  }, /*#__PURE__*/React.createElement("textarea", {
 	    className: "oneline",
 	    value: appt_time,
 	    onChange: e => {
 	      handle_time_change(e);
 	    }
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "3. Copy text for client:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Confirm_sms, {
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null)), /*#__PURE__*/React.createElement("strong", null, "3. Copy text for client:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Confirm_sms, {
 	    form_data: form_data,
 	    booking: booking,
 	    appt_time: appt_time
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "4. Copy text for spreadsheet:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_csv_entry(appt_time)), /*#__PURE__*/React.createElement("button", {
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "4. Copy text for spreadsheet:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
+	    className: "jsx"
+	  }, /*#__PURE__*/React.createElement("pre", null, gen_csv_entry(appt_time)), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      navigator.clipboard.writeText(gen_csv_entry(appt_time));
@@ -8719,16 +8765,16 @@
 	    onClick: () => {
 	      navigator.clipboard.writeText(form_data.postcode);
 	    }
-	  }, "Copy ", form_data.postcode, " to clipboard"), /*#__PURE__*/React.createElement(Confirm_outro, null));
+	  }, "Copy ", form_data.postcode, " to clipboard")), /*#__PURE__*/React.createElement(Confirm_outro, null));
 	}
 
 	function App() {
-	  const [page_flow, set_page_flow] = reactExports.useState(10);
+	  const [page_flow, set_page_flow] = reactExports.useState(20);
 	  const [form_data, set_form_data] = reactExports.useState({
-	    "name": "",
-	    "postcode": "",
+	    "name": "J",
+	    "postcode": "SE13 6LH",
 	    postcode_valid: 0,
-	    "phone": "",
+	    "phone": "07777777777",
 	    phone_valid: 0
 	  });
 	  const [booking, set_booking] = reactExports.useState();

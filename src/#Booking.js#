@@ -31,12 +31,14 @@ export default function Booking({ form_data, booking, set_booking, set_page_flow
     }, [mapbox_resp]);
     
     return (
-	    <div className="booking_select">
+	    <div>
 	    
             <button className="medium" onClick={ () => {set_page_flow(10)} }>Back to initial form</button>
 	    <br/>
 
 	    <h1>Booking selection</h1>
+
+	
 
 	    <Mapbox postcode={form_data.postcode}
 	mapbox_resp={mapbox_resp}
@@ -51,7 +53,7 @@ export default function Booking({ form_data, booking, set_booking, set_page_flow
 
 	    <br/>
 
-	<strong>Ordered by closest first...</strong><br/>
+	<strong>Ordered by closest first...</strong><br/><br/>
 	    
 	    <Clinics_list
 	clinics_w_dists={clinics_w_dists}

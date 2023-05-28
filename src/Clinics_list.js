@@ -7,7 +7,7 @@ export default function Clinics_list({ clinics_w_dists, checked_days, phone_show
     // console.log("Clinics_list", clinics_w_dists);
     
     return (
-	    <>
+	    <ul className="clinics_list">
 
     	{ clinics_w_dists.map( function (clinic, index) {
 
@@ -31,7 +31,7 @@ export default function Clinics_list({ clinics_w_dists, checked_days, phone_show
 	    
 	} ) }
 	
-	</>
+	</ul>
 
 	);
 

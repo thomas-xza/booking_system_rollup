@@ -17,7 +17,7 @@ export default function Confirm_sms({ form_data, booking, appt_time }) {
     ].join("\n") };
 
     return (
-	    <>
+	    <div className="jsx">
 	    
 	    <pre>{gen_sms_msg(appt_time)}</pre>
 	    <button className="medium"
@@ -34,7 +34,7 @@ export default function Confirm_sms({ form_data, booking, appt_time }) {
 	onClick={() => {alert("If someone gives me a credit card I can make this button work! $0.0446 per message as of May 2023.")} }>
 	    Send this SMS via Vonage</button>
 
-	</>
+	</div>
     );
 }
 

@@ -30,9 +30,9 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
     }
 
     return (
-	    <>
+	    <div className="Confirm">
 
-	    <button className="medium" onClick={ () => {set_page_flow(10)} }>Back to initial form</button>
+	    <button className="medium" onClick={ () => {set_page_flow(10)} }>Back to initial form</button> 
 
 	    <button className="medium" onClick={ () => {set_page_flow(20)} }>Back to clinic selection</button>
 	    <br/>
@@ -43,26 +43,33 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 
 	    <Confirm_calendar form_data={form_data} booking={booking}/>
 
-	    <br/><br/>
+	    <br/>
 
 	    <strong>2. Paste date & time from calendar:</strong><br/>
+
+	<div className="jsx">
+
 	    <textarea className="oneline" value={appt_time} onChange={(e) => {
 		handle_time_change(e)
 	    }}/><br/><br/>
+
+	</div>
 	    
 	    <strong>3. Copy text for client:</strong><br/>
 
 	    <Confirm_sms form_data={form_data} booking={booking} appt_time={appt_time}/>
 
-	    <br/><br/>
+	    <br/>
 
 	    <strong>4. Copy text for spreadsheet:</strong><br/>
+
+	<div className="jsx">
 
 	    <pre>{gen_csv_entry(appt_time)}</pre>
 	    <button className="medium"
 	onClick={() => {navigator.clipboard.writeText(gen_csv_entry(appt_time)) }}>
 	    Copy entry to clipboard
-	</button>	    
+	</button>
 
 	    <br/><br/>
 
@@ -76,9 +83,11 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 	    Copy {form_data.postcode} to clipboard
 	</button>	    
 
+	</div>
+
 	    <Confirm_outro/>
 
-	</>
+	</div>
     );
 }
 
