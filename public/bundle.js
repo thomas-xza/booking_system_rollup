@@ -8150,11 +8150,15 @@
 	    set_booking(clinic);
 	    set_page_flow(30);
 	  };
+	  const map_link_to_clinic = `https://duckduckgo.com/?q=${clinic.postcode.split(" ").join("+")}&t=h_&ia=web&iaxm=maps`;
 	  return /*#__PURE__*/React.createElement("li", {
 	    key: `clinic_${index}`
-	  }, clinic.title, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", {
+	  }, clinic.title, /*#__PURE__*/React.createElement("ul", null, clinic.longitude !== 0 ? /*#__PURE__*/React.createElement("li", {
 	    key: `clinic_${index}_dist`
-	  }, clinic.distance, " km"), /*#__PURE__*/React.createElement("li", {
+	  }, /*#__PURE__*/React.createElement("a", {
+	    href: map_link_to_clinic,
+	    target: "_blank"
+	  }, clinic.distance, " km")) : null, /*#__PURE__*/React.createElement("li", {
 	    key: `clinic_${index}_time`
 	  }, clinic.time_start, " - ", clinic.time_end), /*#__PURE__*/React.createElement("li", {
 	    key: `clinic_${index}_day`
