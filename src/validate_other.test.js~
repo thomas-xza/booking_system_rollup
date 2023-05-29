@@ -1,0 +1,48 @@
+import { validate_day,
+	 validate_address,
+	 validate_num_within_range } from './validators.js';
+
+test('valid day', () => { 
+    expect(
+	validate_day(
+	    "monday"
+	)
+    )
+	.toBe(
+	    1
+	);
+});
+
+test('valid day', () => { 
+    expect(
+	validate_day(
+	    "MONDAY"
+	)
+    )
+	.toBe(
+	    1
+	);
+});
+
+test('invalid', () => { 
+    expect(
+	validate_(
+	    "fri"
+	)
+    )
+	.toBe(
+	    0
+	);
+});
+
+// test('valid', () => { 
+//     expect(
+// 	validate_(
+// 	    ""
+// 	)
+//     )
+// 	.toBe(
+// 	    1
+// 	);
+// });
+

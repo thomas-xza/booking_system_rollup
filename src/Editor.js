@@ -13,6 +13,8 @@ export default function Editor({ clinics_obj, set_clinics_obj, set_page_flow }) 
 
     const [tmp_clinics_obj, set_tmp_clinics_obj] = useState(JSON.stringify(clinics_obj, null, 4));
     
+    const [valid_clinics, set_valid_clinics] = useState(JSON.stringify(clinics_obj, null, 4));
+    
     function handle_change(e) {
 
 	const validation_results = validate_all_data(e.target.value);
@@ -35,31 +37,32 @@ export default function Editor({ clinics_obj, set_clinics_obj, set_page_flow }) 
 
     	    loaded_clinics = JSON.parse(new_clinics_set);
 
-	} catch { return validation_targets.map( () => return 0 )  }
+	} catch { return validation_targets.map( () => { return 0 } ) }
 
 	//  1. iterate through the data fields names to validate
 	//  2. subiterate through the clinics
 
-	const validation_results = validation_targets.map( function(field_name) {
+	const validation_results = validation_targets.map(
 
-    	    loaded_clinics.map(
-		
-		function (clinic) {
+	    function(field_name) {
 
-		    if ( validate_onesizefitsall(field_name, clinic[field_name]) === 1 ) {
+    		return loaded_clinics.map(
+		    
+		    function (clinic) {
 
-			return 1
+			if ( validate_onesizefitsall(field_name, clinic[field_name]) === 1 ) {
 
+			    return 1 }
+			
 		    }
 		    
-		}
-		
-	    ).length
+		).length
 
-	}
-							 }
+	    }
+
+	)
     }
-
+    
     function validate_onesizefitsall(field_name, data) {
 
 	switch (field_name) {
@@ -70,11 +73,11 @@ export default function Editor({ clinics_obj, set_clinics_obj, set_page_flow }) 
 
 	case "time_start":
 
-	    return validate_time(data)
+	    return validate_num_range(data, 0, 24)
 
 	case "time_end":
 
-	    return validate_time(data)
+	    return validate_num_range(data, 0, 24)
 
 	case "postcode":
 
@@ -86,35 +89,16 @@ export default function Editor({ clinics_obj, set_clinics_obj, set_page_flow }) 
 
 	case "longitude":
 
-	    return validate_coordinate(data)
+	    return validate_num_range(data, 0, 52)
 
 	case "latitude":
 
-	    return validate_coordinate(data)
+	    return validate_num_range(data, 0, 52)
 
 	}
 
-	
-
     }
 	
-	
-    // 	const validation_results = {
-
-    // 	    "day_of_week": validate_day(clinics_set, validate_day_of_week),
-
-    // 	    "time_start": validate_time(clinics_set, validate_time),
-
-    // 	    "time_end": validate_time(clinics_set, validate_time),
-
-    // 	    "postcode": validate_time(clinics_set, validate_time),
-
-	    
-
-    // 	}
-
-    // }
-
     return (
 	    <div className="editor">
 	    
@@ -138,9 +122,6 @@ export default function Editor({ clinics_obj, set_clinics_obj, set_page_flow }) 
 
 	    <strong>Note that once you close your browser any edits will not be saved, so you need to make a copy and store it elsewhere, for laster pasting back in.</strong>
 	
-
-	
-
 	    <textarea value={tmp_clinics_obj} onChange={(e) => {
 		handle_change(e) }} />
 
