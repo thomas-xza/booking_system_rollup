@@ -67,7 +67,9 @@ button {
 .editor > textarea {
 
     width: 98%;
-    height: 50em;
+    height: 30em;
+    font-family: monospace;
+    font-size: 1.75em;
 
 }
 

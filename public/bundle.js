@@ -8277,22 +8277,56 @@
 	  set_clinics_obj,
 	  set_page_flow
 	}) {
+	  const [tmp_clinics_obj, set_tmp_clinics_obj] = reactExports.useState(JSON.stringify(clinics_obj, null, 4));
 	  function handle_change(e) {
-	    // reload_parse();
-
-	    set_clinics_obj(e.target.value);
+	    validate_all_data(e.target.value);
+	    set_tmp_clinics_obj(e.target.value);
 	  }
+
+	  // function validate_all_data(new_clinics_set) {
+
+	  // 	console.log(JSON.parse(new_clinics_set));
+
+	  // 	// const to_validate = { "day_of_week": ,
+	  // 	// 		      "time_start",
+	  // 	// 		      "time_end",
+	  // 	// 		      "postcode",
+	  // 	// 		      "address",
+	  // 	// 		      "latitude",
+	  // 	// 		      "longitude" }
+
+	  // 	clinics_set.map(function (clinic) {
+
+	  // 		<ul>
+	  // 		<li>{clinic.title}
+	  // 	    <ul>
+
+	  // 	    </ul>
+
+	  // 	}
+
+	  // 	const validation_results = {
+
+	  // 	    "day_of_week": validate_day(clinics_set, validate_day_of_week),
+
+	  // 	    "time_start": validate_time(clinics_set, validate_time),
+
+	  // 	    "time_end": validate_time(clinics_set, validate_time),
+
+	  // 	    "postcode": validate_time(clinics_set, validate_time),
+
+	  // 	}
+
+	  // }
+
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "editor"
-	  }, /*#__PURE__*/React.createElement("button", {
-	    onClick: () => {
-	    }
-	  }, "Forward with default set (as of May 2023)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h1", null, "Clinic set editor"), /*#__PURE__*/React.createElement("textarea", {
-	    value: JSON.stringify(clinics_obj, null, 4),
+	  }, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h1", null, "Clinic set editor"), "This page is about editing the set of clinics which will be loaded when making a booking. ", /*#__PURE__*/React.createElement("br", null), "Basically the formatting of the following textbox (which contains data in Javascript format) has to be what the Javascript engine in your brower can understand. This page was created so that you can edit the data and get immediate feedback if you make a mistake. ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), "The following expectations should be known, before starting:", /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("code", null, "day_of_week"), " must always be a lowercase, full day name"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("code", null, "time_start"), " and ", /*#__PURE__*/React.createElement("code", null, "time_end"), " must always be integers between 0 and 2400"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("code", null, "postcode"), " must always be uppercase and be a standard, full UK postcode"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("code", null, "address"), " must be a set of strings within an array (copy pattern of default list if you are unsure what that means)"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("code", null, "longitude"), " and ", /*#__PURE__*/React.createElement("code", null, "latitude"), " must always be number between 0 and 52"), /*#__PURE__*/React.createElement("li", null, "any quantity of clinics is permitted")), /*#__PURE__*/React.createElement("strong", null, "Note that once you close your browser any edits will not be saved, so you need to make a copy and store it elsewhere, for laster pasting back in."), /*#__PURE__*/React.createElement("textarea", {
+	    value: tmp_clinics_obj,
 	    onChange: e => {
 	      handle_change(e);
 	    }
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null));
+	  }), /*#__PURE__*/React.createElement("ul", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null));
 	}
 
 	function validate_postcode(postcode) {
