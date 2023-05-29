@@ -110,3 +110,14 @@ test('invalid postcode 4', () => {
 	);
 });
 
+test('invalid postcode 4', () => { 
+    expect(
+	validate_postcode(
+	    1
+	)
+    )
+	.toBe(
+	    0
+	);
+});
+

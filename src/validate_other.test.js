@@ -94,7 +94,7 @@ test('invalid day upcase', () => {
 	);
 });
 
-test('invalid', () => { 
+test('invalid day', () => { 
     expect(
 	validate_day(
 	    "fri"
