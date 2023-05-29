@@ -1,11 +1,15 @@
 
 export function validate_postcode(postcode) {
 
-    const processed = postcode
-	  .toUpperCase()
-	  .match(/[A-Z]{1,2}[0-9]{1,2} +[0-9]{1,2}[A-Z]{2}/) || [];
+    try {
 
-    return (processed[0]) ? 1 : 0;
+	const processed = postcode
+	      .toUpperCase()
+	      .match(/[A-Z]{1,2}[0-9]{1,2} +[0-9]{1,2}[A-Z]{2}/) || [];
+
+	return (processed[0]) ? 1 : 0;
+
+    } catch { return 0 }
 
 }
 
