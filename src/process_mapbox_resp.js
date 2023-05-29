@@ -1,7 +1,7 @@
 import React from 'react';
 import { default_clinics } from './clinics_from_csv.json';
 
-export function calculate_distances(mapbox_resp, clinics_w_dists, set_clinics_w_dists) {
+export function calculate_distances(clinics, mapbox_resp, clinics_w_dists, set_clinics_w_dists) {
 
     const clinics_calc = clinics.map(function (clinic) {
 

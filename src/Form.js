@@ -64,8 +64,9 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
 	    <div className="form">
 	    
-	    <button onClick={() => {}}>Back to clinic editor</button >
-	    <br/>
+            <div className="topbar">
+	    <button onClick={() => {set_page_flow(5)}}>To clinic editor</button >
+	    </div>
 		    
 	    <h1>Client/patient entry</h1>
 

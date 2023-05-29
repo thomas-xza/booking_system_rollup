@@ -25,29 +25,39 @@ export default function Editor({ clinics_obj, set_clinics_obj, set_page_flow }) 
 
     }
 
+    function handle_data_update() {
+
+	set_clinics_obj(JSON.parse(tmp_clinics_str));
+
+	console.log(clinics_obj)
+
+	set_page_flow(10);
+
+    }
+
     function validation_initiate(clinics_obj_as_str) {
 
-	const loaded_clinics = function () {
+	const gen_loaded_clinics = function () {
 
 	    try {
 
     		return JSON.parse(clinics_obj_as_str)
 
-	    } catch (error) {
-		
-		console.log("JSON PARSE ERROR")
+	    } catch { console.log("JSON PARSE ERROR")
 
-		return {}
+		return []
 
 	    }
 
 	};
 
+	const loaded_clinics = gen_loaded_clinics()
+
 	const gen_validation_res = function () {
 
 	    try {
 	    
-		return validate_implicitly(loaded_clinics())
+		return validate_implicitly(loaded_clinics)
 
 	    } catch {
 
@@ -57,9 +67,19 @@ export default function Editor({ clinics_obj, set_clinics_obj, set_page_flow }) 
 
 	};
 
-	console.log([ loaded_clinics().length ].concat(gen_validation_res()));
+	const clinics_quantity = () => {
 
-	return [ loaded_clinics().length ].concat(gen_validation_res());
+	    return(
+		
+		typeof loaded_clinics === typeof [] ? loaded_clinics.length : 0
+		
+	    )
+
+	}
+
+	console.log([ clinics_quantity() ].concat(gen_validation_res()));
+
+	return [ clinics_quantity() ].concat(gen_validation_res());
 
     }
 
@@ -124,8 +144,19 @@ export default function Editor({ clinics_obj, set_clinics_obj, set_page_flow }) 
 
     return (
 	    <div className="editor">
+
+	<div className="topbar">
 	    
-	    <br/>
+	    {
+		validation_res[0] !== 0 ?
+		    
+		<button onClick={handle_data_update}>Continue with entered set</button >
+		:
+		    <div className="loading">The clinic set is not currently valid, hit F5/reload if you want to load defaults</div>
+		
+	    }
+
+	</div>
 
 	<Editor_intro/>
 	
@@ -133,20 +164,24 @@ export default function Editor({ clinics_obj, set_clinics_obj, set_page_flow }) 
 	    { (e) => { handle_change(e) } }
 	    />
 
-	<br/>
+	<br/><br/>
 
-	<strong>Detected the following:</strong>
+	    <strong><div className="loading">
+	    Detected the following
+	</div></strong>
 
 	    <ul>
 	    <li> {validation_res[0]} clinics </li>
 	    <li> {validation_res[1]} valid <code>day_of_week</code> </li>
 	    <li> {validation_res[2]} valid <code>time_start</code></li>
 	    <li> {validation_res[3]} valid <code>time_end</code></li>
-	    <li> {validation_res[4]} valid <code>postcode</code></li>
+	    <li> {validation_res[4]} valid <code>postcode</code> (note: telephone clinics do not need valid postcodes)</li>
 	    <li> {validation_res[5]} valid <code>address</code></li>
 	    <li> {validation_res[6]} valid <code>latitude</code></li>
 	    <li> {validation_res[7]} valid <code>longitude</code></li>
 	    </ul>
+
+	    <em>Note: whilst you are editing the data and it becomes temporarily invalid, all values may turn to 0</em>
 	    
 	    <br/><br/>
 	    
@@ -154,13 +189,3 @@ export default function Editor({ clinics_obj, set_clinics_obj, set_page_flow }) 
     );
     
 };
-
-
-// "day_of_week": (data) => { return validate_day(data) },
-    	    // "time_start":  (data) => { return validate_num_within_range(data, 0, 2400) },
-    	    // "time_end":    (data) => { return validate_num_within_range(data, 0, 2400) },
-    	    // "postcode":    (data) => { return validate_postcode(data) },
-    	    // "address":     (data) => { return validate_address(data) },
-    	    // "latitude":    (data) => { return validate_num_within_range(data, -1, 52) },
-    	    // "longitude":   (data) => { return validate_num_within_range(data, -1, 52) }
-	    

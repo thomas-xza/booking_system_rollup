@@ -41,10 +41,11 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
     return (
 	    <div className="Confirm">
 
+            <div className="topbar">
 	    <button className="medium" onClick={ () => {set_page_flow(10)} }>Back to initial form</button> 
 
 	    <button className="medium" onClick={ () => {set_page_flow(20)} }>Back to clinic selection</button>
-	    <br/>
+	    </div>
 
 	    <h1>Confirmation</h1>
 

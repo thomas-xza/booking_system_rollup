@@ -7953,7 +7953,7 @@
 	}
 
 	function Editor_intro() {
-	  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Clinic set editor"), "This page is about editing the set of clinics which will be loaded when making a booking. ", /*#__PURE__*/React.createElement("br", null), "Basically the formatting of the following textbox (which contains data in Javascript format) has to be what the Javascript engine in your brower can understand. This page was created so that you can edit the data and get immediate feedback (at bottom of page) if your edits are not compatible with this booking system. ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), "The following expectations should be known, before starting:", /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("code", null, "day_of_week"), " must always be a lowercase, full day name"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("code", null, "time_start"), " and ", /*#__PURE__*/React.createElement("code", null, "time_end"), " must always be integers between 0 and 2400"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("code", null, "postcode"), " must always be uppercase and be a standard, full UK postcode"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("code", null, "address"), " must be a set of quotes, separated by commas, within square brackets (imitate the pattern of the default list)"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("code", null, "longitude"), " and ", /*#__PURE__*/React.createElement("code", null, "latitude"), " must always be numbers between -1 and 52"), /*#__PURE__*/React.createElement("li", null, "any quantity of clinics is permitted")), /*#__PURE__*/React.createElement("strong", null, "Note that once you close your browser any edits will not be saved, so you need to make a copy and store it elsewhere, for laster pasting back in."), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null));
+	  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Clinic set editor"), "This page is about editing the set of clinics which will be loaded when making a booking. ", /*#__PURE__*/React.createElement("br", null), "Basically the formatting of the following textbox (which contains data in Javascript format) has to be what the Javascript engine in your brower can understand. This page was created so that you can edit the data and get immediate feedback (at bottom of page) if your edits are not compatible with this booking system. ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), "The following expectations should be known, before starting:", /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "any quantity of clinics is permitted"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("code", null, "day_of_week"), " must always be a lowercase, full day name"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("code", null, "time_start"), " and ", /*#__PURE__*/React.createElement("code", null, "time_end"), " must always be integers between 0 and 2400"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("code", null, "postcode"), " must always be uppercase and be a standard, full UK postcode"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("code", null, "address"), " must be a set of quotes, separated by commas, within square brackets (imitate the pattern of the default list)"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("code", null, "longitude"), " and ", /*#__PURE__*/React.createElement("code", null, "latitude"), " must always be numbers between -1 and 52"), /*#__PURE__*/React.createElement("li", null, "telephone clinics must have ", /*#__PURE__*/React.createElement("code", null, "longitude"), " set to ", /*#__PURE__*/React.createElement("code", null, "0"), " and do not need to have valid ", /*#__PURE__*/React.createElement("code", null, "postcode"), ", but do need to have ", /*#__PURE__*/React.createElement("code", null, "longitude"), " set to 0")), /*#__PURE__*/React.createElement("strong", null, "Note that once you close your browser any edits will not be saved, so you need to make a copy and store it elsewhere, for laster pasting back in."), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null));
 	}
 
 	function validate_postcode(postcode) {
@@ -8006,24 +8006,33 @@
 	    set_validation_res(validation_initiate(e.target.value));
 	    set_tmp_clinics_str(e.target.value);
 	  }
+	  function handle_data_update() {
+	    set_clinics_obj(JSON.parse(tmp_clinics_str));
+	    console.log(clinics_obj);
+	    set_page_flow(10);
+	  }
 	  function validation_initiate(clinics_obj_as_str) {
-	    const loaded_clinics = function () {
+	    const gen_loaded_clinics = function () {
 	      try {
 	        return JSON.parse(clinics_obj_as_str);
-	      } catch (error) {
+	      } catch {
 	        console.log("JSON PARSE ERROR");
-	        return {};
+	        return [];
 	      }
 	    };
+	    const loaded_clinics = gen_loaded_clinics();
 	    const gen_validation_res = function () {
 	      try {
-	        return validate_implicitly(loaded_clinics());
+	        return validate_implicitly(loaded_clinics);
 	      } catch {
 	        return [0, 0, 0, 0, 0, 0, 0];
 	      }
 	    };
-	    console.log([loaded_clinics().length].concat(gen_validation_res()));
-	    return [loaded_clinics().length].concat(gen_validation_res());
+	    const clinics_quantity = () => {
+	      return typeof loaded_clinics === typeof [] ? loaded_clinics.length : 0;
+	    };
+	    console.log([clinics_quantity()].concat(gen_validation_res()));
+	    return [clinics_quantity()].concat(gen_validation_res());
 	  }
 	  function validate_implicitly(loaded_clinics) {
 	    ////  Build an object to know which functions to use to validate
@@ -8073,21 +8082,21 @@
 	  }
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "editor"
-	  }, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Editor_intro, null), /*#__PURE__*/React.createElement("textarea", {
+	  }, /*#__PURE__*/React.createElement("div", {
+	    className: "topbar"
+	  }, validation_res[0] !== 0 ? /*#__PURE__*/React.createElement("button", {
+	    onClick: handle_data_update
+	  }, "Continue with entered set") : /*#__PURE__*/React.createElement("div", {
+	    className: "loading"
+	  }, "The clinic set is not currently valid, hit F5/reload if you want to load defaults")), /*#__PURE__*/React.createElement(Editor_intro, null), /*#__PURE__*/React.createElement("textarea", {
 	    value: tmp_clinics_str,
 	    onChange: e => {
 	      handle_change(e);
 	    }
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Detected the following:"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, " ", validation_res[0], " clinics "), /*#__PURE__*/React.createElement("li", null, " ", validation_res[1], " valid ", /*#__PURE__*/React.createElement("code", null, "day_of_week"), " "), /*#__PURE__*/React.createElement("li", null, " ", validation_res[2], " valid ", /*#__PURE__*/React.createElement("code", null, "time_start")), /*#__PURE__*/React.createElement("li", null, " ", validation_res[3], " valid ", /*#__PURE__*/React.createElement("code", null, "time_end")), /*#__PURE__*/React.createElement("li", null, " ", validation_res[4], " valid ", /*#__PURE__*/React.createElement("code", null, "postcode")), /*#__PURE__*/React.createElement("li", null, " ", validation_res[5], " valid ", /*#__PURE__*/React.createElement("code", null, "address")), /*#__PURE__*/React.createElement("li", null, " ", validation_res[6], " valid ", /*#__PURE__*/React.createElement("code", null, "latitude")), /*#__PURE__*/React.createElement("li", null, " ", validation_res[7], " valid ", /*#__PURE__*/React.createElement("code", null, "longitude"))), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null));
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, /*#__PURE__*/React.createElement("div", {
+	    className: "loading"
+	  }, "Detected the following")), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, " ", validation_res[0], " clinics "), /*#__PURE__*/React.createElement("li", null, " ", validation_res[1], " valid ", /*#__PURE__*/React.createElement("code", null, "day_of_week"), " "), /*#__PURE__*/React.createElement("li", null, " ", validation_res[2], " valid ", /*#__PURE__*/React.createElement("code", null, "time_start")), /*#__PURE__*/React.createElement("li", null, " ", validation_res[3], " valid ", /*#__PURE__*/React.createElement("code", null, "time_end")), /*#__PURE__*/React.createElement("li", null, " ", validation_res[4], " valid ", /*#__PURE__*/React.createElement("code", null, "postcode"), " (note: telephone clinics do not need valid postcodes)"), /*#__PURE__*/React.createElement("li", null, " ", validation_res[5], " valid ", /*#__PURE__*/React.createElement("code", null, "address")), /*#__PURE__*/React.createElement("li", null, " ", validation_res[6], " valid ", /*#__PURE__*/React.createElement("code", null, "latitude")), /*#__PURE__*/React.createElement("li", null, " ", validation_res[7], " valid ", /*#__PURE__*/React.createElement("code", null, "longitude"))), /*#__PURE__*/React.createElement("em", null, "Note: whilst you are editing the data and it becomes temporarily invalid, all values may turn to 0"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null));
 	}
-
-	// "day_of_week": (data) => { return validate_day(data) },
-	// "time_start":  (data) => { return validate_num_within_range(data, 0, 2400) },
-	// "time_end":    (data) => { return validate_num_within_range(data, 0, 2400) },
-	// "postcode":    (data) => { return validate_postcode(data) },
-	// "address":     (data) => { return validate_address(data) },
-	// "latitude":    (data) => { return validate_num_within_range(data, -1, 52) },
-	// "longitude":   (data) => { return validate_num_within_range(data, -1, 52) }
 
 	function Form({
 	  form_data,
@@ -8142,9 +8151,13 @@
 	  }, [form_data]);
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "form"
+	  }, /*#__PURE__*/React.createElement("div", {
+	    className: "topbar"
 	  }, /*#__PURE__*/React.createElement("button", {
-	    onClick: () => {}
-	  }, "Back to clinic editor"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h1", null, "Client/patient entry"), /*#__PURE__*/React.createElement("label", null, "Name:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+	    onClick: () => {
+	      set_page_flow(5);
+	    }
+	  }, "To clinic editor")), /*#__PURE__*/React.createElement("h1", null, "Client/patient entry"), /*#__PURE__*/React.createElement("label", null, "Name:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
 	    value: form_data.name,
 	    onChange: handle_name
 	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Postcode:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
@@ -8638,7 +8651,7 @@
 		}
 	];
 
-	function calculate_distances(mapbox_resp, clinics_w_dists, set_clinics_w_dists) {
+	function calculate_distances(clinics, mapbox_resp, clinics_w_dists, set_clinics_w_dists) {
 	  const clinics_calc = clinics.map(function (clinic) {
 	    if (clinic.longitude !== 0) {
 	      return {
@@ -8662,6 +8675,7 @@
 	}
 
 	function Booking({
+	  clinics_obj,
 	  form_data,
 	  booking,
 	  set_booking,
@@ -8679,17 +8693,19 @@
 	  const [phone_show, set_phone_show] = reactExports.useState(true);
 	  reactExports.useEffect(() => {
 	    if (typeof mapbox_resp.longitude !== 'undefined') {
-	      calculate_distances(mapbox_resp, clinics_w_dists, set_clinics_w_dists);
+	      calculate_distances(clinics_obj, mapbox_resp, clinics_w_dists, set_clinics_w_dists);
 	    }
 	  }, [mapbox_resp]);
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "booking_select"
+	  }, /*#__PURE__*/React.createElement("div", {
+	    className: "topbar"
 	  }, /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      set_page_flow(10);
 	    }
-	  }, "Back to initial form"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h1", null, "Booking selection"), /*#__PURE__*/React.createElement(Mapbox, {
+	  }, "Back to initial form")), /*#__PURE__*/React.createElement("h1", null, "Booking selection"), /*#__PURE__*/React.createElement(Mapbox, {
 	    postcode: form_data.postcode,
 	    mapbox_resp: mapbox_resp,
 	    set_mapbox_resp: set_mapbox_resp
@@ -8869,6 +8885,8 @@
 	  };
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "Confirm"
+	  }, /*#__PURE__*/React.createElement("div", {
+	    className: "topbar"
 	  }, /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
@@ -8879,7 +8897,7 @@
 	    onClick: () => {
 	      set_page_flow(20);
 	    }
-	  }, "Back to clinic selection"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h1", null, "Confirmation"), /*#__PURE__*/React.createElement("strong", null, "1. Final selections:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Confirm_checkboxes, {
+	  }, "Back to clinic selection")), /*#__PURE__*/React.createElement("h1", null, "Confirmation"), /*#__PURE__*/React.createElement("strong", null, "1. Final selections:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Confirm_checkboxes, {
 	    form_data: form_data,
 	    booking: booking,
 	    checkboxes: checkboxes,
@@ -8923,7 +8941,7 @@
 
 	function App() {
 	  const [clinics_obj, set_clinics_obj] = reactExports.useState(default_clinics);
-	  const [page_flow, set_page_flow] = reactExports.useState(5);
+	  const [page_flow, set_page_flow] = reactExports.useState(10);
 	  const [form_data, set_form_data] = reactExports.useState({
 	    "name": "",
 	    "postcode": "",
@@ -8958,6 +8976,7 @@
 	      });
 	    case 20:
 	      return /*#__PURE__*/React.createElement(Booking, {
+	        clinics_obj: clinics_obj,
 	        form_data: form_data,
 	        booking: booking,
 	        set_booking: set_booking,
