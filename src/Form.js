@@ -51,23 +51,23 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
 	const extract_name = () => {
 	    
-	    try { return paste_data[0] + " " + paste_data[1]
+	    try { return paste_data[2] + " " + paste_data[3]
 		  
 		} catch { return "" } }
 	    
-	const extract_phone = () => {
-		
-	    try { return paste_data[0] } catch { return "" } }
-
 	const extract_postcode = () => {
 		    
-	    try { return paste_data[0] } catch { return "" } }
+	    try { return paste_data[6] } catch { return "" } }
+
+	const extract_phone = () => {
+		
+	    try { return paste_data[8] } catch { return "" } }
 
 	set_form_data({ name: extract_name(),
 			phone: extract_phone(),
-			phone_valid: validate_phone(extract_phone),
+			phone_valid: validate_phone(extract_phone()),
 			postcode: extract_postcode(),
-			postcode_valid: validate_postcode(extract_postcode),			
+			postcode_valid: validate_postcode(extract_postcode()),
 			paste: e.target.value });
 
     };
@@ -99,6 +99,12 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 		    
 	    <h1>Client/patient entry</h1>
 
+	    <label>Paste from columns upto <code>I</code> of 1 row from Excel:</label><br/>
+
+	    <input value={form_data.paste} onChange={handle_paste}>
+	    </input>
+	    <br/>
+	    
 	    <label>Name:</label><br/>
 
 	    <input value={form_data.name} onChange={handle_name}>
@@ -114,13 +120,6 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	    <label>Phone:</label><br/>
 
 	    <input value={form_data.phone} onChange={handle_phone}>
-	    </input>
-	    {form_data.phone_valid === 0 && <em>(awaiting valid input)</em>}
-	    <br/>
-
-	    <label>Paste from Excel:</label><br/>
-
-	    <input value={form_data.paste} onChange={handle_paste}>
 	    </input>
 	    {form_data.phone_valid === 0 && <em>(awaiting valid input)</em>}
 	    <br/>
