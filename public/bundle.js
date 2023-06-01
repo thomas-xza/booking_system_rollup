@@ -8776,6 +8776,39 @@
 	    return word.charAt(0).toUpperCase() + word.slice(1);
 	  }).join(' ');
 	}
+	function check_day_matches_date(target_day, date) {
+	  try {
+	    const day_of_week = convert_day_to_number(target_day);
+	    const nums_to_seek = [find_next_dates_of_day(day_of_week, 1), find_next_dates_of_day(day_of_week, 2)];
+	    console.log(nums_to_seek);
+	    if (RegExp(nums_to_seek[0]).test(date) === true || RegExp(nums_to_seek[1]).test(date) === true) {
+	      return 0;
+	    } else {
+	      return 1;
+	    }
+	  } catch {
+	    return 1;
+	  }
+	}
+	function find_next_dates_of_day(day_of_week, week_quantity) {
+	  const today = new Date();
+	  console.log(today);
+	  return String(today.getDate() + (day_of_week + 7 * week_quantity - today.getDay()) % (7 * week_quantity)).padStart(2, '0');
+	}
+	function convert_day_to_number(day) {
+	  switch (day) {
+	    case "monday":
+	      return 1;
+	    case "tuesday":
+	      return 2;
+	    case "wednesday":
+	      return 3;
+	    case "thursday":
+	      return 4;
+	    case "friday":
+	      return 5;
+	  }
+	}
 
 	function Confirm_sms({
 	  form_data,
@@ -8846,17 +8879,18 @@
 	  booking,
 	  set_page_flow
 	}) {
-	  const [appt_time, set_appt_time] = reactExports.useState("DATE & TIME HERE");
+	  const [appt_time, set_appt_time] = reactExports.useState(["DATE & TIME HERE", 0]);
 	  const [checkboxes, set_checkboxes] = reactExports.useState([booking.longitude === 0, 0]);
 	  const handle_time_change = e => {
 	    if (e.target.value === "") {
-	      set_appt_time("DATE & TIME HERE");
+	      set_appt_time(["DATE & TIME HERE", 0]);
 	    } else {
-	      set_appt_time(e.target.value);
+	      console.log(booking.day_of_week, e.target.value);
+	      set_appt_time([e.target.value, check_day_matches_date(booking.day_of_week, e.target.value)]);
 	    }
 	  };
-	  const gen_csv_entry = appt_time => {
-	    const csv_entry_end = `, ${appt_time.split(",").join(" ")}, ${title_case(booking.advisor)}`;
+	  const gen_csv_entry = time => {
+	    const csv_entry_end = `, ${time.split(",").join(" ")}, ${title_case(booking.advisor)}`;
 	    if (checkboxes[0] === true) {
 	      return "Telephone" + csv_entry_end;
 	    } else {
@@ -8890,21 +8924,21 @@
 	    className: "jsx"
 	  }, /*#__PURE__*/React.createElement("textarea", {
 	    className: "oneline",
-	    value: appt_time,
+	    value: appt_time[0],
 	    onChange: e => {
 	      handle_time_change(e);
 	    }
-	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null)), /*#__PURE__*/React.createElement("strong", null, "4. Copy text for client:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Confirm_sms, {
+	  }), appt_time[1] === 1 && /*#__PURE__*/React.createElement("em", null, "Warning: day of week does not seem to match date"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null)), /*#__PURE__*/React.createElement("strong", null, "4. Copy text for client:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Confirm_sms, {
 	    form_data: form_data,
 	    booking: booking,
 	    checkboxes: checkboxes,
-	    appt_time: appt_time
+	    appt_time: appt_time[0]
 	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "5. Copy text for spreadsheet:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
 	    className: "jsx"
-	  }, /*#__PURE__*/React.createElement("pre", null, gen_csv_entry(appt_time)), /*#__PURE__*/React.createElement("button", {
+	  }, /*#__PURE__*/React.createElement("pre", null, gen_csv_entry(appt_time[0])), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
-	      navigator.clipboard.writeText(gen_csv_entry(appt_time));
+	      navigator.clipboard.writeText(gen_csv_entry(appt_time[0]));
 	    }
 	  }, "Copy entry to clipboard"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",

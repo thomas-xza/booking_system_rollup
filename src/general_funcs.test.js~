@@ -1,0 +1,14 @@
+import { check_day_matches_date,
+	 find_next_dates_of_day } from './general_funcs.js';
+
+test('monday', () => { 
+    expect(
+	find_next_dates_of_day(
+	    1, 1
+	)
+    )
+	.toBe(
+	    "05"
+	);
+});
+

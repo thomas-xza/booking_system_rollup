@@ -7,10 +7,11 @@ import Confirm_sms from './Confirm_sms.js';
 import Confirm_outro from './Confirm_outro.js';
 
 import { title_case } from './general_funcs.js';
+import { check_day_matches_date } from './general_funcs.js';
 
 export default function Confirm({ form_data, booking, set_page_flow }) {
 
-    const [appt_time, set_appt_time] = useState("DATE & TIME HERE");
+    const [appt_time, set_appt_time] = useState([ "DATE & TIME HERE", 0 ]);
     
     const [checkboxes, set_checkboxes] = useState([ booking.longitude === 0, 0 ]);
     
@@ -18,17 +19,24 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 
 	if (e.target.value === "") {
 
-	    set_appt_time("DATE & TIME HERE")
+	    set_appt_time([ "DATE & TIME HERE", 0 ])
 
 	} else {
 
-	    set_appt_time(e.target.value) }
+	    console.log(booking.day_of_week, e.target.value)
 
+	    set_appt_time([ e.target.value,
+			    check_day_matches_date(
+				booking.day_of_week,
+				e.target.value) ])
+
+	}						   
+	
     }
 
-    const gen_csv_entry = (appt_time) => {
+    const gen_csv_entry = (time) => {
 
-	const csv_entry_end = `, ${appt_time.split(",").join(" ")}, ${title_case(booking.advisor)}`
+	const csv_entry_end = `, ${time.split(",").join(" ")}, ${title_case(booking.advisor)}`
 
 	if (checkboxes[0] === true) {
 
@@ -68,9 +76,12 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 
 	<div className="jsx">
 
-	    <textarea className="oneline" value={appt_time} onChange={(e) => {
+	    <textarea className="oneline" value={appt_time[0]} onChange={(e) => {
 		handle_time_change(e)
-	    }}/><br/><br/>
+	    }}/>
+	    {appt_time[1] === 1 && <em>Warning: day of week does not seem to match date</em>}
+
+	    <br/><br/>
 
 	</div>
 	    
@@ -80,7 +91,7 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 	form_data={form_data}
 	booking={booking}
 	checkboxes={checkboxes}
-	appt_time={appt_time}/>
+	appt_time={appt_time[0]}/>
 
 	    <br/>
 
@@ -88,9 +99,9 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 
 	<div className="jsx">
 
-	    <pre>{gen_csv_entry(appt_time)}</pre>
+	    <pre>{gen_csv_entry(appt_time[0])}</pre>
 	    <button className="medium"
-	onClick={() => {navigator.clipboard.writeText(gen_csv_entry(appt_time)) }}>
+	onClick={() => {navigator.clipboard.writeText(gen_csv_entry(appt_time[0])) }}>
 	    Copy entry to clipboard
 	</button>
 
