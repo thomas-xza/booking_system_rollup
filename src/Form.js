@@ -9,7 +9,8 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
 	set_form_data({ name: "John Smith",
 			postcode: "SE13 7RY", postcode_valid: 1,
-			phone: "0777 7777 777", phone_valid: 1 })	
+			phone: "0777 7777 777", phone_valid: 1,
+			paste: "" })	
 	
     };
 
@@ -17,7 +18,8 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
 	set_form_data({ name: "",
 			postcode: "", postcode_valid: 0,
-			phone: "", phone_valid: 0 })	
+			phone: "", phone_valid: 0,
+			paste: "" })	
 	
     };
 
@@ -40,6 +42,33 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	set_form_data({ ...form_data,
 			postcode: e.target.value,
 			postcode_valid: validate_postcode(e.target.value) });
+
+    };
+
+    const handle_paste = (e) => {
+
+	const paste_data = e.target.value.split("\t")
+
+	const extract_name = () => {
+	    
+	    try { return paste_data[0] + " " + paste_data[1]
+		  
+		} catch { return "" } }
+	    
+	const extract_phone = () => {
+		
+	    try { return paste_data[0] } catch { return "" } }
+
+	const extract_postcode = () => {
+		    
+	    try { return paste_data[0] } catch { return "" } }
+
+	set_form_data({ name: extract_name(),
+			phone: extract_phone(),
+			phone_valid: validate_phone(extract_phone),
+			postcode: extract_postcode(),
+			postcode_valid: validate_postcode(extract_postcode),			
+			paste: e.target.value });
 
     };
 
@@ -85,6 +114,13 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	    <label>Phone:</label><br/>
 
 	    <input value={form_data.phone} onChange={handle_phone}>
+	    </input>
+	    {form_data.phone_valid === 0 && <em>(awaiting valid input)</em>}
+	    <br/>
+
+	    <label>Paste from Excel:</label><br/>
+
+	    <input value={form_data.paste} onChange={handle_paste}>
 	    </input>
 	    {form_data.phone_valid === 0 && <em>(awaiting valid input)</em>}
 	    <br/>
