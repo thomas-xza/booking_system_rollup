@@ -8191,7 +8191,7 @@
 	    onClick: () => {
 	      set_page_flow(5);
 	    }
-	  }, "To clinic editor")), /*#__PURE__*/React.createElement("h1", null, "Client/patient entry"), /*#__PURE__*/React.createElement("label", null, "Paste from columns upto ", /*#__PURE__*/React.createElement("code", null, "I"), " of 1 row from Excel:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+	  }, "To clinic editor")), /*#__PURE__*/React.createElement("h1", null, "Client/patient entry"), /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("em", null, "Optional"), " paste a row from spreadsheet:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
 	    value: form_data.paste,
 	    onChange: handle_paste
 	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Name:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {

@@ -99,7 +99,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 		    
 	    <h1>Client/patient entry</h1>
 
-	    <label>Paste from columns upto <code>I</code> of 1 row from Excel:</label><br/>
+	    <label><em>Optional</em> paste a row from spreadsheet:</label><br/>
 
 	    <input value={form_data.paste} onChange={handle_paste}>
 	    </input>
