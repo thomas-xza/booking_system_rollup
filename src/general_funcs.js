@@ -23,10 +23,16 @@ export function check_day_matches_date(target_day, date) {
 	    
 	]
 
-    console.log(nums_to_seek)
+	console.log(nums_to_seek)
 
-	if (RegExp(nums_to_seek[0]).test(date) === true ||
-	    RegExp(nums_to_seek[1]).test(date) === true) {
+	const regex_to_chk = [
+	    
+	    new RegExp(`^${nums_to_seek[0]}\/`),
+	    
+	    new RegExp(`^${nums_to_seek[1]}\/`) ]
+
+	if (regex_to_chk[0].test(date.trim()) === true ||
+	    regex_to_chk[1].test(date.trim()) === true) {
 
 	    return 0
 
@@ -39,8 +45,6 @@ export function check_day_matches_date(target_day, date) {
 export function find_next_dates_of_day(day_of_week, week_quantity) {
 
     const today = new Date();
-
-    console.log(today)
 
     return String(
 	

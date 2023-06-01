@@ -8781,7 +8781,8 @@
 	    const day_of_week = convert_day_to_number(target_day);
 	    const nums_to_seek = [find_next_dates_of_day(day_of_week, 1), find_next_dates_of_day(day_of_week, 2)];
 	    console.log(nums_to_seek);
-	    if (RegExp(nums_to_seek[0]).test(date) === true || RegExp(nums_to_seek[1]).test(date) === true) {
+	    const regex_to_chk = [new RegExp(`^${nums_to_seek[0]}\/`), new RegExp(`^${nums_to_seek[1]}\/`)];
+	    if (regex_to_chk[0].test(date.trim()) === true || regex_to_chk[1].test(date.trim()) === true) {
 	      return 0;
 	    } else {
 	      return 1;
@@ -8792,7 +8793,6 @@
 	}
 	function find_next_dates_of_day(day_of_week, week_quantity) {
 	  const today = new Date();
-	  console.log(today);
 	  return String(today.getDate() + (day_of_week + 7 * week_quantity - today.getDay()) % (7 * week_quantity)).padStart(2, '0');
 	}
 	function convert_day_to_number(day) {
@@ -8928,7 +8928,7 @@
 	    onChange: e => {
 	      handle_time_change(e);
 	    }
-	  }), appt_time[1] === 1 && /*#__PURE__*/React.createElement("em", null, "Warning: day of week does not seem to match date"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null)), /*#__PURE__*/React.createElement("strong", null, "4. Copy text for client:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Confirm_sms, {
+	  }), appt_time[1] === 1 && /*#__PURE__*/React.createElement("em", null, "Warning: was expecting different day of month!"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null)), /*#__PURE__*/React.createElement("strong", null, "4. Copy text for client:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Confirm_sms, {
 	    form_data: form_data,
 	    booking: booking,
 	    checkboxes: checkboxes,

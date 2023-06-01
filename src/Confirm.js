@@ -79,7 +79,7 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 	    <textarea className="oneline" value={appt_time[0]} onChange={(e) => {
 		handle_time_change(e)
 	    }}/>
-	    {appt_time[1] === 1 && <em>Warning: day of week does not seem to match date</em>}
+	    {appt_time[1] === 1 && <em>Warning: was expecting different day of month!</em>}
 
 	    <br/><br/>
 
