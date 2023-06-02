@@ -68,7 +68,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 			phone_valid: validate_phone(extract_phone()),
 			postcode: extract_postcode(),
 			postcode_valid: validate_postcode(extract_postcode()),
-			paste: e.target.value });
+			paste: "" });
 
     };
 
