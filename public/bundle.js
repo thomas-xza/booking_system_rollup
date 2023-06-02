@@ -8145,23 +8145,24 @@
 	  };
 	  const handle_paste = e => {
 	    const paste_data = e.target.value.split("\t");
+	    console.log(paste_data);
 	    const extract_name = () => {
 	      try {
-	        return paste_data[2] + " " + paste_data[3];
+	        return paste_data[1] + " " + paste_data[2];
 	      } catch {
 	        return "";
 	      }
 	    };
 	    const extract_postcode = () => {
 	      try {
-	        return paste_data[6];
+	        return paste_data[4];
 	      } catch {
 	        return "";
 	      }
 	    };
 	    const extract_phone = () => {
 	      try {
-	        return paste_data[8];
+	        return paste_data[6];
 	      } catch {
 	        return "";
 	      }

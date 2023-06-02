@@ -49,19 +49,21 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
 	const paste_data = e.target.value.split("\t")
 
+	console.log(paste_data)
+
 	const extract_name = () => {
 	    
-	    try { return paste_data[2] + " " + paste_data[3]
+	    try { return paste_data[1] + " " + paste_data[2]
 		  
 		} catch { return "" } }
 	    
 	const extract_postcode = () => {
 		    
-	    try { return paste_data[6] } catch { return "" } }
+	    try { return paste_data[4] } catch { return "" } }
 
 	const extract_phone = () => {
 		
-	    try { return paste_data[8] } catch { return "" } }
+	    try { return paste_data[6] } catch { return "" } }
 
 	set_form_data({ name: extract_name(),
 			phone: extract_phone(),
