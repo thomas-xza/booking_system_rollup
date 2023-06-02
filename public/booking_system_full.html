@@ -8616,21 +8616,21 @@ button {
 	    const paste_data = e.target.value.split("\t");
 	    const extract_name = () => {
 	      try {
-	        return paste_data[2] + " " + paste_data[3];
+	        return paste_data[1] + " " + paste_data[2];
 	      } catch {
 	        return "";
 	      }
 	    };
 	    const extract_postcode = () => {
 	      try {
-	        return paste_data[6];
+	        return paste_data[4];
 	      } catch {
 	        return "";
 	      }
 	    };
 	    const extract_phone = () => {
 	      try {
-	        return paste_data[8];
+	        return paste_data[6];
 	      } catch {
 	        return "";
 	      }
@@ -8673,7 +8673,7 @@ button {
 	    value: form_data.phone,
 	    onChange: handle_phone
 	  }), form_data.phone_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
-	    class: "jsx"
+	    className: "jsx"
 	  }, /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_test
 	  }, "Load test data"), /*#__PURE__*/React.createElement("button", {
@@ -9430,7 +9430,8 @@ button {
 	    "postcode": "",
 	    postcode_valid: 0,
 	    "phone": "",
-	    phone_valid: 0
+	    phone_valid: 0,
+	    "paste": ""
 	  });
 
 	  // const [page_flow, set_page_flow] = useState(20);
