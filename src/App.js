@@ -17,7 +17,8 @@ export default function App() {
 
     const [form_data, set_form_data] = useState({ "name": "",
     						  "postcode": "", postcode_valid: 0,
-    						  "phone": "", phone_valid: 0 });
+    						  "phone": "", phone_valid: 0,
+						  "paste": "" });
     
     // const [page_flow, set_page_flow] = useState(20);
     

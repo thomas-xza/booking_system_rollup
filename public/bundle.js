@@ -8961,7 +8961,8 @@
 	    "postcode": "",
 	    postcode_valid: 0,
 	    "phone": "",
-	    phone_valid: 0
+	    phone_valid: 0,
+	    "paste": ""
 	  });
 
 	  // const [page_flow, set_page_flow] = useState(20);
