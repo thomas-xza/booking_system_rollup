@@ -49,8 +49,6 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
 	const paste_data = e.target.value.split("\t")
 
-	console.log(paste_data)
-
 	const extract_name = () => {
 	    
 	    try { return paste_data[1] + " " + paste_data[2]
@@ -126,7 +124,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	    {form_data.phone_valid === 0 && <em>(awaiting valid input)</em>}
 	    <br/>
 
-	<div class="jsx">
+	<div className="jsx">
 	    
 	    <button onClick={handle_test}>Load test data</button >
 	    <button onClick={handle_clear}>Clear form</button >

@@ -8145,7 +8145,6 @@
 	  };
 	  const handle_paste = e => {
 	    const paste_data = e.target.value.split("\t");
-	    console.log(paste_data);
 	    const extract_name = () => {
 	      try {
 	        return paste_data[1] + " " + paste_data[2];
@@ -8205,7 +8204,7 @@
 	    value: form_data.phone,
 	    onChange: handle_phone
 	  }), form_data.phone_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
-	    class: "jsx"
+	    className: "jsx"
 	  }, /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_test
 	  }, "Load test data"), /*#__PURE__*/React.createElement("button", {
