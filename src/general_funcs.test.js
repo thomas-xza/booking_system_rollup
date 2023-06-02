@@ -7,7 +7,7 @@ import { check_day_matches_date,
 test('monday', () => { 
     expect(
 	find_next_dates_of_day(
-	    1, 1
+	    1, 0
 	)
     )
 	.toBe(
@@ -18,7 +18,7 @@ test('monday', () => {
 test('monday', () => { 
     expect(
 	find_next_dates_of_day(
-	    1, 2
+	    1, 1
 	)
     )
 	.toBe(

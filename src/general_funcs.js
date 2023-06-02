@@ -17,9 +17,9 @@ export function check_day_matches_date(target_day, date) {
 
 	const nums_to_seek = [
 	    
-	    find_next_dates_of_day(day_of_week, 1),
+	    find_next_dates_of_day(day_of_week, 0),
 	    
-	    find_next_dates_of_day(day_of_week, 2)
+	    find_next_dates_of_day(day_of_week, 1)
 	    
 	]
 
@@ -49,8 +49,7 @@ export function find_next_dates_of_day(day_of_week, week_quantity) {
     return String(
 	
 	today.getDate() +
-	    (day_of_week + 7 * week_quantity - today.getDay())
-	    % (7 * week_quantity)
+	    (day_of_week + 7 - today.getDay()) % 7 + 7 * week_quantity
 	
     ).padStart(2, '0');
 
