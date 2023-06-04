@@ -13,7 +13,7 @@ export default function Mapbox({ postcode, mapbox_resp, set_mapbox_resp }) {
 		<em>{postcode} is located in {mapbox_resp.borough}</em>
 		<br/>
 		<br/>
-		<strong>Select client/patient availability</strong>:
+		<strong>Select client availability</strong>:
 	    </>
 	)
 	

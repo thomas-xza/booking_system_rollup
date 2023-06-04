@@ -97,7 +97,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	    <button onClick={() => {set_page_flow(5)}}>To clinic editor</button >
 	    </div>
 		    
-	    <h1>Client/patient entry</h1>
+	    <h1>Client data entry</h1>
 
 	    <label><em>Optional</em> paste a row from spreadsheet:</label><br/>
 
