@@ -39,27 +39,27 @@ How it works
 
 The web app is split into 4 separate pages, with top-level state and rendering being controlled by `App.js`, and therefore room for growth between them.
 
-0. **Clinic JSON editor**
+**0. Clinic JSON editor**
 
  - `Editor.js`
 
  - This is used to keep the web app futureproof, by allowing the list of clinics to be edited. It provides info on data expectations, and runs realtime data-validation on JSON edits (the code for this is actually nicely implicit) with live feedback for the user.
 
 
-1. **Client data entry**
+**1. Client data entry**
 
  - `Form.js`
 
  - Again realtime data validation is run here, with live feedback given, typical form entry stuff.
 
 
-2. **Clinic selector**
+**2. Clinic selector**
 
  - `Clinics_list.js`, `Mapbox.js`, `Clinic_single.js`
 
  - This page is responsible for transmitting the client's postcode to the Mapbox API, and then comparing the co-ordinates received to the list of clinics, then ordering the clinics by distance from client. There are also a few show/hide options, so that different days can be hidden for when the client is unavailable.
 
-3. **Confirmation page**
+**3. Confirmation page**
 
  - `Confirm.js`
 
