@@ -408,7 +408,8 @@ pre {
     background-color: #EEEEEE;
     margin: 0.5em 0;
     padding: 0.25em;
-
+    text-wrap: wrap;
+    
 }
 
 button {
@@ -458,11 +459,11 @@ button {
 footer {
     
     position: fixed;
-    left: 0;
+    right: 0;
     bottom: 0;
     width: 100%;
     background-color: rgba(255,255,255,0.85);
-    padding-left: 5px;
+    padding: 5px;
     text-align: right;
     
 }
@@ -8690,9 +8691,9 @@ footer {
 	    onClick: handle_test
 	  }, "Load test data"), /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_clear
-	  }, "Clear form"), /*#__PURE__*/React.createElement("br", null), form_data.postcode_valid === 1 && form_data.phone_valid === 1 ? /*#__PURE__*/React.createElement("button", {
+	  }, "Clear form"), /*#__PURE__*/React.createElement("br", null), form_data.postcode_valid === 1 && form_data.phone_valid === 1 ? /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_confirm
-	  }, "Find appointment") : /*#__PURE__*/React.createElement("div", {
+	  }, "Find appointment"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Privacy notice:"), " The postcode will be sent to Mapbox API to be turned into global co-ordinates. No other data will be automatically transferred anywhere.") : /*#__PURE__*/React.createElement("div", {
 	    className: "loading"
 	  }, "Awaiting your inputs")));
 	}
