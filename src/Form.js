@@ -134,7 +134,11 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 		form_data.postcode_valid === 1 &&
 		    form_data.phone_valid === 1 ?
 		    
-		<button onClick={handle_confirm}>Find appointment</button >
+		    <div>
+		    <button onClick={handle_confirm}>Find appointment</button ><br/><br/>
+		    <strong>Privacy notice:</strong> The postcode will be sent to Mapbox API to be turned into global co-ordinates. No other data will be automatically transferred anywhere.
+		    </div>
+
 		:
 		<div className="loading">Awaiting your inputs</div>
 		

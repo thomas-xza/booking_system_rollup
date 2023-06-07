@@ -8209,9 +8209,9 @@
 	    onClick: handle_test
 	  }, "Load test data"), /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_clear
-	  }, "Clear form"), /*#__PURE__*/React.createElement("br", null), form_data.postcode_valid === 1 && form_data.phone_valid === 1 ? /*#__PURE__*/React.createElement("button", {
+	  }, "Clear form"), /*#__PURE__*/React.createElement("br", null), form_data.postcode_valid === 1 && form_data.phone_valid === 1 ? /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_confirm
-	  }, "Find appointment") : /*#__PURE__*/React.createElement("div", {
+	  }, "Find appointment"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Privacy notice:"), " The postcode will be sent to Mapbox API to be turned into global co-ordinates. No other data will be automatically transferred anywhere.") : /*#__PURE__*/React.createElement("div", {
 	    className: "loading"
 	  }, "Awaiting your inputs")));
 	}
