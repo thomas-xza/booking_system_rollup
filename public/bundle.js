@@ -8147,21 +8147,21 @@
 	    const paste_data = e.target.value.split("\t");
 	    const extract_name = () => {
 	      try {
-	        return paste_data[2] + " " + paste_data[3];
+	        return paste_data[1] + " " + paste_data[2];
 	      } catch {
 	        return "";
 	      }
 	    };
 	    const extract_postcode = () => {
 	      try {
-	        return paste_data[6];
+	        return paste_data[4];
 	      } catch {
 	        return "";
 	      }
 	    };
 	    const extract_phone = () => {
 	      try {
-	        return paste_data[8];
+	        return paste_data[6];
 	      } catch {
 	        return "";
 	      }
@@ -8172,7 +8172,7 @@
 	      phone_valid: validate_phone(extract_phone()),
 	      postcode: extract_postcode(),
 	      postcode_valid: validate_postcode(extract_postcode()),
-	      paste: e.target.value
+	      paste: ""
 	    });
 	  };
 	  const handle_confirm = e => {
@@ -8191,7 +8191,7 @@
 	    onClick: () => {
 	      set_page_flow(5);
 	    }
-	  }, "To clinic editor")), /*#__PURE__*/React.createElement("h1", null, "Client/patient entry"), /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("em", null, "Optional"), " paste a row from spreadsheet:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+	  }, "To clinic editor")), /*#__PURE__*/React.createElement("h1", null, "Client data entry"), /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("em", null, "Optional"), " paste a row from spreadsheet:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
 	    value: form_data.paste,
 	    onChange: handle_paste
 	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Name:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
@@ -8204,14 +8204,14 @@
 	    value: form_data.phone,
 	    onChange: handle_phone
 	  }), form_data.phone_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
-	    class: "jsx"
+	    className: "jsx"
 	  }, /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_test
 	  }, "Load test data"), /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_clear
-	  }, "Clear form"), /*#__PURE__*/React.createElement("br", null), form_data.postcode_valid === 1 && form_data.phone_valid === 1 ? /*#__PURE__*/React.createElement("button", {
+	  }, "Clear form"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), form_data.postcode_valid === 1 && form_data.phone_valid === 1 ? /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_confirm
-	  }, "Find appointment") : /*#__PURE__*/React.createElement("div", {
+	  }, "Find appointment"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Privacy notice:"), " The postcode will be sent to Mapbox API to be turned into global co-ordinates. No other data will be automatically transferred anywhere.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null)) : /*#__PURE__*/React.createElement("div", {
 	    className: "loading"
 	  }, "Awaiting your inputs")));
 	}
@@ -8226,7 +8226,7 @@
 	    //     JSON.stringify(mapbox_resp)
 	    // )
 
-	    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("em", null, postcode, " is located in ", mapbox_resp.borough), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Select client/patient availability"), ":");
+	    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("em", null, postcode, " is located in ", mapbox_resp.borough), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Select client availability"), ":");
 	  } else {
 	    load_distances(postcode, mapbox_resp, set_mapbox_resp);
 	    return /*#__PURE__*/React.createElement("div", {
@@ -8779,7 +8779,7 @@
 	function check_day_matches_date(target_day, date) {
 	  try {
 	    const day_of_week = convert_day_to_number(target_day);
-	    const nums_to_seek = [find_next_dates_of_day(day_of_week, 1), find_next_dates_of_day(day_of_week, 2)];
+	    const nums_to_seek = [find_next_dates_of_day(day_of_week, 0), find_next_dates_of_day(day_of_week, 1)];
 	    console.log(nums_to_seek);
 	    const regex_to_chk = [new RegExp(`^${nums_to_seek[0]}\/`), new RegExp(`^${nums_to_seek[1]}\/`)];
 	    if (regex_to_chk[0].test(date.trim()) === true || regex_to_chk[1].test(date.trim()) === true) {
@@ -8793,7 +8793,7 @@
 	}
 	function find_next_dates_of_day(day_of_week, week_quantity) {
 	  const today = new Date();
-	  return String(today.getDate() + (day_of_week + 7 * week_quantity - today.getDay()) % (7 * week_quantity)).padStart(2, '0');
+	  return String(today.getDate() + (day_of_week + 7 - today.getDay()) % 7 + 7 * week_quantity).padStart(2, '0');
 	}
 	function convert_day_to_number(day) {
 	  switch (day) {
@@ -8856,14 +8856,12 @@
 <a href="https://digital.nhs.uk/developer/api-catalogue/nhsmail" target="_blank">Exchange API</a> which is <a href="https://github.com/OfficeDev/ews-managed-api" target="_blank">almost deprecated</a>) or if all LSSS staff move to <a href="https://developers.google.com/calendar/api/guides/overview" target="_blank">Google calendar</a> until then</li>
 <li>It would also be possible to actually show only available appointments and select from them if something could be done about the calendar</li>
 <li>"Send text via Vonage" will only work if someone gives me a credit card to <a href="https://www.vonage.co.uk/communications-apis/sms/pricing/">pay the fees</a></li>
-<li>If the clinics change there is not *yet* a user-friendly way to update them on this website</li>
 </ul>
 <br/>
 
 <h3>Potential improvements:</h3>
 <ul>
 <li>After entering someone's details the 1st time, it could be stored within the browser (localStorage) on the computer, making selection possible, for the same person, next time</li>
-<li>It should be possible to change the set of clinics (currently hardcoded) early on, such as by uploading a user-friendly file (.csv) that can be edited in Excel.</li>
 </ul>
 <br/><br/><br/><br/><br/>
 `;
@@ -8961,7 +8959,8 @@
 	    "postcode": "",
 	    postcode_valid: 0,
 	    "phone": "",
-	    phone_valid: 0
+	    phone_valid: 0,
+	    "paste": ""
 	  });
 
 	  // const [page_flow, set_page_flow] = useState(20);

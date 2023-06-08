@@ -51,24 +51,24 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
 	const extract_name = () => {
 	    
-	    try { return paste_data[2] + " " + paste_data[3]
+	    try { return paste_data[1] + " " + paste_data[2]
 		  
 		} catch { return "" } }
 	    
 	const extract_postcode = () => {
 		    
-	    try { return paste_data[6] } catch { return "" } }
+	    try { return paste_data[4] } catch { return "" } }
 
 	const extract_phone = () => {
 		
-	    try { return paste_data[8] } catch { return "" } }
+	    try { return paste_data[6] } catch { return "" } }
 
 	set_form_data({ name: extract_name(),
 			phone: extract_phone(),
 			phone_valid: validate_phone(extract_phone()),
 			postcode: extract_postcode(),
 			postcode_valid: validate_postcode(extract_postcode()),
-			paste: e.target.value });
+			paste: "" });
 
     };
 
@@ -97,7 +97,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	    <button onClick={() => {set_page_flow(5)}}>To clinic editor</button >
 	    </div>
 		    
-	    <h1>Client/patient entry</h1>
+	    <h1>Client data entry</h1>
 
 	    <label><em>Optional</em> paste a row from spreadsheet:</label><br/>
 
@@ -124,17 +124,21 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	    {form_data.phone_valid === 0 && <em>(awaiting valid input)</em>}
 	    <br/>
 
-	<div class="jsx">
+	<div className="jsx">
 	    
 	    <button onClick={handle_test}>Load test data</button >
 	    <button onClick={handle_clear}>Clear form</button >
-	    <br/>
+	    <br/><br/>
 		    
 	    {
 		form_data.postcode_valid === 1 &&
 		    form_data.phone_valid === 1 ?
 		    
-		<button onClick={handle_confirm}>Find appointment</button >
+		    <div>
+		    <button onClick={handle_confirm}>Find appointment</button ><br/><br/>
+		    <strong>Privacy notice:</strong> The postcode will be sent to Mapbox API to be turned into global co-ordinates. No other data will be automatically transferred anywhere.<br/><br/><br/>
+		    </div>
+
 		:
 		<div className="loading">Awaiting your inputs</div>
 		
