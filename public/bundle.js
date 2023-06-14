@@ -8143,6 +8143,13 @@
 	      postcode_valid: validate_postcode(e.target.value)
 	    });
 	  };
+	  const handle_checkbox_toggle = target => {
+	    const inverted_check = !form_data[target];
+	    set_form_data({
+	      ...form_data,
+	      target: inverted_check
+	    });
+	  };
 	  const handle_paste = e => {
 	    const paste_data = e.target.value.split("\t");
 	    const extract_name = () => {
@@ -8166,13 +8173,29 @@
 	        return "";
 	      }
 	    };
+	    const extract_tdt = () => {
+	      try {
+	        return paste_data[11] === "TDT" ? true : false;
+	      } catch {
+	        return false;
+	      }
+	    };
+	    const extract_returnee = () => {
+	      try {
+	        return paste_data[12] === "Returning" ? true : false;
+	      } catch {
+	        return false;
+	      }
+	    };
 	    set_form_data({
 	      name: extract_name(),
 	      phone: extract_phone(),
 	      phone_valid: validate_phone(extract_phone()),
 	      postcode: extract_postcode(),
 	      postcode_valid: validate_postcode(extract_postcode()),
-	      paste: ""
+	      paste: "",
+	      tdt: extract_tdt(),
+	      returnee: extract_returnee()
 	    });
 	  };
 	  const handle_confirm = e => {
@@ -8204,6 +8227,24 @@
 	    value: form_data.phone,
 	    onChange: handle_phone
 	  }), form_data.phone_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
+	    className: "jsx"
+	  }, /*#__PURE__*/React.createElement("label", {
+	    key: "checkbox_label_tdt"
+	  }, /*#__PURE__*/React.createElement("input", {
+	    type: "checkbox",
+	    key: "checkbox_box_tdt",
+	    checked: form_data.TDT,
+	    onChange: () => handle_checkbox_toggle("tdt")
+	  }), "Phone")), /*#__PURE__*/React.createElement("div", {
+	    className: "jsx"
+	  }, /*#__PURE__*/React.createElement("label", {
+	    key: "checkbox_label_returnee"
+	  }, /*#__PURE__*/React.createElement("input", {
+	    type: "checkbox",
+	    key: "checkbox_box_returnee",
+	    checked: form_data.TDT,
+	    onChange: () => handle_checkbox_toggle("returnee")
+	  }), "Returnee")), /*#__PURE__*/React.createElement("div", {
 	    className: "jsx"
 	  }, /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_test
@@ -8709,7 +8750,7 @@
 	  checkboxes,
 	  set_checkboxes
 	}) {
-	  const handle_checkbox = position => {
+	  const handle_checkbox_booking = position => {
 	    const new_state = checkboxes.map((item, index) => index === position ? !item : item);
 	    set_checkboxes(new_state);
 	  };
@@ -8721,15 +8762,8 @@
 	    type: "checkbox",
 	    key: "checkbox_box_phone",
 	    checked: checkboxes[0],
-	    onChange: () => handle_checkbox(0)
-	  }), "Phone"), /*#__PURE__*/React.createElement("label", {
-	    key: "checkbox_label_tdt"
-	  }, /*#__PURE__*/React.createElement("input", {
-	    type: "checkbox",
-	    key: "checkbox_box_tdt",
-	    checked: checkboxes[1],
-	    onChange: () => handle_checkbox(1)
-	  }), "TDT"));
+	    onChange: () => handle_checkbox_booking(0)
+	  }), "Phone"));
 	}
 
 	function Confirm_calendar({
@@ -8751,7 +8785,7 @@
 	    return "";
 	  };
 	  const tdt_chk = () => {
-	    return checkboxes[1] === true ? "[TDT]" : "";
+	    return form_data["TDT"] === true ? "[TDT]" : "";
 	  };
 	  const phone = () => {
 	    return form_data.phone.replace(/[\- \(\)]/g, "").match(/.{1,4}/g).join(" ");
@@ -8960,7 +8994,9 @@
 	    postcode_valid: 0,
 	    "phone": "",
 	    phone_valid: 0,
-	    "paste": ""
+	    "paste": "",
+	    "returnee": false,
+	    "tdt": false
 	  });
 
 	  // const [page_flow, set_page_flow] = useState(20);
