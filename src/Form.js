@@ -45,7 +45,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
     };
 
-    const handle_checkbox_toggle = (target) {
+    const handle_checkbox_toggle = (target) => {
 
 	const inverted_check = !form_data[target]
 
@@ -74,13 +74,13 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
 	const extract_tdt = () => {
 		
-	    try { paste_data[11] === "TDT" ? return true : return false }
+	    try { return (paste_data[11] === "TDT" ? true : false) }
 	    
 	    catch { return false } }
 
 	const extract_returnee = () => {
 		
-	    try { paste_data[12] === "Returning" ? return true : return false }
+	    try { return (paste_data[12] === "Returning" ? true : false) }
 	    
 	    catch { return false } }
 
