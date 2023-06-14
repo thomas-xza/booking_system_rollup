@@ -30,7 +30,7 @@ export default function Confirm_calendar({ form_data, booking, checkboxes }) {
 
     const tdt_chk = () => {
 
-	return (checkboxes[1] === true) ? "[TDT]" : ""
+	return (form_data["TDT"] === true) ? "[TDT]" : ""
 
     }
     

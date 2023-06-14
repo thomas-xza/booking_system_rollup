@@ -45,6 +45,15 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
     };
 
+    const handle_checkbox_toggle = (target) {
+
+	const inverted_check = !form_data[target]
+
+	set_form_data({ ...form_data,
+			target: inverted_check })
+
+    }
+
     const handle_paste = (e) => {
 
 	const paste_data = e.target.value.split("\t")
@@ -63,12 +72,26 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 		
 	    try { return paste_data[6] } catch { return "" } }
 
+	const extract_tdt = () => {
+		
+	    try { paste_data[11] === "TDT" ? return true : return false }
+	    
+	    catch { return false } }
+
+	const extract_returnee = () => {
+		
+	    try { paste_data[12] === "Returning" ? return true : return false }
+	    
+	    catch { return false } }
+
 	set_form_data({ name: extract_name(),
 			phone: extract_phone(),
 			phone_valid: validate_phone(extract_phone()),
 			postcode: extract_postcode(),
 			postcode_valid: validate_postcode(extract_postcode()),
-			paste: "" });
+			paste: "",
+			tdt: extract_tdt(),
+			returnee: extract_returnee() });
 
     };
 
@@ -124,7 +147,31 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	    {form_data.phone_valid === 0 && <em>(awaiting valid input)</em>}
 	    <br/>
 
-	<div className="jsx">
+            <div className="jsx">
+
+            <label key="checkbox_label_tdt">
+            <input type="checkbox"
+        key="checkbox_box_tdt"
+        checked={form_data.TDT}
+        onChange={() => handle_checkbox_toggle("tdt")} />
+            Phone
+        </label>
+
+        </div>
+
+            <div className="jsx">
+
+            <label key="checkbox_label_returnee">
+            <input type="checkbox"
+        key="checkbox_box_returnee"
+        checked={form_data.TDT}
+        onChange={() => handle_checkbox_toggle("returnee")} />
+            Returnee
+        </label>
+
+        </div>
+
+	    <div className="jsx">
 	    
 	    <button onClick={handle_test}>Load test data</button >
 	    <button onClick={handle_clear}>Clear form</button >
