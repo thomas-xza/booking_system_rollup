@@ -8827,7 +8827,7 @@
 	    return form_data["tdt"] === true ? "[TDT]" : "";
 	  };
 	  const phones_all = () => {
-	    if (form_data.phone_alt === "") {
+	    if (form_data["phone_alt"].match(/[0-9]{3}/g) === null) {
 	      return phone(form_data.phone);
 	    } else {
 	      return [phone(form_data.phone), phone(form_data.phone_alt)].join(" & ").trim();

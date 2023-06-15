@@ -59,7 +59,7 @@ export default function Confirm_calendar({ form_data, booking, checkboxes }) {
 
     const phones_all = () => {
 
-	if ( form_data.phone_alt === "" ) {
+	if ( form_data["phone_alt"].match(/[0-9]{3}/g) === null ) {
 
 	    return phone(form_data.phone)
 
