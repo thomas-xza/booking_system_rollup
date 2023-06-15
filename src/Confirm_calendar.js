@@ -99,17 +99,10 @@ export default function Confirm_calendar({ form_data, booking, checkboxes }) {
 
 	    <pre>{gen_cal_subentry()}</pre>
 	
-            {
-                form_data.returnee === false ?
-
 	    <button className="medium"
 	onClick={() => {navigator.clipboard.writeText(gen_cal_subentry())}}>
 	    Copy calendar sub-entry to clipboard
 		</button>
-		    :
-		<em></em>
-
-            }
 
 	</div>	    
     );

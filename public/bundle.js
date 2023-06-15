@@ -8852,12 +8852,12 @@
 	    onClick: () => {
 	      alert("Unless NHS update to a newer (more easily programmable) version of Outlook online, or LSSS move to a Google calendar, this button won't do anything - see 'Issues' at bottom of page.");
 	    }
-	  }, "Add to calendar"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_cal_subentry()), form_data.returnee === false ? /*#__PURE__*/React.createElement("button", {
+	  }, "Add to calendar"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_cal_subentry()), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      navigator.clipboard.writeText(gen_cal_subentry());
 	    }
-	  }, "Copy calendar sub-entry to clipboard") : /*#__PURE__*/React.createElement("em", null));
+	  }, "Copy calendar sub-entry to clipboard"));
 	}
 
 	function title_case(str) {
