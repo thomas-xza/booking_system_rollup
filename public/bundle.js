@@ -8155,7 +8155,7 @@
 	    const inverted_check = !form_data[target];
 	    set_form_data({
 	      ...form_data,
-	      target: inverted_check
+	      [target]: inverted_check
 	    });
 	  };
 	  const handle_paste = e => {
@@ -8267,7 +8267,7 @@
 	    key: "checkbox_box_tdt",
 	    checked: form_data.tdt,
 	    onChange: () => handle_checkbox_toggle("tdt")
-	  }), "Phone")), /*#__PURE__*/React.createElement("div", {
+	  }), "Referral from TDT")), /*#__PURE__*/React.createElement("div", {
 	    className: "jsx"
 	  }, /*#__PURE__*/React.createElement("label", {
 	    key: "checkbox_label_returnee"

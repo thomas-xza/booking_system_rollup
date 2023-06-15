@@ -58,7 +58,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	const inverted_check = !form_data[target]
 
 	set_form_data({ ...form_data,
-			target: inverted_check })
+			[target]: inverted_check })
 
     }
 
@@ -178,7 +178,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
         key="checkbox_box_tdt"
         checked={form_data.tdt}
         onChange={() => handle_checkbox_toggle("tdt")} />
-            Phone
+            Referral from TDT
         </label>
 
         </div>
