@@ -8110,7 +8110,11 @@
 	      postcode_valid: 1,
 	      phone: "0777 7777 777",
 	      phone_valid: 1,
-	      paste: ""
+	      paste: "",
+	      tdt: false,
+	      returnee: false,
+	      address: "",
+	      dob: ""
 	    });
 	  };
 	  const handle_clear = () => {
@@ -8120,7 +8124,11 @@
 	      postcode_valid: 0,
 	      phone: "",
 	      phone_valid: 0,
-	      paste: ""
+	      paste: "",
+	      tdt: false,
+	      returnee: false,
+	      address: "",
+	      dob: ""
 	    });
 	  };
 	  const handle_name = e => {
@@ -8187,6 +8195,27 @@
 	        return false;
 	      }
 	    };
+	    const extract_address = () => {
+	      try {
+	        return paste_data[3];
+	      } catch {
+	        return "";
+	      }
+	    };
+	    const extract_dob = () => {
+	      try {
+	        return paste_data[8];
+	      } catch {
+	        return "";
+	      }
+	    };
+	    const extract_phone_alt = () => {
+	      try {
+	        return paste_data[5];
+	      } catch {
+	        return "";
+	      }
+	    };
 	    set_form_data({
 	      name: extract_name(),
 	      phone: extract_phone(),
@@ -8195,7 +8224,10 @@
 	      postcode_valid: validate_postcode(extract_postcode()),
 	      paste: "",
 	      tdt: extract_tdt(),
-	      returnee: extract_returnee()
+	      returnee: extract_returnee(),
+	      address: extract_address(),
+	      dob: extract_dob(),
+	      phone_alt: extract_phone_alt()
 	    });
 	  };
 	  const handle_confirm = e => {
@@ -8233,7 +8265,7 @@
 	  }, /*#__PURE__*/React.createElement("input", {
 	    type: "checkbox",
 	    key: "checkbox_box_tdt",
-	    checked: form_data.TDT,
+	    checked: form_data.tdt,
 	    onChange: () => handle_checkbox_toggle("tdt")
 	  }), "Phone")), /*#__PURE__*/React.createElement("div", {
 	    className: "jsx"
@@ -8242,7 +8274,7 @@
 	  }, /*#__PURE__*/React.createElement("input", {
 	    type: "checkbox",
 	    key: "checkbox_box_returnee",
-	    checked: form_data.TDT,
+	    checked: form_data.returnee,
 	    onChange: () => handle_checkbox_toggle("returnee")
 	  }), "Returnee")), /*#__PURE__*/React.createElement("div", {
 	    className: "jsx"
@@ -8772,7 +8804,14 @@
 	  checkboxes
 	}) {
 	  const gen_cal_entry = () => {
-	    return `${phone_chk(0)}${form_data.name}${phone_chk(1)} - ${phone()} - ${form_data.postcode} ${tdt_chk()}`;
+	    return `${phone_chk(0)}${form_data.name}${phone_chk(1)} - ${phones_all()} - ${tdt_chk()}`;
+	  };
+	  const gen_cal_subentry = () => {
+	    if (form_data["returnee"] === false) {
+	      return [form_data["dob"], form_data["address"], form_data["postcode"], form_data["phone"], form_data["phone_alt"]].join("\n").trim();
+	    } else {
+	      return "This client is a returnee.";
+	    }
 	  };
 	  const phone_chk = pos => {
 	    if (checkboxes[0] === true && pos === 0) {
@@ -8785,10 +8824,21 @@
 	    return "";
 	  };
 	  const tdt_chk = () => {
-	    return form_data["TDT"] === true ? "[TDT]" : "";
+	    return form_data["tdt"] === true ? "[TDT]" : "";
 	  };
-	  const phone = () => {
-	    return form_data.phone.replace(/[\- \(\)]/g, "").match(/.{1,4}/g).join(" ");
+	  const phones_all = () => {
+	    if (form_data.phone_alt === "") {
+	      return phone(form_data.phone);
+	    } else {
+	      return [phone(form_data.phone), phone(form_data.phone_alt)].join(" & ").trim();
+	    }
+	  };
+	  const phone = phone => {
+	    try {
+	      return phone.replace(/[\- \(\)]/g, "").match(/.{1,4}/g).join(" ");
+	    } catch {
+	      return "";
+	    }
 	  };
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "jsx"
@@ -8797,12 +8847,17 @@
 	    onClick: () => {
 	      navigator.clipboard.writeText(gen_cal_entry());
 	    }
-	  }, "Copy calendar entry to clipboard"), "     ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	  }, "Copy calendar entry to clipboard"), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      alert("Unless NHS update to a newer (more easily programmable) version of Outlook online, or LSSS move to a Google calendar, this button won't do anything - see 'Issues' at bottom of page.");
 	    }
-	  }, "Add to calendar"));
+	  }, "Add to calendar"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_cal_subentry()), form_data.returnee === false ? /*#__PURE__*/React.createElement("button", {
+	    className: "medium",
+	    onClick: () => {
+	      navigator.clipboard.writeText(gen_cal_subentry());
+	    }
+	  }, "Copy calendar sub-entry to clipboard") : /*#__PURE__*/React.createElement("em", null));
 	}
 
 	function title_case(str) {
@@ -8996,7 +9051,10 @@
 	    phone_valid: 0,
 	    "paste": "",
 	    "returnee": false,
-	    "tdt": false
+	    "tdt": false,
+	    "address": "",
+	    "dob": "",
+	    "phone_alt": ""
 	  });
 
 	  // const [page_flow, set_page_flow] = useState(20);

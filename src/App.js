@@ -20,7 +20,10 @@ export default function App() {
     						  "phone": "", phone_valid: 0,
 						  "paste": "",
 						  "returnee": false,
-						  "tdt": false });
+						  "tdt": false,
+						  "address": "",
+						  "dob": "",
+						  "phone_alt": "" });
     
     // const [page_flow, set_page_flow] = useState(20);
     

@@ -10,7 +10,11 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	set_form_data({ name: "John Smith",
 			postcode: "SE13 7RY", postcode_valid: 1,
 			phone: "0777 7777 777", phone_valid: 1,
-			paste: "" })	
+			paste: "",
+			tdt: false,
+			returnee: false,
+			address: "",
+			dob: "" })	
 	
     };
 
@@ -19,7 +23,11 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	set_form_data({ name: "",
 			postcode: "", postcode_valid: 0,
 			phone: "", phone_valid: 0,
-			paste: "" })	
+			paste: "",
+			tdt: false,
+			returnee: false,
+			address: "",
+			dob: "" })	
 	
     };
 
@@ -84,6 +92,19 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	    
 	    catch { return false } }
 
+	const extract_address = () => {
+		
+	    try { return paste_data[3] } catch { return "" } }
+
+	const extract_dob = () => {
+		
+	    try { return paste_data[8] } catch { return "" } }
+
+	const extract_phone_alt = () => {
+		
+	    try { return paste_data[5] } catch { return "" } }
+
+
 	set_form_data({ name: extract_name(),
 			phone: extract_phone(),
 			phone_valid: validate_phone(extract_phone()),
@@ -91,7 +112,10 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 			postcode_valid: validate_postcode(extract_postcode()),
 			paste: "",
 			tdt: extract_tdt(),
-			returnee: extract_returnee() });
+			returnee: extract_returnee(),
+		        address: extract_address(),
+			dob: extract_dob(),
+			phone_alt: extract_phone_alt() });
 
     };
 
@@ -152,7 +176,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
             <label key="checkbox_label_tdt">
             <input type="checkbox"
         key="checkbox_box_tdt"
-        checked={form_data.TDT}
+        checked={form_data.tdt}
         onChange={() => handle_checkbox_toggle("tdt")} />
             Phone
         </label>
@@ -164,7 +188,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
             <label key="checkbox_label_returnee">
             <input type="checkbox"
         key="checkbox_box_returnee"
-        checked={form_data.TDT}
+        checked={form_data.returnee}
         onChange={() => handle_checkbox_toggle("returnee")} />
             Returnee
         </label>
