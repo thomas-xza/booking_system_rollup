@@ -14,7 +14,8 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 			tdt: false,
 			returnee: false,
 			address: "",
-			dob: "" })	
+			dob: "",
+			phone_alt: "" })	
 	
     };
 
@@ -27,7 +28,8 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 			tdt: false,
 			returnee: false,
 			address: "",
-			dob: "" })	
+			dob: "",
+			phone_alt: "" })	
 	
     };
 
