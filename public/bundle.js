@@ -8458,10 +8458,10 @@
 		},
 		{
 			title: "Grove Medical Centre GP",
-			advisor: "ronnie",
+			advisor: "shireen",
 			day_of_week: "monday",
-			time_start: 900,
-			time_end: 1700,
+			time_start: 1300,
+			time_end: 1400,
 			postcode: "SE8 3QH",
 			address: [
 				"Windlass Place"
@@ -8471,7 +8471,7 @@
 		},
 		{
 			title: "Catford Library",
-			advisor: "shireen",
+			advisor: "ronnie",
 			day_of_week: "monday",
 			time_start: 1000,
 			time_end: 1600,
