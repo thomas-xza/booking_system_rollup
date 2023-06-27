@@ -8446,7 +8446,7 @@
 	var default_clinics = [
 		{
 			title: "Telephone",
-			advisor: "maria",
+			advisor: "Maria",
 			day_of_week: "monday",
 			time_start: 1000,
 			time_end: 1330,
@@ -8471,7 +8471,7 @@
 		},
 		{
 			title: "Catford Library",
-			advisor: "ronnie",
+			advisor: "Ronnie",
 			day_of_week: "monday",
 			time_start: 1000,
 			time_end: 1600,
@@ -8498,7 +8498,7 @@
 		},
 		{
 			title: "Rushey Green GP",
-			advisor: "maria",
+			advisor: "Maria",
 			day_of_week: "tuesday",
 			time_start: 1300,
 			time_end: 1400,
@@ -8543,7 +8543,7 @@
 		},
 		{
 			title: "Telephone",
-			advisor: "maria",
+			advisor: "Maria",
 			day_of_week: "wednesday",
 			time_start: 1000,
 			time_end: 1330,
@@ -8568,10 +8568,10 @@
 		},
 		{
 			title: "Deptford Library",
-			advisor: "birsel",
+			advisor: "Ronnie",
 			day_of_week: "wednesday",
-			time_start: 1030,
-			time_end: 1500,
+			time_start: 1000,
+			time_end: 1600,
 			postcode: "SE8 4RJ",
 			address: [
 				"Deptford Lounge",
@@ -8582,7 +8582,7 @@
 		},
 		{
 			title: "Jenner Health Centre GP",
-			advisor: "ronnie",
+			advisor: "Ronnie",
 			day_of_week: "wednesday",
 			time_start: 900,
 			time_end: 1700,
@@ -8633,7 +8633,7 @@
 		},
 		{
 			title: "Wells Park Practice GP",
-			advisor: "maria",
+			advisor: "Maria",
 			day_of_week: "thursday",
 			time_start: 1330,
 			time_end: 1400,
@@ -8659,7 +8659,7 @@
 		},
 		{
 			title: "Hilly Fields Medical Centre GP",
-			advisor: "ronnie",
+			advisor: "Ronnie",
 			day_of_week: "friday",
 			time_start: 800,
 			time_end: 1600,
@@ -8688,9 +8688,9 @@
 		},
 		{
 			title: "UHL Lewisham Hospital",
-			advisor: "maria",
+			advisor: "Maria",
 			day_of_week: "friday",
-			time_start: 1030,
+			time_start: 1000,
 			time_end: 1600,
 			postcode: "SE13 6LH",
 			address: [
