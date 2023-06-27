@@ -8388,6 +8388,45 @@
 	  }), "Show phone appointments"));
 	}
 
+	function title_case(str) {
+	  return str.toLowerCase().split(' ').map(function (word) {
+	    return word.charAt(0).toUpperCase() + word.slice(1);
+	  }).join(' ');
+	}
+	function check_day_matches_date(target_day, date) {
+	  try {
+	    const day_of_week = convert_day_to_number(target_day);
+	    const nums_to_seek = [find_next_dates_of_day(day_of_week, 0), find_next_dates_of_day(day_of_week, 1)];
+	    console.log(nums_to_seek);
+	    const regex_to_chk = [new RegExp(`^${nums_to_seek[0]}\/`), new RegExp(`^${nums_to_seek[1]}\/`)];
+	    if (regex_to_chk[0].test(date.trim()) === true || regex_to_chk[1].test(date.trim()) === true) {
+	      return 0;
+	    } else {
+	      return 1;
+	    }
+	  } catch {
+	    return 1;
+	  }
+	}
+	function find_next_dates_of_day(day_of_week, week_quantity) {
+	  const today = new Date();
+	  return String(today.getDate() + (day_of_week + 7 - today.getDay()) % 7 + 7 * week_quantity).padStart(2, '0');
+	}
+	function convert_day_to_number(day) {
+	  switch (day.toLowerCase()) {
+	    case "monday":
+	      return 1;
+	    case "tuesday":
+	      return 2;
+	    case "wednesday":
+	      return 3;
+	    case "thursday":
+	      return 4;
+	    case "friday":
+	      return 5;
+	  }
+	}
+
 	function Clinic_single({
 	  clinic,
 	  index,
@@ -8410,9 +8449,9 @@
 	    key: `clinic_${index}_time`
 	  }, clinic.time_start, " - ", clinic.time_end), /*#__PURE__*/React.createElement("li", {
 	    key: `clinic_${index}_day`
-	  }, clinic.day_of_week), /*#__PURE__*/React.createElement("li", {
+	  }, title_case(clinic.day_of_week)), /*#__PURE__*/React.createElement("li", {
 	    key: `clinic_${index}_advisor`
-	  }, clinic.advisor), /*#__PURE__*/React.createElement("button", {
+	  }, title_case(clinic.advisor)), /*#__PURE__*/React.createElement("button", {
 	    key: `clinic_${index}_button`,
 	    onClick: handle_selection
 	  }, "Select this clinic")));
@@ -8446,7 +8485,7 @@
 	var default_clinics = [
 		{
 			title: "Telephone",
-			advisor: "Maria",
+			advisor: "maria",
 			day_of_week: "monday",
 			time_start: 1000,
 			time_end: 1330,
@@ -8471,7 +8510,7 @@
 		},
 		{
 			title: "Catford Library",
-			advisor: "Ronnie",
+			advisor: "ronnie",
 			day_of_week: "monday",
 			time_start: 1000,
 			time_end: 1600,
@@ -8485,7 +8524,7 @@
 		},
 		{
 			title: "Bellingham Green Surgery GP",
-			advisor: "Omolara",
+			advisor: "omolara",
 			day_of_week: "tuesday",
 			time_start: 900,
 			time_end: 1400,
@@ -8498,7 +8537,7 @@
 		},
 		{
 			title: "Rushey Green GP",
-			advisor: "Maria",
+			advisor: "maria",
 			day_of_week: "tuesday",
 			time_start: 1300,
 			time_end: 1400,
@@ -8512,7 +8551,7 @@
 		},
 		{
 			title: "UHL Lewisham Hospital",
-			advisor: "Shireen",
+			advisor: "shireen",
 			day_of_week: "tuesday",
 			time_start: 1200,
 			time_end: 1800,
@@ -8530,7 +8569,7 @@
 		},
 		{
 			title: "Downham Leisure Centre",
-			advisor: "Omolara",
+			advisor: "omolara",
 			day_of_week: "tuesday",
 			time_start: 1500,
 			time_end: 1900,
@@ -8543,7 +8582,7 @@
 		},
 		{
 			title: "Telephone",
-			advisor: "Maria",
+			advisor: "maria",
 			day_of_week: "wednesday",
 			time_start: 1000,
 			time_end: 1330,
@@ -8555,7 +8594,7 @@
 		},
 		{
 			title: "South Lewisham GP",
-			advisor: "Matt",
+			advisor: "matt",
 			day_of_week: "wednesday",
 			time_start: 1300,
 			time_end: 1400,
@@ -8568,7 +8607,7 @@
 		},
 		{
 			title: "Deptford Library",
-			advisor: "Ronnie",
+			advisor: "ronnie",
 			day_of_week: "wednesday",
 			time_start: 1000,
 			time_end: 1600,
@@ -8582,7 +8621,7 @@
 		},
 		{
 			title: "Jenner Health Centre GP",
-			advisor: "Ronnie",
+			advisor: "ronnie",
 			day_of_week: "wednesday",
 			time_start: 900,
 			time_end: 1700,
@@ -8595,7 +8634,7 @@
 		},
 		{
 			title: "Telephone",
-			advisor: "Alison",
+			advisor: "alison",
 			day_of_week: "wednesday",
 			time_start: 900,
 			time_end: 1100,
@@ -8607,7 +8646,7 @@
 		},
 		{
 			title: "Burnt Ash Surgery GP",
-			advisor: "Alison",
+			advisor: "alison",
 			day_of_week: "wednesday",
 			time_start: 1200,
 			time_end: 1700,
@@ -8621,7 +8660,7 @@
 		},
 		{
 			title: "Telephone",
-			advisor: "Alison",
+			advisor: "alison",
 			day_of_week: "thursday",
 			time_start: 1330,
 			time_end: 1700,
@@ -8633,7 +8672,7 @@
 		},
 		{
 			title: "Wells Park Practice GP",
-			advisor: "Maria",
+			advisor: "maria",
 			day_of_week: "thursday",
 			time_start: 1330,
 			time_end: 1400,
@@ -8646,7 +8685,7 @@
 		},
 		{
 			title: "Downham Leisure Centre",
-			advisor: "Omolara",
+			advisor: "omolara",
 			day_of_week: "thursday",
 			time_start: 930,
 			time_end: 1430,
@@ -8659,7 +8698,7 @@
 		},
 		{
 			title: "Hilly Fields Medical Centre GP",
-			advisor: "Ronnie",
+			advisor: "ronnie",
 			day_of_week: "friday",
 			time_start: 800,
 			time_end: 1600,
@@ -8672,7 +8711,7 @@
 		},
 		{
 			title: "Waldron Health Centre clinic",
-			advisor: "Ronnie",
+			advisor: "ronnie",
 			day_of_week: "thursday",
 			time_start: 1300,
 			time_end: 1900,
@@ -8688,7 +8727,7 @@
 		},
 		{
 			title: "UHL Lewisham Hospital",
-			advisor: "Maria",
+			advisor: "maria",
 			day_of_week: "friday",
 			time_start: 1000,
 			time_end: 1600,
@@ -8860,45 +8899,6 @@
 	      navigator.clipboard.writeText(gen_cal_subentry());
 	    }
 	  }, "Copy calendar sub-entry to clipboard"));
-	}
-
-	function title_case(str) {
-	  return str.toLowerCase().split(' ').map(function (word) {
-	    return word.charAt(0).toUpperCase() + word.slice(1);
-	  }).join(' ');
-	}
-	function check_day_matches_date(target_day, date) {
-	  try {
-	    const day_of_week = convert_day_to_number(target_day);
-	    const nums_to_seek = [find_next_dates_of_day(day_of_week, 0), find_next_dates_of_day(day_of_week, 1)];
-	    console.log(nums_to_seek);
-	    const regex_to_chk = [new RegExp(`^${nums_to_seek[0]}\/`), new RegExp(`^${nums_to_seek[1]}\/`)];
-	    if (regex_to_chk[0].test(date.trim()) === true || regex_to_chk[1].test(date.trim()) === true) {
-	      return 0;
-	    } else {
-	      return 1;
-	    }
-	  } catch {
-	    return 1;
-	  }
-	}
-	function find_next_dates_of_day(day_of_week, week_quantity) {
-	  const today = new Date();
-	  return String(today.getDate() + (day_of_week + 7 - today.getDay()) % 7 + 7 * week_quantity).padStart(2, '0');
-	}
-	function convert_day_to_number(day) {
-	  switch (day.toLowerCase()) {
-	    case "monday":
-	      return 1;
-	    case "tuesday":
-	      return 2;
-	    case "wednesday":
-	      return 3;
-	    case "thursday":
-	      return 4;
-	    case "friday":
-	      return 5;
-	  }
 	}
 
 	function Confirm_sms({
