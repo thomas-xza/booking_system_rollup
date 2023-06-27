@@ -8485,7 +8485,7 @@
 		},
 		{
 			title: "Bellingham Green Surgery GP",
-			advisor: "ronnie",
+			advisor: "Omolara",
 			day_of_week: "tuesday",
 			time_start: 900,
 			time_end: 1400,
@@ -8512,10 +8512,10 @@
 		},
 		{
 			title: "UHL Lewisham Hospital",
-			advisor: "birsel",
+			advisor: "Shireen",
 			day_of_week: "tuesday",
 			time_start: 1200,
-			time_end: 1700,
+			time_end: 1800,
 			postcode: "SE13 6LH",
 			address: [
 				"Room 7",
@@ -8530,7 +8530,7 @@
 		},
 		{
 			title: "Downham Leisure Centre",
-			advisor: "ronnie",
+			advisor: "Omolara",
 			day_of_week: "tuesday",
 			time_start: 1500,
 			time_end: 1900,
@@ -8635,8 +8635,8 @@
 			title: "Wells Park Practice GP",
 			advisor: "maria",
 			day_of_week: "thursday",
-			time_start: 1300,
-			time_end: 1330,
+			time_start: 1330,
+			time_end: 1400,
 			postcode: "SE26 6JQ",
 			address: [
 				""
@@ -8646,7 +8646,7 @@
 		},
 		{
 			title: "Downham Leisure Centre",
-			advisor: "ronnie",
+			advisor: "Omolara",
 			day_of_week: "thursday",
 			time_start: 930,
 			time_end: 1430,
@@ -8672,10 +8672,10 @@
 		},
 		{
 			title: "Waldron Health Centre clinic",
-			advisor: "birsel",
-			day_of_week: "friday",
-			time_start: 1030,
-			time_end: 1630,
+			advisor: "Ronnie",
+			day_of_week: "thursday",
+			time_start: 1300,
+			time_end: 1900,
 			postcode: "SE14 6LD",
 			address: [
 				"Room 201, next to Suite 7",
