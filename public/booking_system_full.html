@@ -9037,7 +9037,7 @@ footer {
 		},
 		{
 			title: "South Lewisham GP",
-			advisor: "matt",
+			advisor: "Matt",
 			day_of_week: "wednesday",
 			time_start: 1300,
 			time_end: 1400,
@@ -9369,7 +9369,7 @@ footer {
 	  return String(today.getDate() + (day_of_week + 7 - today.getDay()) % 7 + 7 * week_quantity).padStart(2, '0');
 	}
 	function convert_day_to_number(day) {
-	  switch (day) {
+	  switch (day.toLowerCase()) {
 	    case "monday":
 	      return 1;
 	    case "tuesday":

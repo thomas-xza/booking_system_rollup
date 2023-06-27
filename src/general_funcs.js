@@ -58,7 +58,7 @@ export function find_next_dates_of_day(day_of_week, week_quantity) {
 
 function convert_day_to_number(day) {
 
-    switch(day) {
+    switch(day.toLowerCase()) {
 
     case "monday": return 1;
 
