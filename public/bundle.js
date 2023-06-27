@@ -8595,7 +8595,7 @@
 		},
 		{
 			title: "Telephone",
-			advisor: "alison",
+			advisor: "Alison",
 			day_of_week: "wednesday",
 			time_start: 900,
 			time_end: 1100,
@@ -8607,7 +8607,7 @@
 		},
 		{
 			title: "Burnt Ash Surgery GP",
-			advisor: "alison",
+			advisor: "Alison",
 			day_of_week: "wednesday",
 			time_start: 1200,
 			time_end: 1700,
@@ -8621,7 +8621,7 @@
 		},
 		{
 			title: "Telephone",
-			advisor: "alison",
+			advisor: "Alison",
 			day_of_week: "thursday",
 			time_start: 1330,
 			time_end: 1700,
