@@ -8714,7 +8714,7 @@
 			advisor: "ronnie",
 			day_of_week: "thursday",
 			time_start: 1300,
-			time_end: 1900,
+			time_end: 1800,
 			postcode: "SE14 6LD",
 			address: [
 				"Room 201, next to Suite 7",
