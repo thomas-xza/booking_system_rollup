@@ -10,7 +10,12 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	set_form_data({ name: "John Smith",
 			postcode: "SE13 7RY", postcode_valid: 1,
 			phone: "0777 7777 777", phone_valid: 1,
-			paste: "" })	
+			paste: "",
+			tdt: false,
+			returnee: false,
+			address: "",
+			dob: "",
+			phone_alt: "" })	
 	
     };
 
@@ -19,7 +24,12 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	set_form_data({ name: "",
 			postcode: "", postcode_valid: 0,
 			phone: "", phone_valid: 0,
-			paste: "" })	
+			paste: "",
+			tdt: false,
+			returnee: false,
+			address: "",
+			dob: "",
+			phone_alt: "" })	
 	
     };
 
@@ -45,6 +55,15 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
     };
 
+    const handle_checkbox_toggle = (target) => {
+
+	const inverted_check = !form_data[target]
+
+	set_form_data({ ...form_data,
+			[target]: inverted_check })
+
+    }
+
     const handle_paste = (e) => {
 
 	const paste_data = e.target.value.split("\t")
@@ -63,12 +82,42 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 		
 	    try { return paste_data[6] } catch { return "" } }
 
+	const extract_tdt = () => {
+		
+	    try { return (paste_data[11] === "TDT" ? true : false) }
+	    
+	    catch { return false } }
+
+	const extract_returnee = () => {
+		
+	    try { return (paste_data[12] === "Returning" ? true : false) }
+	    
+	    catch { return false } }
+
+	const extract_address = () => {
+		
+	    try { return paste_data[3] } catch { return "" } }
+
+	const extract_dob = () => {
+		
+	    try { return paste_data[8] } catch { return "" } }
+
+	const extract_phone_alt = () => {
+		
+	    try { return paste_data[5] } catch { return "" } }
+
+
 	set_form_data({ name: extract_name(),
 			phone: extract_phone(),
 			phone_valid: validate_phone(extract_phone()),
 			postcode: extract_postcode(),
 			postcode_valid: validate_postcode(extract_postcode()),
-			paste: "" });
+			paste: "",
+			tdt: extract_tdt(),
+			returnee: extract_returnee(),
+		        address: extract_address(),
+			dob: extract_dob(),
+			phone_alt: extract_phone_alt() });
 
     };
 
@@ -124,7 +173,31 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 	    {form_data.phone_valid === 0 && <em>(awaiting valid input)</em>}
 	    <br/>
 
-	<div className="jsx">
+            <div className="jsx">
+
+            <label key="checkbox_label_tdt">
+            <input type="checkbox"
+        key="checkbox_box_tdt"
+        checked={form_data.tdt}
+        onChange={() => handle_checkbox_toggle("tdt")} />
+            Referral from TDT
+        </label>
+
+        </div>
+
+            <div className="jsx">
+
+            <label key="checkbox_label_returnee">
+            <input type="checkbox"
+        key="checkbox_box_returnee"
+        checked={form_data.returnee}
+        onChange={() => handle_checkbox_toggle("returnee")} />
+            Returnee
+        </label>
+
+        </div>
+
+	    <div className="jsx">
 	    
 	    <button onClick={handle_test}>Load test data</button >
 	    <button onClick={handle_clear}>Clear form</button >

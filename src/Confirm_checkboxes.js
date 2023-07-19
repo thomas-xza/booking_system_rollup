@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 export default function Confirm_checkboxes({ form_data, booking, checkboxes, set_checkboxes }) {
 
-    const handle_checkbox = (position) => {
+    const handle_checkbox_booking = (position) => {
 
 	const new_state = checkboxes.map(
 	    (item, index) =>
@@ -21,18 +21,11 @@ export default function Confirm_checkboxes({ form_data, booking, checkboxes, set
 	    <input type="checkbox"
 	key="checkbox_box_phone"
 	checked={checkboxes[0]}
-	onChange={() => handle_checkbox(0)} />
+	onChange={() => handle_checkbox_booking(0)} />
 	    Phone
-	</label>
-
-	    <label key="checkbox_label_tdt">
-	    <input type="checkbox"
-	key="checkbox_box_tdt"
-	checked={checkboxes[1]}
-	onChange={() => handle_checkbox(1)} />
-	    TDT
 	</label>
 
 	</div>
     )
+    
 }

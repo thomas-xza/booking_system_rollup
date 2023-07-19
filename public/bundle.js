@@ -8110,7 +8110,12 @@
 	      postcode_valid: 1,
 	      phone: "0777 7777 777",
 	      phone_valid: 1,
-	      paste: ""
+	      paste: "",
+	      tdt: false,
+	      returnee: false,
+	      address: "",
+	      dob: "",
+	      phone_alt: ""
 	    });
 	  };
 	  const handle_clear = () => {
@@ -8120,7 +8125,12 @@
 	      postcode_valid: 0,
 	      phone: "",
 	      phone_valid: 0,
-	      paste: ""
+	      paste: "",
+	      tdt: false,
+	      returnee: false,
+	      address: "",
+	      dob: "",
+	      phone_alt: ""
 	    });
 	  };
 	  const handle_name = e => {
@@ -8141,6 +8151,13 @@
 	      ...form_data,
 	      postcode: e.target.value,
 	      postcode_valid: validate_postcode(e.target.value)
+	    });
+	  };
+	  const handle_checkbox_toggle = target => {
+	    const inverted_check = !form_data[target];
+	    set_form_data({
+	      ...form_data,
+	      [target]: inverted_check
 	    });
 	  };
 	  const handle_paste = e => {
@@ -8166,13 +8183,53 @@
 	        return "";
 	      }
 	    };
+	    const extract_tdt = () => {
+	      try {
+	        return paste_data[11] === "TDT" ? true : false;
+	      } catch {
+	        return false;
+	      }
+	    };
+	    const extract_returnee = () => {
+	      try {
+	        return paste_data[12] === "Returning" ? true : false;
+	      } catch {
+	        return false;
+	      }
+	    };
+	    const extract_address = () => {
+	      try {
+	        return paste_data[3];
+	      } catch {
+	        return "";
+	      }
+	    };
+	    const extract_dob = () => {
+	      try {
+	        return paste_data[8];
+	      } catch {
+	        return "";
+	      }
+	    };
+	    const extract_phone_alt = () => {
+	      try {
+	        return paste_data[5];
+	      } catch {
+	        return "";
+	      }
+	    };
 	    set_form_data({
 	      name: extract_name(),
 	      phone: extract_phone(),
 	      phone_valid: validate_phone(extract_phone()),
 	      postcode: extract_postcode(),
 	      postcode_valid: validate_postcode(extract_postcode()),
-	      paste: ""
+	      paste: "",
+	      tdt: extract_tdt(),
+	      returnee: extract_returnee(),
+	      address: extract_address(),
+	      dob: extract_dob(),
+	      phone_alt: extract_phone_alt()
 	    });
 	  };
 	  const handle_confirm = e => {
@@ -8204,6 +8261,24 @@
 	    value: form_data.phone,
 	    onChange: handle_phone
 	  }), form_data.phone_valid === 0 && /*#__PURE__*/React.createElement("em", null, "(awaiting valid input)"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
+	    className: "jsx"
+	  }, /*#__PURE__*/React.createElement("label", {
+	    key: "checkbox_label_tdt"
+	  }, /*#__PURE__*/React.createElement("input", {
+	    type: "checkbox",
+	    key: "checkbox_box_tdt",
+	    checked: form_data.tdt,
+	    onChange: () => handle_checkbox_toggle("tdt")
+	  }), "Referral from TDT")), /*#__PURE__*/React.createElement("div", {
+	    className: "jsx"
+	  }, /*#__PURE__*/React.createElement("label", {
+	    key: "checkbox_label_returnee"
+	  }, /*#__PURE__*/React.createElement("input", {
+	    type: "checkbox",
+	    key: "checkbox_box_returnee",
+	    checked: form_data.returnee,
+	    onChange: () => handle_checkbox_toggle("returnee")
+	  }), "Returnee")), /*#__PURE__*/React.createElement("div", {
 	    className: "jsx"
 	  }, /*#__PURE__*/React.createElement("button", {
 	    onClick: handle_test
@@ -8313,6 +8388,45 @@
 	  }), "Show phone appointments"));
 	}
 
+	function title_case(str) {
+	  return str.toLowerCase().split(' ').map(function (word) {
+	    return word.charAt(0).toUpperCase() + word.slice(1);
+	  }).join(' ');
+	}
+	function check_day_matches_date(target_day, date) {
+	  try {
+	    const day_of_week = convert_day_to_number(target_day);
+	    const nums_to_seek = [find_next_dates_of_day(day_of_week, 0), find_next_dates_of_day(day_of_week, 1)];
+	    console.log(nums_to_seek);
+	    const regex_to_chk = [new RegExp(`^${nums_to_seek[0]}\/`), new RegExp(`^${nums_to_seek[1]}\/`)];
+	    if (regex_to_chk[0].test(date.trim()) === true || regex_to_chk[1].test(date.trim()) === true) {
+	      return 0;
+	    } else {
+	      return 1;
+	    }
+	  } catch {
+	    return 1;
+	  }
+	}
+	function find_next_dates_of_day(day_of_week, week_quantity) {
+	  const today = new Date();
+	  return String(today.getDate() + (day_of_week + 7 - today.getDay()) % 7 + 7 * week_quantity).padStart(2, '0');
+	}
+	function convert_day_to_number(day) {
+	  switch (day.toLowerCase()) {
+	    case "monday":
+	      return 1;
+	    case "tuesday":
+	      return 2;
+	    case "wednesday":
+	      return 3;
+	    case "thursday":
+	      return 4;
+	    case "friday":
+	      return 5;
+	  }
+	}
+
 	function Clinic_single({
 	  clinic,
 	  index,
@@ -8335,9 +8449,9 @@
 	    key: `clinic_${index}_time`
 	  }, clinic.time_start, " - ", clinic.time_end), /*#__PURE__*/React.createElement("li", {
 	    key: `clinic_${index}_day`
-	  }, clinic.day_of_week), /*#__PURE__*/React.createElement("li", {
+	  }, title_case(clinic.day_of_week)), /*#__PURE__*/React.createElement("li", {
 	    key: `clinic_${index}_advisor`
-	  }, clinic.advisor), /*#__PURE__*/React.createElement("button", {
+	  }, title_case(clinic.advisor)), /*#__PURE__*/React.createElement("button", {
 	    key: `clinic_${index}_button`,
 	    onClick: handle_selection
 	  }, "Select this clinic")));
@@ -8383,10 +8497,10 @@
 		},
 		{
 			title: "Grove Medical Centre GP",
-			advisor: "ronnie",
+			advisor: "shireen",
 			day_of_week: "monday",
-			time_start: 900,
-			time_end: 1700,
+			time_start: 1300,
+			time_end: 1400,
 			postcode: "SE8 3QH",
 			address: [
 				"Windlass Place"
@@ -8396,7 +8510,7 @@
 		},
 		{
 			title: "Catford Library",
-			advisor: "shireen",
+			advisor: "ronnie",
 			day_of_week: "monday",
 			time_start: 1000,
 			time_end: 1600,
@@ -8410,7 +8524,7 @@
 		},
 		{
 			title: "Bellingham Green Surgery GP",
-			advisor: "ronnie",
+			advisor: "omolara",
 			day_of_week: "tuesday",
 			time_start: 900,
 			time_end: 1400,
@@ -8437,10 +8551,10 @@
 		},
 		{
 			title: "UHL Lewisham Hospital",
-			advisor: "birsel",
+			advisor: "shireen",
 			day_of_week: "tuesday",
 			time_start: 1200,
-			time_end: 1700,
+			time_end: 1800,
 			postcode: "SE13 6LH",
 			address: [
 				"Room 7",
@@ -8455,7 +8569,7 @@
 		},
 		{
 			title: "Downham Leisure Centre",
-			advisor: "ronnie",
+			advisor: "omolara",
 			day_of_week: "tuesday",
 			time_start: 1500,
 			time_end: 1900,
@@ -8493,10 +8607,10 @@
 		},
 		{
 			title: "Deptford Library",
-			advisor: "birsel",
-			day_of_week: "wednesday",
-			time_start: 1030,
-			time_end: 1500,
+			advisor: "ronnie",
+			day_of_week: "tuesday",
+			time_start: 1000,
+			time_end: 1600,
 			postcode: "SE8 4RJ",
 			address: [
 				"Deptford Lounge",
@@ -8560,8 +8674,8 @@
 			title: "Wells Park Practice GP",
 			advisor: "maria",
 			day_of_week: "thursday",
-			time_start: 1300,
-			time_end: 1330,
+			time_start: 1330,
+			time_end: 1400,
 			postcode: "SE26 6JQ",
 			address: [
 				""
@@ -8571,7 +8685,7 @@
 		},
 		{
 			title: "Downham Leisure Centre",
-			advisor: "ronnie",
+			advisor: "omolara",
 			day_of_week: "thursday",
 			time_start: 930,
 			time_end: 1430,
@@ -8597,10 +8711,10 @@
 		},
 		{
 			title: "Waldron Health Centre clinic",
-			advisor: "birsel",
-			day_of_week: "friday",
-			time_start: 1030,
-			time_end: 1630,
+			advisor: "ronnie",
+			day_of_week: "thursday",
+			time_start: 1300,
+			time_end: 1800,
 			postcode: "SE14 6LD",
 			address: [
 				"Room 201, next to Suite 7",
@@ -8615,7 +8729,7 @@
 			title: "UHL Lewisham Hospital",
 			advisor: "maria",
 			day_of_week: "friday",
-			time_start: 1030,
+			time_start: 1000,
 			time_end: 1600,
 			postcode: "SE13 6LH",
 			address: [
@@ -8709,7 +8823,7 @@
 	  checkboxes,
 	  set_checkboxes
 	}) {
-	  const handle_checkbox = position => {
+	  const handle_checkbox_booking = position => {
 	    const new_state = checkboxes.map((item, index) => index === position ? !item : item);
 	    set_checkboxes(new_state);
 	  };
@@ -8721,15 +8835,8 @@
 	    type: "checkbox",
 	    key: "checkbox_box_phone",
 	    checked: checkboxes[0],
-	    onChange: () => handle_checkbox(0)
-	  }), "Phone"), /*#__PURE__*/React.createElement("label", {
-	    key: "checkbox_label_tdt"
-	  }, /*#__PURE__*/React.createElement("input", {
-	    type: "checkbox",
-	    key: "checkbox_box_tdt",
-	    checked: checkboxes[1],
-	    onChange: () => handle_checkbox(1)
-	  }), "TDT"));
+	    onChange: () => handle_checkbox_booking(0)
+	  }), "Phone"));
 	}
 
 	function Confirm_calendar({
@@ -8738,7 +8845,14 @@
 	  checkboxes
 	}) {
 	  const gen_cal_entry = () => {
-	    return `${phone_chk(0)}${form_data.name}${phone_chk(1)} - ${phone()} - ${form_data.postcode} ${tdt_chk()}`;
+	    return `${phone_chk(0)}${form_data.name}${phone_chk(1)} - ${phones_all()} - ${tdt_chk()}`;
+	  };
+	  const gen_cal_subentry = () => {
+	    if (form_data["returnee"] === false) {
+	      return [form_data["dob"], form_data["address"], form_data["postcode"], form_data["phone"], form_data["phone_alt"]].join("\n").trim();
+	    } else {
+	      return "This client is a returnee.";
+	    }
 	  };
 	  const phone_chk = pos => {
 	    if (checkboxes[0] === true && pos === 0) {
@@ -8751,10 +8865,21 @@
 	    return "";
 	  };
 	  const tdt_chk = () => {
-	    return checkboxes[1] === true ? "[TDT]" : "";
+	    return form_data["tdt"] === true ? "[TDT]" : "";
 	  };
-	  const phone = () => {
-	    return form_data.phone.replace(/[\- \(\)]/g, "").match(/.{1,4}/g).join(" ");
+	  const phones_all = () => {
+	    if (form_data["phone_alt"].match(/[0-9]{3}/g) === null) {
+	      return phone(form_data.phone);
+	    } else {
+	      return [phone(form_data.phone), phone(form_data.phone_alt)].join(" & ").trim();
+	    }
+	  };
+	  const phone = phone => {
+	    try {
+	      return phone.replace(/[\- \(\)]/g, "").match(/.{1,4}/g).join(" ");
+	    } catch {
+	      return "";
+	    }
 	  };
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "jsx"
@@ -8763,51 +8888,17 @@
 	    onClick: () => {
 	      navigator.clipboard.writeText(gen_cal_entry());
 	    }
-	  }, "Copy calendar entry to clipboard"), "     ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+	  }, "Copy calendar entry to clipboard"), /*#__PURE__*/React.createElement("button", {
 	    className: "medium",
 	    onClick: () => {
 	      alert("Unless NHS update to a newer (more easily programmable) version of Outlook online, or LSSS move to a Google calendar, this button won't do anything - see 'Issues' at bottom of page.");
 	    }
-	  }, "Add to calendar"));
-	}
-
-	function title_case(str) {
-	  return str.toLowerCase().split(' ').map(function (word) {
-	    return word.charAt(0).toUpperCase() + word.slice(1);
-	  }).join(' ');
-	}
-	function check_day_matches_date(target_day, date) {
-	  try {
-	    const day_of_week = convert_day_to_number(target_day);
-	    const nums_to_seek = [find_next_dates_of_day(day_of_week, 0), find_next_dates_of_day(day_of_week, 1)];
-	    console.log(nums_to_seek);
-	    const regex_to_chk = [new RegExp(`^${nums_to_seek[0]}\/`), new RegExp(`^${nums_to_seek[1]}\/`)];
-	    if (regex_to_chk[0].test(date.trim()) === true || regex_to_chk[1].test(date.trim()) === true) {
-	      return 0;
-	    } else {
-	      return 1;
+	  }, "Add to calendar"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("pre", null, gen_cal_subentry()), /*#__PURE__*/React.createElement("button", {
+	    className: "medium",
+	    onClick: () => {
+	      navigator.clipboard.writeText(gen_cal_subentry());
 	    }
-	  } catch {
-	    return 1;
-	  }
-	}
-	function find_next_dates_of_day(day_of_week, week_quantity) {
-	  const today = new Date();
-	  return String(today.getDate() + (day_of_week + 7 - today.getDay()) % 7 + 7 * week_quantity).padStart(2, '0');
-	}
-	function convert_day_to_number(day) {
-	  switch (day) {
-	    case "monday":
-	      return 1;
-	    case "tuesday":
-	      return 2;
-	    case "wednesday":
-	      return 3;
-	    case "thursday":
-	      return 4;
-	    case "friday":
-	      return 5;
-	  }
+	  }, "Copy calendar sub-entry to clipboard"));
 	}
 
 	function Confirm_sms({
@@ -8960,7 +9051,12 @@
 	    postcode_valid: 0,
 	    "phone": "",
 	    phone_valid: 0,
-	    "paste": ""
+	    "paste": "",
+	    "returnee": false,
+	    "tdt": false,
+	    "address": "",
+	    "dob": "",
+	    "phone_alt": ""
 	  });
 
 	  // const [page_flow, set_page_flow] = useState(20);
