@@ -6,8 +6,9 @@ import Confirm_calendar from './Confirm_calendar.js';
 import Confirm_sms from './Confirm_sms.js';
 import Confirm_outro from './Confirm_outro.js';
 
-import { title_case } from './general_funcs.js';
-import { check_day_matches_date } from './general_funcs.js';
+import { check_day_matches_date,
+	 format_date_time,
+	 title_case } from './general_funcs.js';
 
 export default function Confirm({ form_data, booking, set_page_flow }) {
 
@@ -36,7 +37,7 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 
     const gen_csv_entry = (time) => {
 
-	const csv_entry_end = `, ${time.split(",").join(" ")}, ${title_case(booking.advisor)}`
+	const csv_entry_end = `, ${format_date_time(time).replace(",","")}, ${title_case(booking.advisor)}`
 
 	if (checkboxes[0] === true) {
 
@@ -101,7 +102,9 @@ export default function Confirm({ form_data, booking, set_page_flow }) {
 
 	    <pre>{gen_csv_entry(appt_time[0])}</pre>
 	    <button className="medium"
-	onClick={() => {navigator.clipboard.writeText(gen_csv_entry(appt_time[0])) }}>
+	onClick={() => {navigator.clipboard.writeText(
+	    gen_csv_entry(appt_time[0])
+	) }}>
 	    Copy entry to clipboard
 	</button>
 

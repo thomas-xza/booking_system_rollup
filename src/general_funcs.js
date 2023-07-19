@@ -1,4 +1,6 @@
 
+
+
 export function title_case(str) {
     
     return str.toLowerCase().split(' ').map(function(word) {
@@ -71,5 +73,35 @@ function convert_day_to_number(day) {
     case "friday": return 5;
 
     };
+
+}
+
+export function format_date_time(date_time) {
+
+    try {
+
+	const date_obj = new Date(Date.parse(date_time));
+	
+	const date_str = date_obj.toLocaleDateString('en-GB', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit' })
+
+	return date_str + ", " + am_pm_convert(date_time)
+
+    } catch { return date_time }
+    
+}
+
+export function am_pm_convert(date_time) {
+
+    const date_obj = new Date(Date.parse(date_time));
+    
+    const time_str = date_obj.toLocaleTimeString("en-GB", {
+    	hour: "numeric",
+    	minute: "numeric",
+	hour12: true })
+
+    return time_str.replace(" ", "")
 
 }

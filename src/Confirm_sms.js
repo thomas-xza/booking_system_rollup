@@ -1,7 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 
-import { title_case } from './general_funcs.js';
+import { format_date_time,
+         title_case } from './general_funcs.js';
+
 
 export default function Confirm_sms({ form_data, booking, appt_time, checkboxes }) {
 
@@ -24,7 +26,7 @@ export default function Confirm_sms({ form_data, booking, appt_time, checkboxes 
     const gen_sms_msg = (appt_time) => { return [
 	"Hi there. Thanks for talking with me. Your appointment details follow.\n",
 	"Time: ",
-	`${title_case(booking.day_of_week)} ${appt_time} \n`,
+	`${title_case(booking.day_of_week)} ${format_date_time(appt_time)} \n`,
 	"Advisor:",
 	title_case(booking.advisor),
 	"\nLocation:",

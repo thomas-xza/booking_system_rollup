@@ -1,5 +1,6 @@
 import { check_day_matches_date,
-	 find_next_dates_of_day } from './general_funcs.js';
+	 find_next_dates_of_day,
+	 format_date_time } from './general_funcs.js';
 
 //  Note: these tests cannot work permanently, unless computer's clock
 //  is changed...
@@ -11,7 +12,7 @@ test('monday', () => {
 	)
     )
 	.toBe(
-	    "05"
+	    "24"
 	);
 });
 
@@ -22,7 +23,17 @@ test('monday', () => {
 	)
     )
 	.toBe(
-	    "12"
+	    "31"
 	);
 });
 
+test('date time', () => {
+    expect(
+	format_date_time(
+	    "01/01/1970 15:00"
+	)
+    )
+	.toBe(
+	    "01/01/1970, 3:00pm"
+	);
+});

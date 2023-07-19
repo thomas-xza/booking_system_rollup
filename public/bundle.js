@@ -8426,6 +8426,28 @@
 	      return 5;
 	  }
 	}
+	function format_date_time(date_time) {
+	  try {
+	    const date_obj = new Date(Date.parse(date_time));
+	    const date_str = date_obj.toLocaleDateString('en-GB', {
+	      year: 'numeric',
+	      month: '2-digit',
+	      day: '2-digit'
+	    });
+	    return date_str + ", " + am_pm_convert(date_time);
+	  } catch {
+	    return date_time;
+	  }
+	}
+	function am_pm_convert(date_time) {
+	  const date_obj = new Date(Date.parse(date_time));
+	  const time_str = date_obj.toLocaleTimeString("en-GB", {
+	    hour: "numeric",
+	    minute: "numeric",
+	    hour12: true
+	  });
+	  return time_str.replace(" ", "");
+	}
 
 	function Clinic_single({
 	  clinic,
@@ -8917,7 +8939,7 @@
 	    }
 	  };
 	  const gen_sms_msg = appt_time => {
-	    return ["Hi there. Thanks for talking with me. Your appointment details follow.\n", "Time: ", `${title_case(booking.day_of_week)} ${appt_time} \n`, "Advisor:", title_case(booking.advisor), "\nLocation:", ...full_addr(), "\nIf you would like to change time or location please contact us via text, freephone, or email ", "\nKing regards", "Lewisham Stop Smoking Service", "\n08000820388", "quit@smokefreelewisham.co.uk"].join("\n");
+	    return ["Hi there. Thanks for talking with me. Your appointment details follow.\n", "Time: ", `${title_case(booking.day_of_week)} ${format_date_time(appt_time)} \n`, "Advisor:", title_case(booking.advisor), "\nLocation:", ...full_addr(), "\nIf you would like to change time or location please contact us via text, freephone, or email ", "\nKing regards", "Lewisham Stop Smoking Service", "\n08000820388", "quit@smokefreelewisham.co.uk"].join("\n");
 	  };
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "jsx"
@@ -8979,7 +9001,7 @@
 	    }
 	  };
 	  const gen_csv_entry = time => {
-	    const csv_entry_end = `, ${time.split(",").join(" ")}, ${title_case(booking.advisor)}`;
+	    const csv_entry_end = `, ${format_date_time(time).replace(",", "")}, ${title_case(booking.advisor)}`;
 	    if (checkboxes[0] === true) {
 	      return "Telephone" + csv_entry_end;
 	    } else {
