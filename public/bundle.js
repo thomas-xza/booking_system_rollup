@@ -8108,7 +8108,7 @@
 	      name: "John Smith",
 	      postcode: "SE13 7RY",
 	      postcode_valid: 1,
-	      phone: "0777 7777 777",
+	      phone: "077 7777 7777",
 	      phone_valid: 1,
 	      paste: "",
 	      tdt: false,
@@ -8526,8 +8526,8 @@
 			title: "Bellingham Green Surgery GP",
 			advisor: "omolara",
 			day_of_week: "tuesday",
-			time_start: 900,
-			time_end: 1400,
+			time_start: 1230,
+			time_end: 1330,
 			postcode: "SE6 3JB",
 			address: [
 				"24 Bellingham Green"
@@ -8799,7 +8799,7 @@
 	    onClick: () => {
 	      set_page_flow(10);
 	    }
-	  }, "Back to initial form")), /*#__PURE__*/React.createElement("h1", null, "Booking selection"), /*#__PURE__*/React.createElement(Mapbox, {
+	  }, "Back to initial form")), /*#__PURE__*/React.createElement("h1", null, "Booking selection"), form_data.name, ", ", form_data.phone, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Mapbox, {
 	    postcode: form_data.postcode,
 	    mapbox_resp: mapbox_resp,
 	    set_mapbox_resp: set_mapbox_resp

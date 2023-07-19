@@ -39,6 +39,9 @@ export default function Booking({ clinics_obj, form_data, booking, set_booking, 
 
 	    <h1>Booking selection</h1>
 
+	{form_data.name}, {form_data.phone}
+	    <br/>
+
 	    <Mapbox
 	postcode={form_data.postcode}
 	mapbox_resp={mapbox_resp}

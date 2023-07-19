@@ -9,7 +9,7 @@ export default function Form({ form_data, set_form_data, set_page_flow }) {
 
 	set_form_data({ name: "John Smith",
 			postcode: "SE13 7RY", postcode_valid: 1,
-			phone: "0777 7777 777", phone_valid: 1,
+			phone: "077 7777 7777", phone_valid: 1,
 			paste: "",
 			tdt: false,
 			returnee: false,
