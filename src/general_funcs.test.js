@@ -2,28 +2,36 @@ import { check_day_matches_date,
 	 find_next_dates_of_day,
 	 format_date_time } from './general_funcs.js';
 
-//  Note: these tests cannot work permanently, unless computer's clock
-//  is changed...
-
 test('monday', () => { 
     expect(
-	find_next_dates_of_day(
-	    1, 0
+	check_day_matches_date(
+	    "monday", "24/07/2023"
 	)
     )
 	.toBe(
-	    "24"
+	    0
 	);
 });
 
-test('monday', () => { 
+test('tuesday', () => { 
     expect(
-	find_next_dates_of_day(
-	    1, 1
+	check_day_matches_date(
+	    "tuesday", "04/11/2025"
 	)
     )
 	.toBe(
-	    "31"
+	    0
+	);
+});
+
+test('wednesday invalid', () => { 
+    expect(
+	check_day_matches_date(
+	    "wednesday", "25/07/2023"
+	)
+    )
+	.toBe(
+	    1
 	);
 });
 

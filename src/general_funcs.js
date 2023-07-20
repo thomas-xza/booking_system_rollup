@@ -1,6 +1,4 @@
 
-
-
 export function title_case(str) {
     
     return str.toLowerCase().split(' ').map(function(word) {
@@ -11,30 +9,17 @@ export function title_case(str) {
     
 }
 
-export function check_day_matches_date(target_day, date) {
+export function check_day_matches_date(target_day, date_time) {
 
     try {
 
-	const day_of_week = convert_day_to_number(target_day)
+	const date_obj = convert_date_str_to_obj(
+	    extract_date(date_time) + " 00:00"
+	)
 
-	const nums_to_seek = [
-	    
-	    find_next_dates_of_day(day_of_week, 0),
-	    
-	    find_next_dates_of_day(day_of_week, 1)
-	    
-	]
+	const date_obj_day = date_obj.toLocaleDateString("en-GB", { weekday: 'long' });
 
-	console.log(nums_to_seek)
-
-	const regex_to_chk = [
-	    
-	    new RegExp(`^${nums_to_seek[0]}\/`),
-	    
-	    new RegExp(`^${nums_to_seek[1]}\/`) ]
-
-	if (regex_to_chk[0].test(date.trim()) === true ||
-	    regex_to_chk[1].test(date.trim()) === true) {
+	if ( date_obj_day.toLowerCase() === target_day.toLowerCase() ) {
 
 	    return 0
 
@@ -44,48 +29,11 @@ export function check_day_matches_date(target_day, date) {
 
 }
 
-export function find_next_dates_of_day(day_of_week, week_quantity) {
-
-    const today = new Date();
-
-    return String(
-	
-	today.getDate() +
-	    (day_of_week + 7 - today.getDay()) % 7 + 7 * week_quantity
-	
-    ).padStart(2, '0');
-
-    
-}
-
-function convert_day_to_number(day) {
-
-    switch(day.toLowerCase()) {
-
-    case "monday": return 1;
-
-    case "tuesday": return 2;
-
-    case "wednesday": return 3;
-
-    case "thursday": return 4;
-
-    case "friday": return 5;
-
-    };
-
-}
-
 export function format_date_time(date_time) {
 
     try {
 
-	const date_str = date_time.match("[0-9]*/[0-9]*/[0-9]*")[0].split("/")
-
-	const time_str_24 = date_time.match("[0-9]*:[0-9]*")[0].split(":")
-
-	const date_time_obj = new Date(date_str[2], date_str[1] - 1, date_str[0],
-				       time_str_24[0], time_str_24[1])
+	const date_time_obj = convert_date_str_to_obj(date_time)
 
 	return date_time_obj.toLocaleDateString("en-AU") + ", "
 	    + date_time_obj.toLocaleTimeString("en-AU", {
@@ -94,4 +42,27 @@ export function format_date_time(date_time) {
 
     } catch { return date_time }
     
+}
+
+function convert_date_str_to_obj(date_time) {
+
+    const date_str = extract_date(date_time).split("/")
+
+    const time_str_24 = extract_time(date_time).split(":")
+
+    return new Date(date_str[2], date_str[1] - 1, date_str[0],
+		    time_str_24[0], time_str_24[1])
+
+}
+
+function extract_date(str) {
+
+    return str.match("[0-9]*/[0-9]*/[0-9]*")[0]
+
+}
+
+function extract_time(str) {
+
+    return str.match("[0-9]*:[0-9]*")[0]
+
 }
