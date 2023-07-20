@@ -80,25 +80,18 @@ export function format_date_time(date_time) {
 
     try {
 
-	const date_str = date_time.match("[0-9]*/[0-9]*/[0-9]*")[0]
+	const date_str = date_time.match("[0-9]*/[0-9]*/[0-9]*")[0].split("/")
 
-	const time_str_24 = date_time.match("[0-9]*:[0-9]*")[0]
+	const time_str_24 = date_time.match("[0-9]*:[0-9]*")[0].split(":")
 
-	return date_str + ", " + am_pm_convert(time_str_24)
+	const date_time_obj = new Date(date_str[2], date_str[1] - 1, date_str[0],
+				       time_str_24[0], time_str_24[1])
+
+	return date_time_obj.toLocaleDateString("en-AU") + ", "
+	    + date_time_obj.toLocaleTimeString("en-AU", {
+		hours: "numeric",
+		minutes: "numeric" } ).replace(":00 ", "")
 
     } catch { return date_time }
     
-}
-
-export function am_pm_convert(time_str_24) {
-
-    const date_obj = new Date(Date.parse("01/01/2000 " + time_str_24));
-    
-    const time_str_12 = date_obj.toLocaleTimeString("en-GB", {
-    	hour: "numeric",
-    	minute: "numeric",
-	hour12: true })
-
-    return time_str_12.replace(" ", "")
-
 }

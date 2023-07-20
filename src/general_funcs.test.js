@@ -37,3 +37,14 @@ test('date time', () => {
 	    "01/01/1970, 3:00pm"
 	);
 });
+
+test('date time 2', () => {
+    expect(
+	format_date_time(
+	    "01/01/1970 12:00"
+	)
+    )
+	.toBe(
+	    "01/01/1970, 12:00pm"
+	);
+});
