@@ -8921,7 +8921,7 @@
 	    }
 	  };
 	  const gen_sms_msg = appt_time => {
-	    return ["Hi there. Thanks for talking with me. Your appointment details follow.\n", "Time: ", `${title_case(booking.day_of_week)} ${format_date_time(appt_time)} \n`, "Advisor:", title_case(booking.advisor), "\nLocation:", ...full_addr(), "\nIf you would like to change time or location please contact us via text, freephone, or email ", "\nKing regards", "Lewisham Stop Smoking Service", "\n08000820388", "quit@smokefreelewisham.co.uk"].join("\n");
+	    return ["Hi there. Thanks for talking with me. Your appointment details follow.\n", "Time: ", `${title_case(booking.day_of_week)} ${format_date_time(appt_time)} \n`, "Advisor:", title_case(booking.advisor), "\nLocation:", ...full_addr(), "\nIf you would like to change time or location please contact us via text, freephone, or email ", "\nKind regards", "Lewisham Stop Smoking Service", "\n08000820388", "quit@smokefreelewisham.co.uk"].join("\n");
 	  };
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "jsx"
