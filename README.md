@@ -74,3 +74,21 @@ Admittedly, since I was new to React, I never got round to writing tests for ren
 To run tests:
 
     npm run test
+
+
+Build process
+-------------
+
+To build the source code:
+
+    npm run build
+
+Or to automatically build after each change:
+
+    npm run autobuild
+
+The above run the Rollup tool with various arguments, see `package.json`
+
+Now Rollup will only bundle into separate files, so, to bundle everything into 1 file for easier portability, there is a more basic Shell script, `inline_version.sh`, which can be run with:
+
+    npm run inline
