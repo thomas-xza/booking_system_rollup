@@ -32,7 +32,7 @@ export default function Confirm_sms({ form_data, booking, appt_time, checkboxes 
 	"\nLocation:",
 	...full_addr(),
 	"\nIf you would like to change time or location please contact us via text, freephone, or email ",
-	"\nKing regards", "Lewisham Stop Smoking Service",
+	"\nKind regards", "Lewisham Stop Smoking Service",
 	"\n08000820388",
 	"quit@smokefreelewisham.co.uk"
     ].join("\n") };
